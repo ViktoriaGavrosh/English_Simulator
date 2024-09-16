@@ -1,8 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
-import com.viktoriagavrosh.englishsimulator.data.database.RepeatRepository
-import com.viktoriagavrosh.englishsimulator.data.database.RepeatScreenRepository
 
 /**
  * App container for Dependency injection
