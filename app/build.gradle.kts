@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.plugin.compose)
-    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.devtools.ksp)   // TODO delete !!!
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 android {
@@ -51,6 +52,8 @@ android {
 dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
@@ -64,6 +67,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.material3.window.size)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

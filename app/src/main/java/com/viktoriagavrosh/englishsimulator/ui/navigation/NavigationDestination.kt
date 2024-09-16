@@ -1,0 +1,15 @@
+package com.viktoriagavrosh.englishsimulator.ui.navigation
+
+import kotlinx.serialization.Serializable
+
+internal sealed class NavigationDestination {
+    @Serializable
+    data object Menu : NavigationDestination()
+
+    @Serializable
+    data class Repeat(val quest: Quest)
+}
+
+internal enum class Quest {
+    RuToEn, EnToRu
+}
