@@ -6,7 +6,6 @@ import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.toSentence
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.internal.NopCollector.emit
 import kotlinx.coroutines.flow.map
 
 interface RepeatRepository {
