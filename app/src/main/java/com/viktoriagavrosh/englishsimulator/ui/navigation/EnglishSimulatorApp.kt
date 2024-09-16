@@ -11,7 +11,7 @@ import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatScreen
 
 @Composable
-fun AppNavigation(
+fun EnglishSimulatorApp(
     modifier: Modifier = Modifier,
     windowSize: WindowWidthSizeClass,
 ) {
