@@ -11,4 +11,12 @@ object FakeSource {
             enText = "en $i",
         )
     }
+
+    val fakeSentencesUi = List(5) {
+        SentenceDb(
+            id = it,
+            ruText = "ru $it",
+            enText = "en $it",
+        )
+    }
 }

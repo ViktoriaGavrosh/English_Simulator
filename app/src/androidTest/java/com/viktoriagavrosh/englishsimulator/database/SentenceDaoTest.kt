@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator
+package com.viktoriagavrosh.englishsimulator.database
 
 import android.content.Context
 import androidx.room.Room
