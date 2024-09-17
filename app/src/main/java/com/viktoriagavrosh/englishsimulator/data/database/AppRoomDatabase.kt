@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
+interface AppDatabase {
+    fun sentenceDao(): SentenceDao
+}
+
 /**
  * Database class with a singleton Instance object.
  */
@@ -13,17 +17,17 @@ import com.viktoriagavrosh.englishsimulator.model.SentenceDb
     entities = [SentenceDb::class],
     version = 1
 )
-internal abstract class AppDatabase : RoomDatabase() {
-    abstract fun sentenceDao(): SentenceDao
+internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
+    abstract override fun sentenceDao(): SentenceDao
 }
 
 /**
- *  Function build [AppDatabase] object
+ *  Function build [AppRoomDatabase] object
  */
-internal fun getDatabase(context: Context): AppDatabase {
+internal fun getDatabase(context: Context): AppRoomDatabase {
     val appRoomDatabase = Room.databaseBuilder(
         context = context,
-        klass = AppDatabase::class.java,
+        klass = AppRoomDatabase::class.java,
         name = "english"
     )
         .createFromAsset("database/english.db")

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface SentenceDao {
+
     @Query("SELECT * FROM sentence")
     fun getAllSentences(): Flow<List<SentenceDb>>
 }
