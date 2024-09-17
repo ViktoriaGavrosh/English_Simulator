@@ -7,9 +7,10 @@ internal sealed class NavigationDestination {
     data object Menu : NavigationDestination()
 
     @Serializable
-    data class Repeat(val quest: Quest)
+    data class Repeat(val quest: Quest = Quest.RuToEn) : NavigationDestination()
 }
 
 internal enum class Quest {
-    RuToEn, EnToRu
+    RuToEn,
+    EnToRu
 }

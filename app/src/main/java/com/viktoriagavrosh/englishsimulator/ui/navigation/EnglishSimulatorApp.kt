@@ -35,7 +35,7 @@ fun EnglishSimulatorApp(
             )
         }
         composable<NavigationDestination.Repeat> { backStackEntry ->
-            val quest = backStackEntry.toRoute<Quest>()
+            val quest = backStackEntry.toRoute<NavigationDestination.Repeat>().quest
             RepeatScreen(
                 isVerticalScreen = isVerticalScreen,
                 quest = quest,

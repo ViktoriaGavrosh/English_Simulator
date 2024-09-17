@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.repeat
 
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -22,7 +21,8 @@ class RepeatViewModel(
     private val repeatRepository: RepeatRepository,
 ) : ViewModel() {
 
-    private lateinit var _uiState: MutableStateFlow<UiState>
+    private val _uiState = MutableStateFlow(UiState())
+    private lateinit var sentences: List<Sentence>
 
     init {
         initUiState()
@@ -31,20 +31,20 @@ class RepeatViewModel(
     internal val uiState: StateFlow<UiState>
         get() = _uiState.asStateFlow()
 
-    internal var count = mutableIntStateOf(0)
-        private set
-
-    internal fun increaseCount() {
-        count.intValue = count.intValue++
-    }
+    internal val count = MutableStateFlow(0)
 
     internal fun updateSentence() {
-        val newSentence = _uiState.value.sentences.random()
         _uiState.update {
             it.copy(
-                sentence = newSentence,
+                sentence = sentences.random(),
             )
         }
+        increaseCount()
+    }
+
+    private fun increaseCount() {
+        val newCount = count.value + 1
+        count.value = newCount
     }
 
     private fun initUiState() {
@@ -59,11 +59,13 @@ class RepeatViewModel(
                     )
                 }
             } else {
-                _uiState.update {
-                    it.copy(
-                        sentences = result.data ?: emptyList(),
-                        sentence = result.data?.random() ?: Sentence(),
-                    )
+                sentences = result.data?.shuffled() ?: emptyList()
+                if (sentences.isNotEmpty()) {
+                    _uiState.update {
+                        it.copy(
+                            sentence = sentences.random(),
+                        )
+                    }
                 }
             }
         }
@@ -81,7 +83,6 @@ class RepeatViewModel(
 }
 
 internal data class UiState(
-    val sentences: List<Sentence> = emptyList(),
     val sentence: Sentence = Sentence(),
-    val isError: Boolean,
+    val isError: Boolean = false,
 )

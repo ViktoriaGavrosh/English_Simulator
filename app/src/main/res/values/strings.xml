@@ -3,4 +3,7 @@
     <string name="app_title">English Тренажер</string>
     <string name="ru_to_en">С Русского\nНа Английский</string>
     <string name="en_to_ru">С Английского\nНа Русский</string>
+    <string name="back">Back</string>
+    <string name="answer">Answer</string>
+    <string name="next_question">next question</string>
 </resources>
