@@ -6,4 +6,6 @@
     <string name="back">Back</string>
     <string name="answer">Answer</string>
     <string name="next_question">next question</string>
+    <string name="something_happened">Something Happened</string>
+    <string name="try_again">Try Again</string>
 </resources>

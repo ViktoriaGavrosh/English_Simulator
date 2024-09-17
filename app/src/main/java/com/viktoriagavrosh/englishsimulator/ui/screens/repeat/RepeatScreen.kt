@@ -2,28 +2,16 @@ package com.viktoriagavrosh.englishsimulator.ui.screens.repeat
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedIconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,18 +20,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
+import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.BackRow
+import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.ErrorScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.NextButton
+import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.ScoreBox
+import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.TextBox
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
+/**
+ * Composable to display quest "Repeat sentences"
+ */
 @Composable
 internal fun RepeatScreen(
     isVerticalScreen: Boolean,
@@ -57,79 +49,58 @@ internal fun RepeatScreen(
 
     RepeatScreen(
         modifier = modifier,
+        isError = uiState.isError,
         onBackClick = onBackClick,
         isVerticalScreen = isVerticalScreen,
         sentence = uiState.sentence,
         score = count.value,
         isRuToEn = quest == Quest.RuToEn,
         onNextClick = viewModel::updateSentence,
+        onTryAgainClick = viewModel::initUiState,
     )
 }
 
 @Composable
 internal fun RepeatScreen(
     modifier: Modifier,
+    isError: Boolean,
     onBackClick: () -> Unit,
     isVerticalScreen: Boolean,
     sentence: Sentence,
     score: Int,
     isRuToEn: Boolean,
     onNextClick: () -> Unit,
+    onTryAgainClick: () -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .background(MaterialTheme.colorScheme.primaryContainer),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        BackRow(
-            onBackClick = onBackClick,
+    if (isError) {
+        ErrorScreen(
+            onTryAgainClick = onTryAgainClick,
+            modifier = modifier
         )
-        if (isVerticalScreen) {
-            ColumnRepeat(
-                sentence = sentence,
-                score = score,
-                isRuToEn = isRuToEn,
-                onNextClick = onNextClick,
-                modifier = Modifier.fillMaxHeight(),
-            )
-        } else {
-            RowRepeat(
-                sentence = sentence,
-                score = score,
-                isRuToEn = isRuToEn,
-                onNextClick = onNextClick,
-                modifier = Modifier.fillMaxSize(),
-            )
-        }
-    }
-}
-
-@Composable
-private fun BackRow(
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier,
-    ) {
-        OutlinedIconButton(
-            onClick = onBackClick,
-            modifier = Modifier
-                .padding(
-                    top = dimensionResource(R.dimen.padding_medium),
-                    start = dimensionResource(R.dimen.padding_medium)
-                ),
-            colors = IconButtonDefaults.outlinedIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.onPrimary,
-            ),
-            border = IconButtonDefaults.outlinedIconButtonBorder(false)
+    } else {
+        Column(
+            modifier = modifier
+                .background(MaterialTheme.colorScheme.primaryContainer),
+            verticalArrangement = Arrangement.Center,
         ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_back),
-                contentDescription = stringResource(R.string.back),
-                modifier = Modifier.size(dimensionResource(R.dimen.icon_size)),
-                tint = MaterialTheme.colorScheme.primary,
-            )
+            BackRow(onBackClick = onBackClick)
+            if (isVerticalScreen) {
+                ColumnRepeat(
+                    sentence = sentence,
+                    score = score,
+                    isRuToEn = isRuToEn,
+                    onNextClick = onNextClick,
+                    modifier = Modifier.fillMaxHeight(),
+                )
+            } else {
+                RowRepeat(
+                    sentence = sentence,
+                    score = score,
+                    isRuToEn = isRuToEn,
+                    onNextClick = onNextClick,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
     }
 }
@@ -151,17 +122,14 @@ private fun ColumnRepeat(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround,
     ) {
-        CountBox(
-            count = score
-        )
+        ScoreBox(score = score)
         TextBox(
             text = if (isRuToEn) sentence.ruText else sentence.enText,
             modifier = Modifier
         )
         TextBox(
             text = if (isRuToEn) sentence.enText else sentence.ruText,
-            isOpen = isAnswerOpen,
-            isQuestion = false,
+            isTextShow = isAnswerOpen,
             modifier = Modifier.clickable {
                 isAnswerOpen = !isAnswerOpen
             }
@@ -204,8 +172,8 @@ private fun RowRepeat(
                 text = if (isRuToEn) sentence.ruText else sentence.enText,
                 modifier = Modifier
             )
-            CountBox(
-                count = score,
+            ScoreBox(
+                score = score,
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_large)),
             )
         }
@@ -220,8 +188,7 @@ private fun RowRepeat(
         ) {
             TextBox(
                 text = if (isRuToEn) sentence.enText else sentence.ruText,
-                isOpen = isAnswerOpen,
-                isQuestion = false,
+                isTextShow = isAnswerOpen,
                 modifier = Modifier.clickable {
                     isAnswerOpen = !isAnswerOpen
                 }
@@ -237,88 +204,13 @@ private fun RowRepeat(
     }
 }
 
-@Composable
-private fun TextBox(
-    text: String,
-    modifier: Modifier = Modifier,
-    isQuestion: Boolean = true,
-    isOpen: Boolean = false,
-) {
-    Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(dimensionResource(R.dimen.corner_shapes)))
-            .aspectRatio(1.5F)
-            .background(MaterialTheme.colorScheme.onPrimary)
-            .verticalScroll(rememberScrollState()),
-        contentAlignment = Alignment.Center,
-    ) {
-        if (isQuestion || isOpen) {
-            Text(
-                text = text,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))
-            )
-        } else {
-            Icon(
-                painter = painterResource(R.drawable.ic_question),
-                contentDescription = stringResource(R.string.answer),
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(dimensionResource(R.dimen.icon_size))
-            )
-        }
-    }
-}
-
-@Composable
-private fun CountBox(
-    count: Int,
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .border(
-                width = dimensionResource(R.dimen.countBox_border),
-                color = MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(dimensionResource(R.dimen.corner_shapes))
-            )
-            .clip(RoundedCornerShape(dimensionResource(R.dimen.corner_shapes)))
-            .size(dimensionResource(R.dimen.countBox_size))
-            .background(MaterialTheme.colorScheme.onPrimary),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = count.toString(),
-            style = MaterialTheme.typography.titleLarge,
-        )
-    }
-}
-
-@Composable
-private fun NextButton(
-    onNextClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Button(
-        onClick = onNextClick,
-        modifier = modifier,
-    ) {
-        Icon(
-            painter = painterResource(R.drawable.ic_next),
-            contentDescription = stringResource(R.string.next_question),
-            modifier = Modifier
-                .padding(horizontal = dimensionResource(R.dimen.padding_extra_large))
-                .size(dimensionResource(R.dimen.icon_size))
-        )
-    }
-}
-
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun VerticalRepeatScreenPreview() {
     EnglishSimulatorTheme {
         RepeatScreen(
+            isError = false,
             sentence = Sentence(
                 ruText = "Ru Text",
                 enText = "En Text"
@@ -328,6 +220,7 @@ fun VerticalRepeatScreenPreview() {
             isRuToEn = true,
             onBackClick = {},
             onNextClick = {},
+            onTryAgainClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -344,6 +237,7 @@ fun VerticalRepeatScreenPreview() {
 fun HorizontalRepeatScreenPreview() {
     EnglishSimulatorTheme {
         RepeatScreen(
+            isError = false,
             sentence = Sentence(
                 ruText = "Ru Text",
                 enText = "En Text"
@@ -353,6 +247,7 @@ fun HorizontalRepeatScreenPreview() {
             isRuToEn = true,
             onBackClick = {},
             onNextClick = {},
+            onTryAgainClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

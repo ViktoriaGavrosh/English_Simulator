@@ -42,12 +42,7 @@ class RepeatViewModel(
         increaseCount()
     }
 
-    private fun increaseCount() {
-        val newCount = count.value + 1
-        count.value = newCount
-    }
-
-    private fun initUiState() {
+    internal fun initUiState() {
         val requestResultFlow = repeatRepository.getAllSentences()
 
         viewModelScope.launch {
@@ -69,6 +64,11 @@ class RepeatViewModel(
                 }
             }
         }
+    }
+
+    private fun increaseCount() {
+        val newCount = count.value + 1
+        count.value = newCount
     }
 
     companion object {

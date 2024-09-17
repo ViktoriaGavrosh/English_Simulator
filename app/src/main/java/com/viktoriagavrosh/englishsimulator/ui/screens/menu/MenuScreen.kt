@@ -20,6 +20,9 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
+/**
+ * Composable to display menu of quest "Repeat sentences"
+ */
 @Composable
 internal fun MenuScreen(
     isVerticalScreen: Boolean,
