@@ -1,6 +1,8 @@
 package com.viktoriagavrosh.englishsimulator.data.database
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 import kotlinx.coroutines.flow.Flow
@@ -13,4 +15,7 @@ interface SentenceDao {
 
     @Query("SELECT * FROM sentence")
     fun getAllSentences(): Flow<List<SentenceDb>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(sentenceDb: SentenceDb)
 }
