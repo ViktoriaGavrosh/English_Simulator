@@ -8,4 +8,6 @@
     <string name="next_question">next question</string>
     <string name="something_happened">Something Happened</string>
     <string name="try_again">Try Again</string>
+    <string name="back_button">back_button</string>
+    <string name="next_button">next button</string>
 </resources>

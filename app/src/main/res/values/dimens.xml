@@ -9,6 +9,7 @@
 
     <dimen name="corner_shapes">16dp</dimen>
     <dimen name="icon_size">48dp</dimen>
+    <dimen name="back_button_size">64dp</dimen>
     <dimen name="countBox_size">64dp</dimen>
     <dimen name="countBox_border">2dp</dimen>
 </resources>

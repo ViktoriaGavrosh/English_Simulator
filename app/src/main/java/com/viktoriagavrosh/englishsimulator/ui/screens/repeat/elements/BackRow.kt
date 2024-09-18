@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,10 +32,12 @@ internal fun BackRow(
         OutlinedIconButton(
             onClick = onBackClick,
             modifier = Modifier
+                .size(dimensionResource(R.dimen.back_button_size))
                 .padding(
                     top = dimensionResource(R.dimen.padding_medium),
                     start = dimensionResource(R.dimen.padding_medium)
-                ),
+                )
+                .testTag(stringResource(R.string.back_button)),
             colors = IconButtonDefaults.outlinedIconButtonColors(
                 containerColor = MaterialTheme.colorScheme.onPrimary,
             ),

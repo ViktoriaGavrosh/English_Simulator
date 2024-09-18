@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
+import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
 object FakeSource {
@@ -13,7 +14,7 @@ object FakeSource {
     }
 
     val fakeSentencesUi = List(5) {
-        SentenceDb(
+        Sentence(
             id = it,
             ruText = "ru $it",
             enText = "en $it",
