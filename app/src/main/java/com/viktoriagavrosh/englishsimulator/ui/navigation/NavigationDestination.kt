@@ -2,7 +2,7 @@ package com.viktoriagavrosh.englishsimulator.ui.navigation
 
 import kotlinx.serialization.Serializable
 
-internal sealed class NavigationDestination {
+sealed class NavigationDestination {
     @Serializable
     data object Menu : NavigationDestination()
 
@@ -10,7 +10,7 @@ internal sealed class NavigationDestination {
     data class Repeat(val quest: Quest = Quest.RuToEn) : NavigationDestination()
 }
 
-internal enum class Quest {
+enum class Quest {
     RuToEn,
     EnToRu
 }

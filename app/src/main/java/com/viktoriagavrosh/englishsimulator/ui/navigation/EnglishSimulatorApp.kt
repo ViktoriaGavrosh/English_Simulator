@@ -3,10 +3,14 @@ package com.viktoriagavrosh.englishsimulator.ui.navigation
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatScreen
 
@@ -14,8 +18,8 @@ import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatScreen
 fun EnglishSimulatorApp(
     modifier: Modifier = Modifier,
     windowSize: WindowWidthSizeClass,
+    navController: NavHostController = rememberNavController()
 ) {
-    val navController = rememberNavController()
     val isVerticalScreen = windowSize != WindowWidthSizeClass.Expanded
 
     NavHost(
@@ -31,7 +35,7 @@ fun EnglishSimulatorApp(
                 onEnToRuClick = {
                     navController.navigate(NavigationDestination.Repeat(Quest.EnToRu))
                 },
-                modifier = modifier
+                modifier = modifier.testTag(stringResource(R.string.menu_screen))
             )
         }
         composable<NavigationDestination.Repeat> { backStackEntry ->
@@ -40,7 +44,7 @@ fun EnglishSimulatorApp(
                 isVerticalScreen = isVerticalScreen,
                 quest = quest,
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier
+                modifier = modifier.testTag(stringResource(R.string.repeat_screen))
             )
         }
     }
