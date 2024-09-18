@@ -16,7 +16,7 @@ interface RepeatRepository {
 }
 
 internal class RepeatScreenRepository(
-    private val database: AppDatabase    // TODO 111
+    private val database: AppDatabase
 ) : RepeatRepository {
 
     /**

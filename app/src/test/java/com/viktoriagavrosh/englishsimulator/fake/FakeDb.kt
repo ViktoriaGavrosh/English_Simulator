@@ -12,9 +12,14 @@ internal class FakeDb : AppDatabase {
 }
 
 private class FakeDao : SentenceDao {
+
     override fun getAllSentences(): Flow<List<SentenceDb>> {
         return flow {
             emit(FakeSource.fakeSentencesDb)
         }
+    }
+
+    override suspend fun insert(sentenceDb: SentenceDb) {
+        TODO("Not yet implemented")
     }
 }
