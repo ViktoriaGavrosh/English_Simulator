@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.navigation
 
+import androidx.annotation.Keep
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest.EnToRu
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest.RuToEn
 import kotlinx.serialization.Serializable
@@ -21,7 +22,7 @@ sealed class NavigationDestination {
      * @param quest constant describes what action will be shown by Ui
      */
     @Serializable
-    data class Translate(val quest: Quest = Quest.RuToEn) : NavigationDestination()
+    data class Translate(val quest: Quest = RuToEn) : NavigationDestination()
 }
 
 /**
@@ -30,6 +31,7 @@ sealed class NavigationDestination {
  * @see RuToEn
  * @see EnToRu
  */
+@Keep
 enum class Quest {
 
     /**

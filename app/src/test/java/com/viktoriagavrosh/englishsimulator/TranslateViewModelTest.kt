@@ -1,7 +1,7 @@
 package com.viktoriagavrosh.englishsimulator
 
-import com.viktoriagavrosh.englishsimulator.fake.FakeTranslateRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
+import com.viktoriagavrosh.englishsimulator.fake.FakeTranslateRepository
 import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.ui.screens.translate.TranslateViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult

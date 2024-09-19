@@ -15,7 +15,8 @@ interface AppDatabase {
  */
 @Database(
     entities = [SentenceDb::class],
-    version = 1
+    version = 1,
+    exportSchema = false,
 )
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
     abstract override fun sentenceDao(): SentenceDao
