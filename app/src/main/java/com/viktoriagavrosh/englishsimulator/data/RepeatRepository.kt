@@ -8,19 +8,32 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
+/**
+ * provide data for ui from data source
+ */
 interface RepeatRepository {
+
     /**
      * Retrieve all items from given data source
+     *
+     * @return flow of [RequestResult] with list [Sentence]
      */
     fun getAllSentences(): Flow<RequestResult<List<Sentence>>>
 }
 
+/**
+ * provide data for ui (RepeatScreen) from local database
+ *
+ * @param database instance of local database
+ */
 internal class RepeatScreenRepository(
     private val database: AppDatabase
 ) : RepeatRepository {
 
     /**
      * Retrieve all [Sentence] from database
+     *
+     * @return flow of [RequestResult] with list [Sentence]
      */
     override fun getAllSentences(): Flow<RequestResult<List<Sentence>>> {
         return try {

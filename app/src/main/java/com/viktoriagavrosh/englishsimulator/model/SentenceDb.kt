@@ -5,7 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Entity data class represents a single Sentence from database
+ * Model represents a single sentence given from database
+ *
+ * @param id unique object identifier
+ * @param ruText sentence text in Russian
+ * @param enText sentence text in English
  */
 @Entity(tableName = "sentence")
 data class SentenceDb(

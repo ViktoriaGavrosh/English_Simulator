@@ -105,8 +105,8 @@ class MenuScreenTest {
             EnglishSimulatorTheme {
                 MenuScreen(
                     isVerticalScreen = isVerticalScreen,
-                    onEnToRuClick = {},
-                    onRuToEnClick = {},
+                    onSecondButtonClick = {},
+                    onFirstButtonClick = {},
                     modifier = Modifier.fillMaxSize()
                 )
             }

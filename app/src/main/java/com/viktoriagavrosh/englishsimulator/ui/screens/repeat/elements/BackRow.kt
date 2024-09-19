@@ -19,7 +19,10 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display back button
+ * Composable to display back button on top of screen
+ *
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 internal fun BackRow(

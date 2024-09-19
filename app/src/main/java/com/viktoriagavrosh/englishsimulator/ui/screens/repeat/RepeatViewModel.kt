@@ -17,6 +17,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel to retrieve and update item from repository data source
+ *
+ * @param repeatRepository instance of [RepeatRepository]
+ */
 class RepeatViewModel(
     private val repeatRepository: RepeatRepository,
 ) : ViewModel() {
@@ -31,17 +36,21 @@ class RepeatViewModel(
     internal val uiState: StateFlow<UiState>
         get() = _uiState.asStateFlow()
 
-    internal val count = MutableStateFlow(0)
-
-    internal fun updateSentence() {
+    /**
+     * Update sentence and score value of [UiState]
+     */
+    internal fun updateUiState() {
         _uiState.update {
             it.copy(
                 sentence = sentences.random(),
             )
         }
-        increaseCount()
+        increaseScore()
     }
 
+    /**
+     * Update [UiState] with data from [RepeatRepository]
+     */
     internal fun initUiState() {
         val requestResultFlow = repeatRepository.getAllSentences()
 
@@ -54,7 +63,9 @@ class RepeatViewModel(
                     )
                 }
             } else {
-                sentences = result.data?.shuffled() ?: emptyList()
+                sentences = result.data?.shuffled()
+                    ?.filterIndexed { index, _ -> index < 40 }
+                    ?: emptyList()
                 if (sentences.isNotEmpty()) {
                     _uiState.update {
                         it.copy(
@@ -66,11 +77,23 @@ class RepeatViewModel(
         }
     }
 
-    private fun increaseCount() {
-        val newCount = count.value + 1
-        count.value = newCount
+    /**
+     * Update score value of [UiState]
+     */
+    private fun increaseScore() {
+        viewModelScope.launch {
+            val newCount = uiState.first().score + 1
+            _uiState.update {
+                it.copy(
+                    score = newCount
+                )
+            }
+        }
     }
 
+    /**
+     * Contain factory to create [RepeatViewModel] instance
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
@@ -82,7 +105,15 @@ class RepeatViewModel(
     }
 }
 
+/**
+ * Holds RepeatScreen state
+ *
+ * @param sentence instance [Sentence]
+ * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
+ * @param score quest score
+ */
 internal data class UiState(
     val sentence: Sentence = Sentence(),
     val isError: Boolean = false,
+    val score: Int = 0,
 )

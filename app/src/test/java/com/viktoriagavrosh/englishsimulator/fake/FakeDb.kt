@@ -13,13 +13,15 @@ internal class FakeDb : AppDatabase {
 
 private class FakeDao : SentenceDao {
 
+    val sentences = FakeSource.fakeSentencesDb.toMutableList()
+
     override fun getAllSentences(): Flow<List<SentenceDb>> {
         return flow {
-            emit(FakeSource.fakeSentencesDb)
+            emit(sentences)
         }
     }
 
     override suspend fun insert(sentenceDb: SentenceDb) {
-        TODO("Not yet implemented")
+        sentences.add(sentenceDb)
     }
 }

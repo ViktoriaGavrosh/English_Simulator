@@ -22,12 +22,17 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
  * Composable to display menu of quest "Repeat sentences"
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onFirstButtonClick callback that is executed when first button is clicked
+ * @param onSecondButtonClick callback that is executed when second button is clicked
+ * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 internal fun MenuScreen(
     isVerticalScreen: Boolean,
-    onRuToEnClick: (Quest) -> Unit,
-    onEnToRuClick: (Quest) -> Unit,
+    onFirstButtonClick: (Quest) -> Unit,
+    onSecondButtonClick: (Quest) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -45,22 +50,29 @@ internal fun MenuScreen(
         )
         if (isVerticalScreen) {
             ButtonColumn(
-                onTopButtonClick = onRuToEnClick,
-                onBottomButtonClick = onEnToRuClick,
+                onTopButtonClick = onFirstButtonClick,
+                onBottomButtonClick = onSecondButtonClick,
                 modifier = Modifier.padding(
                     top = dimensionResource(R.dimen.padding_extra_large)
                 ),
             )
         } else {
             ButtonRow(
-                onLeftButtonClick = onRuToEnClick,
-                onRightButtonClick = onEnToRuClick,
+                onLeftButtonClick = onFirstButtonClick,
+                onRightButtonClick = onSecondButtonClick,
                 modifier = Modifier,
             )
         }
     }
 }
 
+/**
+ * Composable to display buttons (vertical screen orientation)
+ *
+ * @param onTopButtonClick callback that is executed when top button is clicked
+ * @param onBottomButtonClick callback that is executed when bottom button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 private fun ButtonColumn(
     onTopButtonClick: (Quest) -> Unit,
@@ -86,6 +98,13 @@ private fun ButtonColumn(
     }
 }
 
+/**
+ * Composable to display buttons (horizontal screen orientation)
+ *
+ * @param onLeftButtonClick callback that is executed when left button is clicked
+ * @param onRightButtonClick callback that is executed when right button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 private fun ButtonRow(
     onLeftButtonClick: (Quest) -> Unit,
@@ -110,6 +129,13 @@ private fun ButtonRow(
     }
 }
 
+/**
+ * Composable to display button with text
+ *
+ * @param onClick callback that is executed when button is clicked
+ * @param text the text to be displayed
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 private fun QuestButton(
     onClick: (Quest) -> Unit,
@@ -132,12 +158,12 @@ private fun QuestButton(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun VerticalMenuScreenPreview() {
+private fun VerticalMenuScreenPreview() {
     EnglishSimulatorTheme {
         MenuScreen(
             isVerticalScreen = true,
-            onRuToEnClick = {},
-            onEnToRuClick = {},
+            onFirstButtonClick = {},
+            onSecondButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -151,12 +177,12 @@ fun VerticalMenuScreenPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-fun HorizontalMenuScreenPreview() {
+private fun HorizontalMenuScreenPreview() {
     EnglishSimulatorTheme {
         MenuScreen(
             isVerticalScreen = false,
-            onRuToEnClick = {},
-            onEnToRuClick = {},
+            onFirstButtonClick = {},
+            onSecondButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

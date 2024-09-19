@@ -8,14 +8,24 @@ import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Database access object to access the AppDatabase
+ * Interface for working with Room. It works with sentence table from DB
  */
 @Dao
 interface SentenceDao {
 
+    /**
+     * Return all rows from sentence table
+     *
+     * @return flow of list [SentenceDb]
+     */
     @Query("SELECT * FROM sentence")
     fun getAllSentences(): Flow<List<SentenceDb>>
 
+    /**
+     * will insert element into the database (sentence table)
+     *
+     * @param sentenceDb object [SentenceDb] that will be insert
+     */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(sentenceDb: SentenceDb)
 }

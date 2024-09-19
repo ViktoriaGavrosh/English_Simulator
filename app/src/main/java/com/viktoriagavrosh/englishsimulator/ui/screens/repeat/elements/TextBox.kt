@@ -25,7 +25,11 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display text
+ * Composable to display box with text or question mark
+ *
+ * @param text the text to be displayed
+ * @param modifier the modifier to be applied to this layout node
+ * @param isTextShow whether text should be shown. If false, question mark will be shown
  */
 @Composable
 internal fun TextBox(
@@ -62,7 +66,7 @@ internal fun TextBox(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun TextBoxPreview() {
+private fun TextBoxPreview() {
     EnglishSimulatorTheme {
         TextBox(
             text = "Text",

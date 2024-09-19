@@ -10,7 +10,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
-import com.viktoriagavrosh.englishsimulator.ui.navigation.EnglishSimulatorApp
+import com.viktoriagavrosh.englishsimulator.ui.EnglishSimulatorApp
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 class MainActivity : ComponentActivity() {

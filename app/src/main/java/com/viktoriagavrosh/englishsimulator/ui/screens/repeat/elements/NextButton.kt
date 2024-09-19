@@ -15,13 +15,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
+/**
+ * Composable to display button with icon
+ *
+ * @param onClick callback that is executed when button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 internal fun NextButton(
-    onNextClick: () -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Button(
-        onClick = onNextClick,
+        onClick = onClick,
         modifier = modifier
             .testTag(stringResource(R.string.next_button)),
     ) {
@@ -41,7 +47,7 @@ internal fun NextButton(
 private fun NextButtonPreview() {
     EnglishSimulatorTheme {
         NextButton(
-            onNextClick = {}
+            onClick = {}
         )
     }
 }

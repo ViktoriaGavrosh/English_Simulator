@@ -35,6 +35,11 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
  * Composable to display quest "Repeat sentences"
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param quest Constant [Quest] describes what action will be shown by Ui
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 internal fun RepeatScreen(
@@ -45,7 +50,6 @@ internal fun RepeatScreen(
 ) {
     val viewModel: RepeatViewModel = viewModel(factory = RepeatViewModel.Factory)
     val uiState by viewModel.uiState.collectAsState()
-    val count = viewModel.count.collectAsState()
 
     RepeatScreen(
         modifier = modifier,
@@ -53,28 +57,41 @@ internal fun RepeatScreen(
         onBackClick = onBackClick,
         isVerticalScreen = isVerticalScreen,
         sentence = uiState.sentence,
-        score = count.value,
+        score = uiState.score,
         isRuToEn = quest == Quest.RuToEn,
-        onNextClick = viewModel::updateSentence,
-        onTryAgainClick = viewModel::initUiState,
+        onNextClick = viewModel::updateUiState,
+        onErrorButtonClick = viewModel::initUiState,
     )
 }
 
+/**
+ * Composable to display quest "Repeat sentences"
+ *
+ * @param sentence instance [Sentence]
+ * @param score quest score
+ * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
+ * @param isRuToEn boolean parameter describes what action will be shown by Ui
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param onNextClick callback that is executed when next button is clicked
+ * @param onErrorButtonClick callback that is executed when error button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 internal fun RepeatScreen(
-    modifier: Modifier,
-    isError: Boolean,
-    onBackClick: () -> Unit,
-    isVerticalScreen: Boolean,
     sentence: Sentence,
     score: Int,
+    isError: Boolean,
     isRuToEn: Boolean,
+    isVerticalScreen: Boolean,
+    onBackClick: () -> Unit,
     onNextClick: () -> Unit,
-    onTryAgainClick: () -> Unit,
+    onErrorButtonClick: () -> Unit,
+    modifier: Modifier,
 ) {
     if (isError) {
         ErrorScreen(
-            onTryAgainClick = onTryAgainClick,
+            onErrorButtonClick = onErrorButtonClick,
             modifier = modifier
         )
     } else {
@@ -105,6 +122,15 @@ internal fun RepeatScreen(
     }
 }
 
+/**
+ * Composable to display RepeatScreen content (vertical screen orientation)
+ *
+ * @param sentence instance [Sentence]
+ * @param score quest score
+ * @param isRuToEn boolean parameter describes what action will be shown by Ui
+ * @param onNextClick callback that is executed when next button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 private fun ColumnRepeat(
     sentence: Sentence,
@@ -135,7 +161,7 @@ private fun ColumnRepeat(
             }
         )
         NextButton(
-            onNextClick = {
+            onClick = {
                 isAnswerOpen = false
                 onNextClick()
             },
@@ -143,6 +169,15 @@ private fun ColumnRepeat(
     }
 }
 
+/**
+ * Composable to display RepeatScreen content (horizontal screen orientation)
+ *
+ * @param sentence instance [Sentence]
+ * @param score quest score
+ * @param isRuToEn boolean parameter describes what action will be shown by Ui
+ * @param onNextClick callback that is executed when next button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 private fun RowRepeat(
     sentence: Sentence,
@@ -194,7 +229,7 @@ private fun RowRepeat(
                 }
             )
             NextButton(
-                onNextClick = {
+                onClick = {
                     isAnswerOpen = false
                     onNextClick()
                 },
@@ -207,7 +242,7 @@ private fun RowRepeat(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun VerticalRepeatScreenPreview() {
+private fun VerticalRepeatScreenPreview() {
     EnglishSimulatorTheme {
         RepeatScreen(
             isError = false,
@@ -220,7 +255,7 @@ fun VerticalRepeatScreenPreview() {
             isRuToEn = true,
             onBackClick = {},
             onNextClick = {},
-            onTryAgainClick = {},
+            onErrorButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -234,7 +269,7 @@ fun VerticalRepeatScreenPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-fun HorizontalRepeatScreenPreview() {
+private fun HorizontalRepeatScreenPreview() {
     EnglishSimulatorTheme {
         RepeatScreen(
             isError = false,
@@ -247,7 +282,7 @@ fun HorizontalRepeatScreenPreview() {
             isRuToEn = true,
             onBackClick = {},
             onNextClick = {},
-            onTryAgainClick = {},
+            onErrorButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

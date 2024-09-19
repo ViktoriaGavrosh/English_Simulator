@@ -6,6 +6,7 @@ import com.viktoriagavrosh.englishsimulator.data.DefaultAppContainer
 import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
 
 class SimulatorApplication : Application() {
+
     /**
      * AppContainer instance used by the rest of classes to obtain dependencies
      */

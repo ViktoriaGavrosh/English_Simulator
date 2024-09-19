@@ -23,6 +23,9 @@ internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
 
 /**
  *  Function build [AppRoomDatabase] object
+ *
+ *  @param context local context
+ *  @return [AppRoomDatabase] object
  */
 internal fun getDatabase(context: Context): AppRoomDatabase {
     val appRoomDatabase = Room.databaseBuilder(
@@ -31,7 +34,6 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
         name = "english"
     )
         .createFromAsset("database/english.db")
-        //.fallbackToDestructiveMigration()  TODO 111
         .build()
 
     return appRoomDatabase

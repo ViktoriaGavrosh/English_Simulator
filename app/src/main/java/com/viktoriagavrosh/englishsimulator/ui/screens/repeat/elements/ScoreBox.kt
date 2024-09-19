@@ -18,7 +18,10 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display score
+ * Composable to display quest score
+ *
+ * @param score quest score
+ * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 internal fun ScoreBox(

@@ -51,7 +51,7 @@ class RepeatViewModelTest {
         runTest {
             val viewModel = initViewModel(RequestResult.Success(FakeSource.fakeSentences))
             val oldSentence = viewModel.uiState.first().sentence
-            viewModel.updateSentence()
+            viewModel.updateUiState()
             val actualSentence = viewModel.uiState.first().sentence
             assert(oldSentence != actualSentence)
         }
@@ -61,9 +61,9 @@ class RepeatViewModelTest {
     fun repeatViewModel_updateSentence_countUpdated() {
         runTest {
             val viewModel = initViewModel(RequestResult.Success(FakeSource.fakeSentences))
-            val oldCount = viewModel.count.first()
-            viewModel.updateSentence()
-            val actualCount = viewModel.count.first()
+            val oldCount = viewModel.uiState.first().score
+            viewModel.updateUiState()
+            val actualCount = viewModel.uiState.first().score
             assert(oldCount != actualCount)
         }
     }

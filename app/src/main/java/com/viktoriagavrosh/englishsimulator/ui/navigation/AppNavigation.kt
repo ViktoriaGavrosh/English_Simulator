@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.navigation
 
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -14,14 +13,19 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatScreen
 
+/**
+ * Composable with navigation between app screens
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param modifier the modifier to be applied to the layout
+ * @param navController the navController for this host
+ */
 @Composable
-fun EnglishSimulatorApp(
+internal fun AppNavigation(
+    isVerticalScreen: Boolean,
     modifier: Modifier = Modifier,
-    windowSize: WindowWidthSizeClass,
     navController: NavHostController = rememberNavController()
 ) {
-    val isVerticalScreen = windowSize != WindowWidthSizeClass.Expanded
-
     NavHost(
         navController = navController,
         startDestination = NavigationDestination.Menu,
@@ -29,10 +33,10 @@ fun EnglishSimulatorApp(
         composable<NavigationDestination.Menu> {
             MenuScreen(
                 isVerticalScreen = isVerticalScreen,
-                onRuToEnClick = {
+                onFirstButtonClick = {
                     navController.navigate(NavigationDestination.Repeat(Quest.RuToEn))
                 },
-                onEnToRuClick = {
+                onSecondButtonClick = {
                     navController.navigate(NavigationDestination.Repeat(Quest.EnToRu))
                 },
                 modifier = modifier.testTag(stringResource(R.string.menu_screen))

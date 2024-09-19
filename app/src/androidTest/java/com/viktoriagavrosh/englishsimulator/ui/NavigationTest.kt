@@ -1,7 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui
 
 import androidx.activity.ComponentActivity
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -10,7 +9,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.navigation.EnglishSimulatorApp
+import com.viktoriagavrosh.englishsimulator.ui.navigation.AppNavigation
 import com.viktoriagavrosh.englishsimulator.ui.navigation.NavigationDestination
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTagById
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTextById
@@ -30,8 +29,8 @@ class NavigationTest {
         composeTestRule.setContent {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
-            EnglishSimulatorApp(
-                windowSize = WindowWidthSizeClass.Compact,
+            AppNavigation(
+                isVerticalScreen = true,
                 navController = navController
             )
         }

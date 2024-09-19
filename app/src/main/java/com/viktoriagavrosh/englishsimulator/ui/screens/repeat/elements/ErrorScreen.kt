@@ -18,11 +18,14 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to show problems to user
+ * Composable to show message about download problems to user
+ *
+ * @param onErrorButtonClick callback that is executed when button is clicked
+ * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 internal fun ErrorScreen(
-    onTryAgainClick: () -> Unit,
+    onErrorButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -37,7 +40,7 @@ internal fun ErrorScreen(
             modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))
         )
         Button(
-            onClick = onTryAgainClick,
+            onClick = onErrorButtonClick,
             modifier = Modifier.padding(
                 top = dimensionResource(R.dimen.padding_super_extra_large)
             ),
@@ -58,7 +61,7 @@ internal fun ErrorScreen(
 private fun ErrorScreenPreview() {
     EnglishSimulatorTheme {
         ErrorScreen(
-            onTryAgainClick = {}
+            onErrorButtonClick = {}
         )
     }
 }

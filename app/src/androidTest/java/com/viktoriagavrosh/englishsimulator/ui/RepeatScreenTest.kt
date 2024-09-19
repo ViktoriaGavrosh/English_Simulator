@@ -217,7 +217,7 @@ class RepeatScreenTest {
                     score = score,
                     isRuToEn = isRuToEn,
                     onNextClick = {},
-                    onTryAgainClick = {},
+                    onErrorButtonClick = {},
                 )
             }
         }
