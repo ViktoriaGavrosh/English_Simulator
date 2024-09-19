@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.repeat
+package com.viktoriagavrosh.englishsimulator.ui.screens.translate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.viktoriagavrosh.englishsimulator.SimulatorApplication
-import com.viktoriagavrosh.englishsimulator.data.RepeatRepository
+import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
 import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,10 +20,10 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel to retrieve and update item from repository data source
  *
- * @param repeatRepository instance of [RepeatRepository]
+ * @param translateRepository instance of [TranslateRepository]
  */
-class RepeatViewModel(
-    private val repeatRepository: RepeatRepository,
+class TranslateViewModel(
+    private val translateRepository: TranslateRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -49,10 +49,10 @@ class RepeatViewModel(
     }
 
     /**
-     * Update [UiState] with data from [RepeatRepository]
+     * Update [UiState] with data from [TranslateRepository]
      */
     internal fun initUiState() {
-        val requestResultFlow = repeatRepository.getAllSentences()
+        val requestResultFlow = translateRepository.getAllSentences()
 
         viewModelScope.launch {
             val result = requestResultFlow.first()
@@ -92,21 +92,21 @@ class RepeatViewModel(
     }
 
     /**
-     * Contain factory to create [RepeatViewModel] instance
+     * Contain factory to create [TranslateViewModel] instance
      */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as SimulatorApplication)
                 val repeatRepository = application.container.repeatRepository
-                RepeatViewModel(repeatRepository = repeatRepository)
+                TranslateViewModel(translateRepository = repeatRepository)
             }
         }
     }
 }
 
 /**
- * Holds RepeatScreen state
+ * Holds TranslateScreen state
  *
  * @param sentence instance [Sentence]
  * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.

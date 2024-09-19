@@ -21,7 +21,7 @@ sealed class NavigationDestination {
      * @param quest constant describes what action will be shown by Ui
      */
     @Serializable
-    data class Repeat(val quest: Quest = Quest.RuToEn) : NavigationDestination()
+    data class Translate(val quest: Quest = Quest.RuToEn) : NavigationDestination()
 }
 
 /**

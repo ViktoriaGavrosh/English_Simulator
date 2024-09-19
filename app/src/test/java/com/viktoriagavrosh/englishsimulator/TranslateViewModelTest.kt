@@ -1,9 +1,9 @@
 package com.viktoriagavrosh.englishsimulator
 
-import com.viktoriagavrosh.englishsimulator.fake.FakeRepeatRepository
+import com.viktoriagavrosh.englishsimulator.fake.FakeTranslateRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.model.Sentence
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.TranslateViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import kotlinx.coroutines.flow.first
@@ -12,7 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class RepeatViewModelTest {
+class TranslateViewModelTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
@@ -68,9 +68,9 @@ class RepeatViewModelTest {
         }
     }
 
-    private fun initViewModel(requestResult: RequestResult<List<Sentence>>): RepeatViewModel {
-        return RepeatViewModel(
-            FakeRepeatRepository(requestResult)
+    private fun initViewModel(requestResult: RequestResult<List<Sentence>>): TranslateViewModel {
+        return TranslateViewModel(
+            FakeTranslateRepository(requestResult)
         )
     }
 }

@@ -44,25 +44,25 @@ class NavigationTest {
     }
 
     @Test
-    fun navHost_topButtonClick_navigateToRepeatScreen() {
+    fun navHost_topButtonClick_navigateToTranslateScreen() {
         composeTestRule.onNodeWithTextById(R.string.en_to_ru)
             .performClick()
         assertTrue(
             navController.currentBackStackEntry
                 ?.destination
-                ?.hasRoute<NavigationDestination.Repeat>()
+                ?.hasRoute<NavigationDestination.Translate>()
                 ?: false
         )
     }
 
     @Test
-    fun navHost_bottomButtonClick_navigateToRepeatScreen() {
+    fun navHost_bottomButtonClick_navigateToTranslateScreen() {
         composeTestRule.onNodeWithTextById(R.string.ru_to_en)
             .performClick()
         assertTrue(
             navController.currentBackStackEntry
                 ?.destination
-                ?.hasRoute<NavigationDestination.Repeat>()
+                ?.hasRoute<NavigationDestination.Translate>()
                 ?: false
         )
     }

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 /**
  * provide data for ui from data source
  */
-interface RepeatRepository {
+interface TranslateRepository {
 
     /**
      * Retrieve all items from given data source
@@ -28,7 +28,7 @@ interface RepeatRepository {
  */
 internal class RepeatScreenRepository(
     private val database: AppDatabase
-) : RepeatRepository {
+) : TranslateRepository {
 
     /**
      * Retrieve all [Sentence] from database

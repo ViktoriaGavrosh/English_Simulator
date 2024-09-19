@@ -12,7 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class RepeatRepositoryTest {
+class TranslateRepositoryTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
@@ -20,7 +20,7 @@ class RepeatRepositoryTest {
     private val repository = RepeatScreenRepository(FakeDb())
 
     @Test
-    fun repeatRepository_getAllSentences_returnListSentences() {
+    fun translateRepository_getAllSentences_returnListSentences() {
         runTest {
             val expectedList = FakeSource.fakeSentencesDb.map { it.toSentence() }
             val actualList = repository.getAllSentences()
@@ -34,7 +34,7 @@ class RepeatRepositoryTest {
     }
 
     @Test
-    fun repeatRepository_getAllSentences_returnRequestResultSuccess() {
+    fun translateRepository_getAllSentences_returnRequestResultSuccess() {
         runTest {
             val isSuccess = repository.getAllSentences()
                 .first() is RequestResult.Success

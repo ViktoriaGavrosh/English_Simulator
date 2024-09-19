@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements
+package com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

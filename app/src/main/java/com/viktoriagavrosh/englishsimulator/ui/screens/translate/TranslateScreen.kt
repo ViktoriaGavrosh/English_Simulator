@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.repeat
+package com.viktoriagavrosh.englishsimulator.ui.screens.translate
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -26,15 +26,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.BackRow
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.NextButton
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.ScoreBox
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.elements.TextBox
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.BackRow
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.ErrorScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.NextButton
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.ScoreBox
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.TextBox
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display quest "Repeat sentences"
+ * Composable to display quest "Translate sentences"
  *
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param quest Constant [Quest] describes what action will be shown by Ui
@@ -42,16 +42,16 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-internal fun RepeatScreen(
+internal fun TranslateScreen(
     isVerticalScreen: Boolean,
     quest: Quest,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: RepeatViewModel = viewModel(factory = RepeatViewModel.Factory)
+    val viewModel: TranslateViewModel = viewModel(factory = TranslateViewModel.Factory)
     val uiState by viewModel.uiState.collectAsState()
 
-    RepeatScreen(
+    TranslateScreen(
         modifier = modifier,
         isError = uiState.isError,
         onBackClick = onBackClick,
@@ -65,7 +65,7 @@ internal fun RepeatScreen(
 }
 
 /**
- * Composable to display quest "Repeat sentences"
+ * Composable to display quest "Translate sentences"
  *
  * @param sentence instance [Sentence]
  * @param score quest score
@@ -78,7 +78,7 @@ internal fun RepeatScreen(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-internal fun RepeatScreen(
+internal fun TranslateScreen(
     sentence: Sentence,
     score: Int,
     isError: Boolean,
@@ -102,7 +102,7 @@ internal fun RepeatScreen(
         ) {
             BackRow(onBackClick = onBackClick)
             if (isVerticalScreen) {
-                ColumnRepeat(
+                ColumnTranslate(
                     sentence = sentence,
                     score = score,
                     isRuToEn = isRuToEn,
@@ -110,7 +110,7 @@ internal fun RepeatScreen(
                     modifier = Modifier.fillMaxHeight(),
                 )
             } else {
-                RowRepeat(
+                RowTranslate(
                     sentence = sentence,
                     score = score,
                     isRuToEn = isRuToEn,
@@ -123,7 +123,7 @@ internal fun RepeatScreen(
 }
 
 /**
- * Composable to display RepeatScreen content (vertical screen orientation)
+ * Composable to display TranslateScreen content (vertical screen orientation)
  *
  * @param sentence instance [Sentence]
  * @param score quest score
@@ -132,7 +132,7 @@ internal fun RepeatScreen(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun ColumnRepeat(
+private fun ColumnTranslate(
     sentence: Sentence,
     score: Int,
     isRuToEn: Boolean,
@@ -170,7 +170,7 @@ private fun ColumnRepeat(
 }
 
 /**
- * Composable to display RepeatScreen content (horizontal screen orientation)
+ * Composable to display TranslateScreen content (horizontal screen orientation)
  *
  * @param sentence instance [Sentence]
  * @param score quest score
@@ -179,7 +179,7 @@ private fun ColumnRepeat(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun RowRepeat(
+private fun RowTranslate(
     sentence: Sentence,
     score: Int,
     isRuToEn: Boolean,
@@ -242,9 +242,9 @@ private fun RowRepeat(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun VerticalRepeatScreenPreview() {
+private fun VerticalTranslateScreenPreview() {
     EnglishSimulatorTheme {
-        RepeatScreen(
+        TranslateScreen(
             isError = false,
             sentence = Sentence(
                 ruText = "Ru Text",
@@ -269,9 +269,9 @@ private fun VerticalRepeatScreenPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun HorizontalRepeatScreenPreview() {
+private fun HorizontalTranslateScreenPreview() {
     EnglishSimulatorTheme {
-        RepeatScreen(
+        TranslateScreen(
             isError = false,
             sentence = Sentence(
                 ruText = "Ru Text",

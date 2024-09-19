@@ -13,7 +13,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.TranslateScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithContentDescriptionById
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTagById
@@ -21,14 +21,14 @@ import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTextById
 import org.junit.Rule
 import org.junit.Test
 
-class RepeatScreenTest {
+class TranslateScreenTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun repeatScreen_verticalScreen_backButtonIsDisplayed() {
-        setRepeatScreen()
+    fun translateScreen_verticalScreen_backButtonIsDisplayed() {
+        setTranslateScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.back)
             .assertExists("No back button")
             .assertIsDisplayed()
@@ -36,8 +36,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_backButtonIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false)
+    fun translateScreen_horizontalScreen_backButtonIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false)
         composeTestRule.onNodeWithContentDescriptionById(R.string.back)
             .assertExists("No back button")
             .assertIsDisplayed()
@@ -45,22 +45,22 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_verticalScreen_backButtonSizeIsRelevant() {
-        setRepeatScreen()
+    fun translateScreen_verticalScreen_backButtonSizeIsRelevant() {
+        setTranslateScreen()
         composeTestRule.onNodeWithTagById(R.string.back_button)
             .assertHeightIsAtLeast(48.dp)
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_backButtonSizeIsRelevant() {
-        setRepeatScreen(isVerticalScreen = false)
+    fun translateScreen_horizontalScreen_backButtonSizeIsRelevant() {
+        setTranslateScreen(isVerticalScreen = false)
         composeTestRule.onNodeWithTagById(R.string.back_button)
             .assertHeightIsAtLeast(48.dp)
     }
 
     @Test
-    fun repeatScreen_verticalScreen_scoreBoxIsDisplayed() {
-        setRepeatScreen(score = 54)
+    fun translateScreen_verticalScreen_scoreBoxIsDisplayed() {
+        setTranslateScreen(score = 54)
         composeTestRule.onNodeWithText("54")
             .assertExists("No score")
             .assertIsDisplayed()
@@ -68,8 +68,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_scoreBoxIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false, score = 54)
+    fun translateScreen_horizontalScreen_scoreBoxIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false, score = 54)
         composeTestRule.onNodeWithText("54")
             .assertExists("No score")
             .assertIsDisplayed()
@@ -77,8 +77,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_verticalScreen_questionTextIsDisplayed() {
-        setRepeatScreen(isRuToEn = true)
+    fun translateScreen_verticalScreen_questionTextIsDisplayed() {
+        setTranslateScreen(isRuToEn = true)
         composeTestRule.onNodeWithText(FakeSource.fakeSentencesUi[0].ruText)
             .assertExists("No question text")
             .assertIsDisplayed()
@@ -86,8 +86,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_questionTextIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false, isRuToEn = true)
+    fun translateScreen_horizontalScreen_questionTextIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false, isRuToEn = true)
         composeTestRule.onNodeWithText(FakeSource.fakeSentencesUi[0].ruText)
             .assertExists("No question text")
             .assertIsDisplayed()
@@ -95,8 +95,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_verticalScreen_answerIconIsDisplayed() {
-        setRepeatScreen()
+    fun translateScreen_verticalScreen_answerIconIsDisplayed() {
+        setTranslateScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.answer)
             .assertExists("No answer icon")
             .assertIsDisplayed()
@@ -104,8 +104,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_answerIconIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false)
+    fun translateScreen_horizontalScreen_answerIconIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false)
         composeTestRule.onNodeWithContentDescriptionById(R.string.answer)
             .assertExists("No answer icon")
             .assertIsDisplayed()
@@ -113,8 +113,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_verticalScreen_answerTextIsDisplayed() {
-        setRepeatScreen(isRuToEn = true)
+    fun translateScreen_verticalScreen_answerTextIsDisplayed() {
+        setTranslateScreen(isRuToEn = true)
         composeTestRule.onNodeWithContentDescriptionById(R.string.answer)
             .performClick()
         composeTestRule.onNodeWithText(FakeSource.fakeSentencesUi[0].enText)
@@ -124,8 +124,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_answerTextIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false, isRuToEn = true)
+    fun translateScreen_horizontalScreen_answerTextIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false, isRuToEn = true)
         composeTestRule.onNodeWithContentDescriptionById(R.string.answer)
             .performClick()
         composeTestRule.onNodeWithText(FakeSource.fakeSentencesUi[0].enText)
@@ -135,8 +135,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_verticalScreen_nextButtonIsDisplayed() {
-        setRepeatScreen()
+    fun translateScreen_verticalScreen_nextButtonIsDisplayed() {
+        setTranslateScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.next_question)
             .assertExists("No next button")
             .assertIsDisplayed()
@@ -144,8 +144,8 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_nextButtonIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false)
+    fun translateScreen_horizontalScreen_nextButtonIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false)
         composeTestRule.onNodeWithContentDescriptionById(R.string.next_question)
             .assertExists("No next button")
             .assertIsDisplayed()
@@ -153,38 +153,38 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_verticalScreen_nextButtonSizeIsRelevant() {
-        setRepeatScreen()
+    fun translateScreen_verticalScreen_nextButtonSizeIsRelevant() {
+        setTranslateScreen()
         composeTestRule.onNodeWithTagById(R.string.next_button)
             .assertHeightIsAtLeast(48.dp)
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_nextButtonSizeIsRelevant() {
-        setRepeatScreen(isVerticalScreen = false)
+    fun translateScreen_horizontalScreen_nextButtonSizeIsRelevant() {
+        setTranslateScreen(isVerticalScreen = false)
         composeTestRule.onNodeWithTagById(R.string.next_button)
             .assertHeightIsAtLeast(48.dp)
     }
 
     @Test
-    fun repeatScreen_verticalScreen_errorTextIsDisplayed() {
-        setRepeatScreen(isError = true)
+    fun translateScreen_verticalScreen_errorTextIsDisplayed() {
+        setTranslateScreen(isError = true)
         composeTestRule.onNodeWithTextById(R.string.something_happened)
             .assertExists("No error text")
             .assertIsDisplayed()
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_errorTextIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false, isError = true)
+    fun translateScreen_horizontalScreen_errorTextIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false, isError = true)
         composeTestRule.onNodeWithTextById(R.string.something_happened)
             .assertExists("No error text")
             .assertIsDisplayed()
     }
 
     @Test
-    fun repeatScreen_verticalScreen_errorButtonIsDisplayed() {
-        setRepeatScreen(isError = true)
+    fun translateScreen_verticalScreen_errorButtonIsDisplayed() {
+        setTranslateScreen(isError = true)
         composeTestRule.onNodeWithTextById(R.string.try_again)
             .assertExists("No error button")
             .assertIsDisplayed()
@@ -192,15 +192,15 @@ class RepeatScreenTest {
     }
 
     @Test
-    fun repeatScreen_horizontalScreen_errorButtonIsDisplayed() {
-        setRepeatScreen(isVerticalScreen = false, isError = true)
+    fun translateScreen_horizontalScreen_errorButtonIsDisplayed() {
+        setTranslateScreen(isVerticalScreen = false, isError = true)
         composeTestRule.onNodeWithTextById(R.string.try_again)
             .assertExists("No error button")
             .assertIsDisplayed()
             .assertHasClickAction()
     }
 
-    private fun setRepeatScreen(
+    private fun setTranslateScreen(
         isVerticalScreen: Boolean = true,
         isError: Boolean = false,
         score: Int = 0,
@@ -208,7 +208,7 @@ class RepeatScreenTest {
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
-                RepeatScreen(
+                TranslateScreen(
                     modifier = Modifier.fillMaxSize(),
                     isError = isError,
                     onBackClick = {},

@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
-import com.viktoriagavrosh.englishsimulator.ui.screens.repeat.RepeatScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.translate.TranslateScreen
 
 /**
  * Composable with navigation between app screens
@@ -34,17 +34,17 @@ internal fun AppNavigation(
             MenuScreen(
                 isVerticalScreen = isVerticalScreen,
                 onFirstButtonClick = {
-                    navController.navigate(NavigationDestination.Repeat(Quest.RuToEn))
+                    navController.navigate(NavigationDestination.Translate(Quest.RuToEn))
                 },
                 onSecondButtonClick = {
-                    navController.navigate(NavigationDestination.Repeat(Quest.EnToRu))
+                    navController.navigate(NavigationDestination.Translate(Quest.EnToRu))
                 },
                 modifier = modifier.testTag(stringResource(R.string.menu_screen))
             )
         }
-        composable<NavigationDestination.Repeat> { backStackEntry ->
-            val quest = backStackEntry.toRoute<NavigationDestination.Repeat>().quest
-            RepeatScreen(
+        composable<NavigationDestination.Translate> { backStackEntry ->
+            val quest = backStackEntry.toRoute<NavigationDestination.Translate>().quest
+            TranslateScreen(
                 isVerticalScreen = isVerticalScreen,
                 quest = quest,
                 onBackClick = { navController.navigateUp() },

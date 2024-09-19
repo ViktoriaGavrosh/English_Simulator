@@ -21,7 +21,7 @@ import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display menu of quest "Repeat sentences"
+ * Composable to display menu of quest "Translate sentences"
  *
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onFirstButtonClick callback that is executed when first button is clicked
