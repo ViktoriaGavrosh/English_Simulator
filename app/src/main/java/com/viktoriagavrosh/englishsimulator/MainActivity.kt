@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
                     EnglishSimulatorApp(
                         windowSize = windowSize.widthSizeClass,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     )
                 }
             }
