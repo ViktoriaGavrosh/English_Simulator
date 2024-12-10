@@ -5,11 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.MenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import org.koin.androidx.compose.koinViewModel
 

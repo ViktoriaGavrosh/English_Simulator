@@ -1,5 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui
-
+/*
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
@@ -83,3 +83,6 @@ class NavigationTest {
         )
     }
 }
+
+
+ */

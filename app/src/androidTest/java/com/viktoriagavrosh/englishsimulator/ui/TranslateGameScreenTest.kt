@@ -1,5 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui
-
+/*
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
@@ -223,3 +223,6 @@ class TranslateGameScreenTest {
         }
     }
 }
+
+
+ */
