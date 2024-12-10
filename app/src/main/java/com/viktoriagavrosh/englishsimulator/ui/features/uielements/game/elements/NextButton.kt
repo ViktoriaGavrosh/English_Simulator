@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements
+package com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
@@ -35,7 +35,7 @@ internal fun NextButton(
             painter = painterResource(R.drawable.ic_next),
             contentDescription = stringResource(R.string.next_question),
             modifier = Modifier
-                .padding(horizontal = dimensionResource(R.dimen.padding_extra_large))
+                .padding(horizontal = dimensionResource(R.dimen.padding_double_extra_large))
                 .size(dimensionResource(R.dimen.icon_size))
         )
     }

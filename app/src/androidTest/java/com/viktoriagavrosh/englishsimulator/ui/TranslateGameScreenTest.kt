@@ -21,7 +21,7 @@ import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTextById
 import org.junit.Rule
 import org.junit.Test
 
-class TranslateScreenTest {
+class TranslateGameScreenTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()

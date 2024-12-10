@@ -39,7 +39,7 @@ class NavigationTest {
     @Test
     fun navHost_verifyStartDestination() {
         composeTestRule
-            .onNodeWithTagById(R.string.menu_screen)
+            .onNodeWithTagById(R.string.translate_menu_screen)
             .assertIsDisplayed()
     }
 
@@ -50,7 +50,7 @@ class NavigationTest {
         assertTrue(
             navController.currentBackStackEntry
                 ?.destination
-                ?.hasRoute<NavigationDestination.Translate>()
+                ?.hasRoute<NavigationDestination.TranslateGame>()
                 ?: false
         )
     }
@@ -62,7 +62,7 @@ class NavigationTest {
         assertTrue(
             navController.currentBackStackEntry
                 ?.destination
-                ?.hasRoute<NavigationDestination.Translate>()
+                ?.hasRoute<NavigationDestination.TranslateGame>()
                 ?: false
         )
     }

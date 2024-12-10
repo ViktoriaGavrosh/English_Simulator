@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements
+package com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement

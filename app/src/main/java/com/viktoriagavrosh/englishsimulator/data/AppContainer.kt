@@ -1,12 +1,13 @@
 package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppRoomDatabase
-
+/*
 /**
  * App container for Dependency injection. Holds objects of all repositories.
  */
 interface AppContainer {
-    val repeatRepository: TranslateRepository
+    val translateRepository: TranslateRepository
+    val issueRepository: IssueRepository
 }
 
 /**
@@ -16,7 +17,14 @@ interface AppContainer {
  * @return instance of [AppContainer]
  */
 internal class DefaultAppContainer(database: AppRoomDatabase) : AppContainer {
-    override val repeatRepository: TranslateRepository by lazy {
+    override val translateRepository: TranslateRepository by lazy {
         RepeatScreenRepository(database)
     }
+
+    override val issueRepository: IssueRepository by lazy {
+        LocalIssueRepository(database)
+    }
 }
+
+
+ */

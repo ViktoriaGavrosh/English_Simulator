@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.translate
+package com.viktoriagavrosh.englishsimulator.ui.features.uielements.game
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,102 +21,54 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.model.Sentence
-import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
-import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.BackRow
-import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.NextButton
-import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.ScoreBox
-import com.viktoriagavrosh.englishsimulator.ui.screens.translate.elements.TextBox
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.BackRow
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.NextButton
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.ScoreBox
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.TextBox
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
  * Composable to display quest "Translate sentences"
  *
- * @param isVerticalScreen boolean parameter describes screen orientation
- * @param quest Constant [Quest] describes what action will be shown by Ui
- * @param onBackClick callback that is executed when back button is clicked
- * @param modifier the modifier to be applied to this layout node
- */
-@Composable
-internal fun TranslateScreen(
-    isVerticalScreen: Boolean,
-    quest: Quest,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val viewModel: TranslateViewModel = viewModel(factory = TranslateViewModel.Factory)
-    val uiState by viewModel.uiState.collectAsState()
-
-    TranslateScreen(
-        modifier = modifier,
-        isError = uiState.isError,
-        onBackClick = onBackClick,
-        isVerticalScreen = isVerticalScreen,
-        sentence = uiState.sentence,
-        score = uiState.score,
-        isRuToEn = quest == Quest.RuToEn,
-        onNextClick = viewModel::updateUiState,
-        onErrorButtonClick = viewModel::initUiState,
-    )
-}
-
-/**
- * Composable to display quest "Translate sentences"
- *
- * @param sentence instance [Sentence]
+ * @param gameQuestion item for ui
  * @param score quest score
- * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
- * @param isRuToEn boolean parameter describes what action will be shown by Ui
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onBackClick callback that is executed when back button is clicked
  * @param onNextClick callback that is executed when next button is clicked
- * @param onErrorButtonClick callback that is executed when error button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-internal fun TranslateScreen(
-    sentence: Sentence,
+internal fun GameScreen(
+    gameQuestion: GameQuestion,
     score: Int,
-    isError: Boolean,
-    isRuToEn: Boolean,
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
-    onErrorButtonClick: () -> Unit,
     modifier: Modifier,
 ) {
-    if (isError) {
-        ErrorScreen(
-            onErrorButtonClick = onErrorButtonClick,
-            modifier = modifier
-        )
-    } else {
-        Column(
-            modifier = modifier
-                .background(MaterialTheme.colorScheme.primaryContainer),
-            verticalArrangement = Arrangement.Center,
-        ) {
-            BackRow(onBackClick = onBackClick)
-            if (isVerticalScreen) {
-                ColumnTranslate(
-                    sentence = sentence,
-                    score = score,
-                    isRuToEn = isRuToEn,
-                    onNextClick = onNextClick,
-                    modifier = Modifier.fillMaxHeight(),
-                )
-            } else {
-                RowTranslate(
-                    sentence = sentence,
-                    score = score,
-                    isRuToEn = isRuToEn,
-                    onNextClick = onNextClick,
-                    modifier = Modifier.fillMaxSize(),
-                )
-            }
+
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.primaryContainer),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        BackRow(onBackClick = onBackClick)
+        if (isVerticalScreen) {
+            ColumnTranslate(
+                gameQuestion = gameQuestion,
+                score = score,
+                onNextClick = onNextClick,
+                modifier = Modifier.fillMaxHeight(),
+            )
+        } else {
+            RowTranslate(
+                gameQuestion = gameQuestion,
+                score = score,
+                onNextClick = onNextClick,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
     }
 }
@@ -125,17 +76,15 @@ internal fun TranslateScreen(
 /**
  * Composable to display TranslateScreen content (vertical screen orientation)
  *
- * @param sentence instance [Sentence]
+ * @param gameQuestion instance [GameQuestion]
  * @param score quest score
- * @param isRuToEn boolean parameter describes what action will be shown by Ui
  * @param onNextClick callback that is executed when next button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 private fun ColumnTranslate(
-    sentence: Sentence,
+    gameQuestion: GameQuestion,
     score: Int,
-    isRuToEn: Boolean,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -143,18 +92,18 @@ private fun ColumnTranslate(
 
     Column(
         modifier = modifier.padding(
-            horizontal = dimensionResource(R.dimen.padding_extra_large)
+            horizontal = dimensionResource(R.dimen.padding_double_extra_large)
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         ScoreBox(score = score)
         TextBox(
-            text = if (isRuToEn) sentence.ruText else sentence.enText,
+            text = gameQuestion.question,
             modifier = Modifier
         )
         TextBox(
-            text = if (isRuToEn) sentence.enText else sentence.ruText,
+            text = gameQuestion.translate,
             isTextShow = isAnswerOpen,
             modifier = Modifier.clickable {
                 isAnswerOpen = !isAnswerOpen
@@ -172,17 +121,15 @@ private fun ColumnTranslate(
 /**
  * Composable to display TranslateScreen content (horizontal screen orientation)
  *
- * @param sentence instance [Sentence]
+ * @param gameQuestion instance [GameQuestion]
  * @param score quest score
- * @param isRuToEn boolean parameter describes what action will be shown by Ui
  * @param onNextClick callback that is executed when next button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 private fun RowTranslate(
-    sentence: Sentence,
+    gameQuestion: GameQuestion,
     score: Int,
-    isRuToEn: Boolean,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -204,7 +151,7 @@ private fun RowTranslate(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TextBox(
-                text = if (isRuToEn) sentence.ruText else sentence.enText,
+                text = gameQuestion.question,
                 modifier = Modifier
             )
             ScoreBox(
@@ -222,7 +169,7 @@ private fun RowTranslate(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TextBox(
-                text = if (isRuToEn) sentence.enText else sentence.ruText,
+                text = gameQuestion.translate,
                 isTextShow = isAnswerOpen,
                 modifier = Modifier.clickable {
                     isAnswerOpen = !isAnswerOpen
@@ -244,18 +191,15 @@ private fun RowTranslate(
 @Composable
 private fun VerticalTranslateScreenPreview() {
     EnglishSimulatorTheme {
-        TranslateScreen(
-            isError = false,
-            sentence = Sentence(
-                ruText = "Ru Text",
-                enText = "En Text"
+        GameScreen(
+            gameQuestion = GameQuestion(
+                question = "Ru Text",
+                translate = "En Text"
             ),
             score = 0,
             isVerticalScreen = true,
-            isRuToEn = true,
             onBackClick = {},
             onNextClick = {},
-            onErrorButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -271,18 +215,15 @@ private fun VerticalTranslateScreenPreview() {
 @Composable
 private fun HorizontalTranslateScreenPreview() {
     EnglishSimulatorTheme {
-        TranslateScreen(
-            isError = false,
-            sentence = Sentence(
-                ruText = "Ru Text",
-                enText = "En Text"
+        GameScreen(
+            gameQuestion = GameQuestion(
+                question = "Ru Text",
+                translate = "En Text"
             ),
             score = 0,
             isVerticalScreen = false,
-            isRuToEn = true,
             onBackClick = {},
             onNextClick = {},
-            onErrorButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

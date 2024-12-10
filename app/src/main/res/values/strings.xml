@@ -3,14 +3,19 @@
     <string name="app_title">English Тренажер</string>
     <string name="ru_to_en">С Русского\nНа Английский</string>
     <string name="en_to_ru">С Английского\nНа Русский</string>
+
+    <string name="translate_title">Перевод фраз</string>
+    <string name="issue_title">Расскажи о себе</string>
+
     <string name="back">Back</string>
     <string name="answer">Answer</string>
     <string name="next_question">next question</string>
     <string name="something_happened">Something Happened</string>
     <string name="try_again">Try Again</string>
+
     <string name="back_button">back_button</string>
     <string name="next_button">next button</string>
-    <string name="menu_screen">menu screen</string>
+    <string name="translate_menu_screen">translate menu screen</string>
     <string name="repeat_screen">repeat screen</string>
     <string name="top_button">top button</string>
     <string name="bottom_button">bottom button</string>

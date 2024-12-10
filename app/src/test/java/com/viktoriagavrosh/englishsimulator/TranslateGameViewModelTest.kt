@@ -12,7 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class TranslateViewModelTest {
+class TranslateGameViewModelTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()

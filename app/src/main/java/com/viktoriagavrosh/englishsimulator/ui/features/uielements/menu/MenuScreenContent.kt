@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.menu
+package com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -13,26 +13,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
  * Composable to display menu of quest "Translate sentences"
  *
+ * TODO fix it
  * @param isVerticalScreen boolean parameter describes screen orientation
- * @param onFirstButtonClick callback that is executed when first button is clicked
- * @param onSecondButtonClick callback that is executed when second button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-internal fun MenuScreen(
+internal fun MenuScreenContent(
+    title: String,
     isVerticalScreen: Boolean,
-    onFirstButtonClick: (Quest) -> Unit,
-    onSecondButtonClick: (Quest) -> Unit,
+    buttonItems: List<MenuButtonItem>,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -41,7 +39,7 @@ internal fun MenuScreen(
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = stringResource(R.string.app_title),
+            text = title,
             style = MaterialTheme.typography.displayLarge,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(
@@ -50,16 +48,14 @@ internal fun MenuScreen(
         )
         if (isVerticalScreen) {
             ButtonColumn(
-                onTopButtonClick = onFirstButtonClick,
-                onBottomButtonClick = onSecondButtonClick,
+                buttonItems = buttonItems,
                 modifier = Modifier.padding(
-                    top = dimensionResource(R.dimen.padding_extra_large)
+                    top = dimensionResource(R.dimen.padding_double_extra_large)
                 ),
             )
         } else {
             ButtonRow(
-                onLeftButtonClick = onFirstButtonClick,
-                onRightButtonClick = onSecondButtonClick,
+                buttonItems = buttonItems,
                 modifier = Modifier,
             )
         }
@@ -69,63 +65,52 @@ internal fun MenuScreen(
 /**
  * Composable to display buttons (vertical screen orientation)
  *
- * @param onTopButtonClick callback that is executed when top button is clicked
- * @param onBottomButtonClick callback that is executed when bottom button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 private fun ButtonColumn(
-    onTopButtonClick: (Quest) -> Unit,
-    onBottomButtonClick: (Quest) -> Unit,
+    buttonItems: List<MenuButtonItem>,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        QuestButton(
-            onClick = onTopButtonClick,
-            text = stringResource(R.string.ru_to_en),
-            modifier = Modifier
-        )
-        QuestButton(
-            onClick = onBottomButtonClick,
-            text = stringResource(R.string.en_to_ru),
-            modifier = Modifier.padding(
-                top = dimensionResource(R.dimen.padding_extra_large)
+
+        for(item in buttonItems) {
+            QuestButton(
+                onClick = item.onClick,
+                text = item.title,
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_large))
             )
-        )
+        }
     }
 }
 
 /**
  * Composable to display buttons (horizontal screen orientation)
  *
- * @param onLeftButtonClick callback that is executed when left button is clicked
- * @param onRightButtonClick callback that is executed when right button is clicked
+ *  TODO   fix
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 private fun ButtonRow(
-    onLeftButtonClick: (Quest) -> Unit,
-    onRightButtonClick: (Quest) -> Unit,
+    buttonItems: List<MenuButtonItem>,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        QuestButton(
-            onClick = onLeftButtonClick,
-            text = stringResource(R.string.ru_to_en),
-            modifier = Modifier
-        )
-        QuestButton(
-            onClick = onRightButtonClick,
-            text = stringResource(R.string.en_to_ru),
-            modifier = Modifier
-                .padding(start = dimensionResource(R.dimen.padding_extra_large))
-        )
+
+        for(item in buttonItems) {
+            QuestButton(
+                onClick = item.onClick,
+                text = item.title,
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_large))
+            )
+        }
     }
 }
 
@@ -138,12 +123,12 @@ private fun ButtonRow(
  */
 @Composable
 private fun QuestButton(
-    onClick: (Quest) -> Unit,
+    onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
 ) {
     Button(
-        onClick = { onClick(Quest.RuToEn) },
+        onClick = onClick,
         modifier = modifier
     ) {
         Text(
@@ -158,12 +143,14 @@ private fun QuestButton(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun VerticalMenuScreenPreview() {
+private fun VerticalMenuScreenContentPreview() {
     EnglishSimulatorTheme {
-        MenuScreen(
+        MenuScreenContent(
+            title = "Title of the game",
             isVerticalScreen = true,
-            onFirstButtonClick = {},
-            onSecondButtonClick = {},
+            buttonItems = List(2) {
+                MenuButtonItem( title = "Button $it" )
+            },
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -177,12 +164,14 @@ private fun VerticalMenuScreenPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun HorizontalMenuScreenPreview() {
+private fun HorizontalMenuScreenContentPreview() {
     EnglishSimulatorTheme {
-        MenuScreen(
+        MenuScreenContent(
+            title = "Title of the game",
             isVerticalScreen = false,
-            onFirstButtonClick = {},
-            onSecondButtonClick = {},
+            buttonItems = List(2) {
+                MenuButtonItem( title = "Button $it" )
+            },
             modifier = Modifier.fillMaxSize()
         )
     }

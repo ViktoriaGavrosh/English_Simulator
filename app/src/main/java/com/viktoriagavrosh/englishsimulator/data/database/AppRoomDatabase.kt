@@ -4,22 +4,25 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
 interface AppDatabase {
     fun sentenceDao(): SentenceDao
+    fun issueDao(): IssueDao
 }
 
 /**
  * Database class with a singleton Instance object.
  */
 @Database(
-    entities = [SentenceDb::class],
-    version = 1,
+    entities = [SentenceDb::class, IssueDb::class],
+    version = 2,
     exportSchema = false,
 )
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
     abstract override fun sentenceDao(): SentenceDao
+    abstract override fun issueDao(): IssueDao
 }
 
 /**
@@ -35,6 +38,7 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
         name = "english"
     )
         .createFromAsset("database/english.db")
+        .fallbackToDestructiveMigration()
         .build()
 
     return appRoomDatabase

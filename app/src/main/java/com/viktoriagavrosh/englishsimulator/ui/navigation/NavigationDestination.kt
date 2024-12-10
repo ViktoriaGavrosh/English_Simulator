@@ -11,10 +11,22 @@ import kotlinx.serialization.Serializable
 sealed class NavigationDestination {
 
     /**
-     * Describes navigation destination of MenuScreen
+     * Describes navigation destination of StartMenuScreen
      */
     @Serializable
-    data object Menu : NavigationDestination()
+    data object StartMenu : NavigationDestination()
+
+    /**
+     * Describes navigation destination of TranslateMenuScreen
+     */
+    @Serializable
+    data object TranslateMenu : NavigationDestination()
+
+    /**
+     * Describes navigation destination of StoryMenuScreen
+     */
+    @Serializable
+    data object IssueMenu : NavigationDestination()
 
     /**
      * Describes navigation destination of RepeatScreen
@@ -22,7 +34,15 @@ sealed class NavigationDestination {
      * @param quest constant describes what action will be shown by Ui
      */
     @Serializable
-    data class Translate(val quest: Quest = RuToEn) : NavigationDestination()
+    data class TranslateGame(val quest: Quest = RuToEn) : NavigationDestination()
+
+    /**
+     * Describes navigation destination of StoryScreen
+     *
+     * @param theme describes what action will be shown by Ui
+     */
+    @Serializable
+    data class IssueGame(val theme: String = "") : NavigationDestination()
 }
 
 /**

@@ -26,7 +26,7 @@ interface TranslateRepository {
  *
  * @param database instance of local database
  */
-internal class RepeatScreenRepository(
+internal class LocalTranslateRepository(
     private val database: AppDatabase
 ) : TranslateRepository {
 

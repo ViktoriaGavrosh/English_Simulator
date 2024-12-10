@@ -1,6 +1,6 @@
 package com.viktoriagavrosh.englishsimulator
 
-import com.viktoriagavrosh.englishsimulator.data.RepeatScreenRepository
+import com.viktoriagavrosh.englishsimulator.data.LocalTranslateRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
@@ -12,12 +12,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class TranslateRepositoryTest {
+class TranslateGameRepositoryTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val repository = RepeatScreenRepository(FakeDb())
+    private val repository = LocalTranslateRepository(FakeDb())
 
     @Test
     fun translateRepository_getAllSentences_returnListSentences() {

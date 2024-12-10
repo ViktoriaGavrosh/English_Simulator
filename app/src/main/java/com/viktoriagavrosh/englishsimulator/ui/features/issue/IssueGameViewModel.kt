@@ -1,14 +1,12 @@
-package com.viktoriagavrosh.englishsimulator.ui.screens.translate
+package com.viktoriagavrosh.englishsimulator.ui.features.issue
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.viktoriagavrosh.englishsimulator.SimulatorApplication
+import com.viktoriagavrosh.englishsimulator.data.IssueRepository
 import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
-import com.viktoriagavrosh.englishsimulator.model.Sentence
+import com.viktoriagavrosh.englishsimulator.ui.features.translate.UiState
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.toGameQuestion
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,29 +18,29 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel to retrieve and update item from repository data source
  *
- * @param translateRepository instance of [TranslateRepository]
+ * @param issueRepository instance of [IssueRepository]
  */
-class TranslateViewModel(
-    private val translateRepository: TranslateRepository,
+class IssueGameViewModel(
+    private val issueRepository: IssueRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(UiState())
-    private lateinit var sentences: List<Sentence>
+    private val _uiState = MutableStateFlow(GameUiState())
+    private lateinit var gameQuestions: List<GameQuestion>
 
     init {
         initUiState()
     }
 
-    internal val uiState: StateFlow<UiState>
+    internal val uiState: StateFlow<GameUiState>
         get() = _uiState.asStateFlow()
 
     /**
-     * Update sentence and score value of [UiState]
+     * Update sentence and score value of [GameUiState]
      */
     internal fun updateUiState() {
         _uiState.update {
             it.copy(
-                sentence = sentences.random(),
+                gameQuestion = gameQuestions.random(),
             )
         }
         increaseScore()
@@ -52,7 +50,7 @@ class TranslateViewModel(
      * Update [UiState] with data from [TranslateRepository]
      */
     internal fun initUiState() {
-        val requestResultFlow = translateRepository.getAllSentences()
+        val requestResultFlow = issueRepository.getAllIssue()
 
         viewModelScope.launch {
             val result = requestResultFlow.first()
@@ -63,13 +61,16 @@ class TranslateViewModel(
                     )
                 }
             } else {
-                sentences = result.data?.shuffled()
-                    ?.filterIndexed { index, _ -> index < 40 }
+                gameQuestions = result.data
+                    ?.shuffled()
+                    ?.map {
+                        it.toGameQuestion()
+                    }
                     ?: emptyList()
-                if (sentences.isNotEmpty()) {
+                if (gameQuestions.isNotEmpty()) {
                     _uiState.update {
                         it.copy(
-                            sentence = sentences.random(),
+                            gameQuestion = gameQuestions.random(),
                         )
                     }
                 }
@@ -90,30 +91,17 @@ class TranslateViewModel(
             }
         }
     }
-
-    /**
-     * Contain factory to create [TranslateViewModel] instance
-     */
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as SimulatorApplication)
-                val repeatRepository = application.container.repeatRepository
-                TranslateViewModel(translateRepository = repeatRepository)
-            }
-        }
-    }
 }
 
 /**
- * Holds TranslateScreen state
+ * Holds IssueGameScreen state
  *
- * @param sentence instance [Sentence]
+ * @param gameQuestion instance [GameQuestion]
  * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
  * @param score quest score
  */
-internal data class UiState(
-    val sentence: Sentence = Sentence(),
+internal data class GameUiState(
+    val gameQuestion: GameQuestion = GameQuestion(),
     val isError: Boolean = false,
     val score: Int = 0,
 )

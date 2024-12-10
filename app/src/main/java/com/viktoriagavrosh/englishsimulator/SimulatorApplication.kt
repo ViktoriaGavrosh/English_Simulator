@@ -1,19 +1,20 @@
 package com.viktoriagavrosh.englishsimulator
 
+//import com.viktoriagavrosh.englishsimulator.data.AppContainer
+//import com.viktoriagavrosh.englishsimulator.data.DefaultAppContainer
 import android.app.Application
-import com.viktoriagavrosh.englishsimulator.data.AppContainer
-import com.viktoriagavrosh.englishsimulator.data.DefaultAppContainer
-import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
+import com.viktoriagavrosh.englishsimulator.data.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class SimulatorApplication : Application() {
 
-    /**
-     * AppContainer instance used by the rest of classes to obtain dependencies
-     */
-    lateinit var container: AppContainer
-
     override fun onCreate() {
         super.onCreate()
-        container = DefaultAppContainer(getDatabase(this))
+
+        startKoin {
+            androidContext(this@SimulatorApplication)
+            modules(appModule)
+        }
     }
 }

@@ -10,8 +10,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
-import com.viktoriagavrosh.englishsimulator.ui.screens.translate.TranslateScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.StartMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuScreen
 
 /**
  * Composable with navigation between app screens
@@ -28,27 +31,59 @@ internal fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavigationDestination.Menu,
+        startDestination = NavigationDestination.StartMenu,
     ) {
-        composable<NavigationDestination.Menu> {
-            MenuScreen(
+        composable<NavigationDestination.StartMenu> {
+            StartMenuScreen(
                 isVerticalScreen = isVerticalScreen,
-                onFirstButtonClick = {
-                    navController.navigate(NavigationDestination.Translate(Quest.RuToEn))
+                onTranslateButtonClick = {
+                    navController.navigate(NavigationDestination.TranslateMenu)
                 },
-                onSecondButtonClick = {
-                    navController.navigate(NavigationDestination.Translate(Quest.EnToRu))
+                onStoryButtonClick = {
+                    navController.navigate(NavigationDestination.IssueMenu)
                 },
-                modifier = modifier.testTag(stringResource(R.string.menu_screen))
+                modifier = modifier,
             )
         }
-        composable<NavigationDestination.Translate> { backStackEntry ->
-            val quest = backStackEntry.toRoute<NavigationDestination.Translate>().quest
-            TranslateScreen(
+        composable<NavigationDestination.TranslateMenu> {
+            TranslateMenuScreen(
+                isVerticalScreen = isVerticalScreen,
+                onToEnglishButtonClick = {
+                    navController.navigate(NavigationDestination.TranslateGame(Quest.RuToEn))
+                },
+                onToRussianButtonClick = {
+                    navController.navigate(NavigationDestination.TranslateGame(Quest.EnToRu))
+                },
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.translate_menu_screen)),
+            )
+        }
+        composable<NavigationDestination.IssueMenu> {
+            IssueMenuScreen(
+                isVerticalScreen = isVerticalScreen,
+                onButtonClick = { theme ->
+                    navController.navigate(NavigationDestination.IssueGame(theme))
+                },
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier,
+            )
+        }
+        composable<NavigationDestination.TranslateGame> { backStackEntry ->
+            val quest = backStackEntry.toRoute<NavigationDestination.TranslateGame>().quest
+            TranslateGameScreen(
                 isVerticalScreen = isVerticalScreen,
                 quest = quest,
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier.testTag(stringResource(R.string.repeat_screen))
+                modifier = modifier.testTag(stringResource(R.string.repeat_screen)),
+            )
+        }
+        composable<NavigationDestination.IssueGame> { backStackEntry ->
+            val theme = backStackEntry.toRoute<NavigationDestination.IssueGame>().theme
+            IssueGameScreen(
+                isVerticalScreen = isVerticalScreen,
+                theme = theme,
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier,
             )
         }
     }
