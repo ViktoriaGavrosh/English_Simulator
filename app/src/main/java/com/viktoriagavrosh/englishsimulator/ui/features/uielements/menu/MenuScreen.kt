@@ -44,7 +44,7 @@ private fun MenuScreenPreview() {
     EnglishSimulatorTheme {
         MenuScreen(
             buttonItems = List(2) {
-                MenuButtonItem( title = "Button $it" )
+                MenuButtonItem(title = "Button $it")
             },
             title = "Title of the game",
             isVerticalScreen = true,

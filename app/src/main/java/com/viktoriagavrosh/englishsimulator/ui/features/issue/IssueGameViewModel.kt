@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
  */
 class IssueGameViewModel(
     private val issueRepository: IssueRepository,
+    private val theme: String,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GameUiState())
@@ -50,7 +51,7 @@ class IssueGameViewModel(
      * Update [UiState] with data from [TranslateRepository]
      */
     internal fun initUiState() {
-        val requestResultFlow = issueRepository.getAllIssue()
+        val requestResultFlow = issueRepository.getAllIssueByTheme(theme = theme)
 
         viewModelScope.launch {
             val result = requestResultFlow.first()
@@ -62,7 +63,6 @@ class IssueGameViewModel(
                 }
             } else {
                 gameQuestions = result.data
-                    ?.shuffled()
                     ?.map {
                         it.toGameQuestion()
                     }

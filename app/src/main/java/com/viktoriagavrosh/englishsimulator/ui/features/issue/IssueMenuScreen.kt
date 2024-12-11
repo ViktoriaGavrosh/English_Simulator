@@ -23,13 +23,14 @@ fun IssueMenuScreen(
     val viewModel: IssueMenuViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when(uiState) {
+    when (uiState) {
         is RequestResult.Error -> {
             ErrorScreen(
                 onErrorButtonClick = onBackClick,
                 modifier = modifier,
             )
         }
+
         is RequestResult.Loadding -> {}
         is RequestResult.Success -> {
             val themes = uiState.data ?: emptyList()

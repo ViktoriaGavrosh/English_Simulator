@@ -8,6 +8,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.GameScre
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 /**
  * Composable to display quest "Translate sentences"
@@ -20,11 +21,13 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 internal fun TranslateGameScreen(
     isVerticalScreen: Boolean,
-    quest: Quest,                // TODO fix (needs to pass to VM)
+    quest: Quest,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: TranslateViewModel = koinViewModel()
+    val viewModel: TranslateViewModel = koinViewModel {
+        parametersOf(quest == Quest.RuToEn)
+    }
     val uiState by viewModel.uiState.collectAsState()
 
     if (uiState.isError) {

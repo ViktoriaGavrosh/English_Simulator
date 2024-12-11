@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.GameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.ErrorScreen
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun IssueGameScreen(
@@ -15,7 +16,9 @@ fun IssueGameScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: IssueGameViewModel = koinViewModel()
+    val viewModel: IssueGameViewModel = koinViewModel {
+        parametersOf(theme)
+    }
     val uiState by viewModel.uiState.collectAsState()
 
     if (uiState.isError) {

@@ -78,7 +78,7 @@ private fun ButtonColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        for(item in buttonItems) {
+        for (item in buttonItems) {
             QuestButton(
                 onClick = item.onClick,
                 text = item.title,
@@ -104,7 +104,7 @@ private fun ButtonRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        for(item in buttonItems) {
+        for (item in buttonItems) {
             QuestButton(
                 onClick = item.onClick,
                 text = item.title,
@@ -149,7 +149,7 @@ private fun VerticalMenuScreenContentPreview() {
             title = "Title of the game",
             isVerticalScreen = true,
             buttonItems = List(2) {
-                MenuButtonItem( title = "Button $it" )
+                MenuButtonItem(title = "Button $it")
             },
             modifier = Modifier.fillMaxSize()
         )
@@ -170,7 +170,7 @@ private fun HorizontalMenuScreenContentPreview() {
             title = "Title of the game",
             isVerticalScreen = false,
             buttonItems = List(2) {
-                MenuButtonItem( title = "Button $it" )
+                MenuButtonItem(title = "Button $it")
             },
             modifier = Modifier.fillMaxSize()
         )

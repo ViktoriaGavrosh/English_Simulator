@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
  */
 class TranslateViewModel(
     private val translateRepository: TranslateRepository,
+    private val isToEnglish: Boolean,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -60,9 +61,8 @@ class TranslateViewModel(
                 }
             } else {
                 gameQuestions = result.data
-                    ?.shuffled()
                     ?.map {
-                        it.toGameQuestion(true)   // TODO fix  needs boolean outside (isToEnglish)
+                        it.toGameQuestion(isToEnglish)
                     }
                     ?: emptyList()
                 if (gameQuestions.isNotEmpty()) {
