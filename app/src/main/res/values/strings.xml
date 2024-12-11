@@ -4,8 +4,10 @@
     <string name="ru_to_en">С Русского\nНа Английский</string>
     <string name="en_to_ru">С Английского\nНа Русский</string>
 
-    <string name="translate_title">Перевод фраз</string>
-    <string name="issue_title">Расскажи о себе</string>
+    <string name="translate_title">QUIZ Перевод фраз</string>
+    <string name="issue_title">QUIZ Расскажи о себе</string>
+    <string name="translate_button_title">Перевод фраз</string>
+    <string name="issue_button_title">Расскажи о себе</string>
 
     <string name="back">Back</string>
     <string name="answer">Answer</string>
@@ -19,4 +21,5 @@
     <string name="repeat_screen">repeat screen</string>
     <string name="top_button">top button</string>
     <string name="bottom_button">bottom button</string>
+    <string name="all_themes">all</string>
 </resources>

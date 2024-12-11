@@ -22,11 +22,11 @@ fun StartMenuScreen(
 ) {
     val buttonItems = listOf(
         MenuButtonItem(
-            title = stringResource(R.string.translate_title),
+            title = stringResource(R.string.translate_button_title),
             onClick = onTranslateButtonClick,
         ),
         MenuButtonItem(
-            title = stringResource(R.string.issue_title),
+            title = stringResource(R.string.issue_button_title),
             onClick = onStoryButtonClick,
         )
     )

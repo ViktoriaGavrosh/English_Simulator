@@ -51,7 +51,11 @@ class IssueGameViewModel(
      * Update [UiState] with data from [TranslateRepository]
      */
     internal fun initUiState() {
-        val requestResultFlow = issueRepository.getAllIssueByTheme(theme = theme)
+        val requestResultFlow = if (theme.isNotEmpty()) {
+            issueRepository.getAllIssueByTheme(theme = theme)
+        } else {
+            issueRepository.getAllIssue()
+        }
 
         viewModelScope.launch {
             val result = requestResultFlow.first()

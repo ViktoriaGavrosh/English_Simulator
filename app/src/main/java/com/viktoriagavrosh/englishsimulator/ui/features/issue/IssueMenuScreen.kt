@@ -44,6 +44,12 @@ fun IssueMenuScreen(
                     )
                 )
             }
+            buttonItems.add(
+                MenuButtonItem(
+                    title = stringResource(R.string.all_themes),
+                    onClick = { onButtonClick("") }
+                )
+            )
 
             MenuScreen(
                 buttonItems = buttonItems,

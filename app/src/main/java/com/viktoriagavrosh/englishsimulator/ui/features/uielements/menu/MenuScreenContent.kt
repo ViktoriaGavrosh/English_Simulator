@@ -4,8 +4,11 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,25 +39,29 @@ internal fun MenuScreenContent(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceAround,
     ) {
         Text(
             text = title,
             style = MaterialTheme.typography.displayLarge,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(
-                bottom = dimensionResource(R.dimen.padding_super_extra_large)
-            )
+            modifier = if (isVerticalScreen) {
+                Modifier
+                    .padding(top = dimensionResource(R.dimen.padding_large))
+                    .padding(horizontal = dimensionResource(R.dimen.padding_super_extra_large))
+            } else {
+                Modifier
+            }
         )
         if (isVerticalScreen) {
-            ButtonColumn(
+            VerticalButtons(
                 buttonItems = buttonItems,
                 modifier = Modifier.padding(
                     top = dimensionResource(R.dimen.padding_double_extra_large)
                 ),
             )
         } else {
-            ButtonRow(
+            HorizontalButtons(
                 buttonItems = buttonItems,
                 modifier = Modifier,
             )
@@ -68,47 +75,113 @@ internal fun MenuScreenContent(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun ButtonColumn(
+private fun HorizontalButtons(
     buttonItems: List<MenuButtonItem>,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
+    if (buttonItems.size > 1) {
+        val subListSize = (buttonItems.size + 2) / 3
+        val chunkedButtonItems = buttonItems.chunked(subListSize)
 
-        for (item in buttonItems) {
-            QuestButton(
-                onClick = item.onClick,
-                text = item.title,
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_large))
-            )
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround,
+        ) {
+            for (subList in chunkedButtonItems) {
+                ButtonColumn(
+                    buttonItems = subList,
+                    isSmallSpase = true,
+                )
+            }
         }
+    } else {
+        ButtonColumn(
+            buttonItems = buttonItems,
+            modifier = modifier,
+        )
     }
 }
 
 /**
- * Composable to display buttons (horizontal screen orientation)
+ * Composable to display buttons (vertical screen orientation)
  *
- *  TODO   fix
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun ButtonRow(
+private fun VerticalButtons(
     buttonItems: List<MenuButtonItem>,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+    if (buttonItems.size > 4) {
+        val middleIndex = if (buttonItems.size % 2 == 0) {
+            (buttonItems.size / 2) - 1
+        } else {
+            buttonItems.size / 2
+        }
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            ButtonColumn(
+                buttonItems = buttonItems.subList(0, middleIndex),
+                isLargeButtons = false,
+            )
+            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
+            ButtonColumn(
+                buttonItems = buttonItems.subList(middleIndex + 1, buttonItems.size),
+                isLargeButtons = false,
+            )
+        }
+    } else {
+        ButtonColumn(
+            buttonItems = buttonItems,
+            modifier = modifier,
+        )
+    }
+}
+
+/**
+ * Composable to display column of buttons (vertical screen orientation)
+ *
+ * @param modifier the modifier to be applied to this layout node
+ */
+@Composable
+private fun ButtonColumn(
+    buttonItems: List<MenuButtonItem>,
+    modifier: Modifier = Modifier,
+    isLargeButtons: Boolean = true,
+    isSmallSpase: Boolean = false,
+) {
+    Column(
+        modifier = if (isLargeButtons) {
+            modifier.width(dimensionResource(R.dimen.menu_large_button_width))
+        } else {
+            modifier.width(dimensionResource(R.dimen.menu_small_button_width))
+        },
+        verticalArrangement = Arrangement.Center,
     ) {
 
         for (item in buttonItems) {
             QuestButton(
                 onClick = item.onClick,
                 text = item.title,
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_large))
+                isLargeText = isLargeButtons,
+                modifier = if (isSmallSpase) {
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            bottom = dimensionResource(R.dimen.padding_medium)
+                        )
+                } else {
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            bottom = dimensionResource(R.dimen.padding_extra_large)
+                        )
+                }
+
             )
         }
     }
@@ -126,6 +199,7 @@ private fun QuestButton(
     onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
+    isLargeText: Boolean = true,
 ) {
     Button(
         onClick = onClick,
@@ -134,8 +208,13 @@ private fun QuestButton(
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
+            style = if (isLargeText) {
+                MaterialTheme.typography.titleLarge
+            } else {
+                MaterialTheme.typography.titleMedium
+            },
+            modifier = Modifier
+                .padding(vertical = dimensionResource(R.dimen.padding_small))
         )
     }
 }
@@ -169,7 +248,7 @@ private fun HorizontalMenuScreenContentPreview() {
         MenuScreenContent(
             title = "Title of the game",
             isVerticalScreen = false,
-            buttonItems = List(2) {
+            buttonItems = List(8) {
                 MenuButtonItem(title = "Button $it")
             },
             modifier = Modifier.fillMaxSize()
