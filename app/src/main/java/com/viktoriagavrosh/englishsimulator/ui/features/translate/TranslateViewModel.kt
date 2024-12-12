@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
  * ViewModel to retrieve and update item from repository data source
  *
  * @param translateRepository instance of [TranslateRepository]
+ * @param isToEnglish if true quiz "Translate from Russian to English"
  */
 class TranslateViewModel(
     private val translateRepository: TranslateRepository,

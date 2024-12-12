@@ -22,7 +22,7 @@ interface TranslateRepository {
 }
 
 /**
- * provide data for ui (RepeatScreen) from local database
+ * provide data for ui from local database
  *
  * @param database instance of local database
  */

@@ -23,13 +23,13 @@ sealed class NavigationDestination {
     data object TranslateMenu : NavigationDestination()
 
     /**
-     * Describes navigation destination of StoryMenuScreen
+     * Describes navigation destination of IssueMenuScreen
      */
     @Serializable
     data object IssueMenu : NavigationDestination()
 
     /**
-     * Describes navigation destination of RepeatScreen
+     * Describes navigation destination of TranslateGameScreen
      *
      * @param quest constant describes what action will be shown by Ui
      */
@@ -37,7 +37,7 @@ sealed class NavigationDestination {
     data class TranslateGame(val quest: Quest = RuToEn) : NavigationDestination()
 
     /**
-     * Describes navigation destination of StoryScreen
+     * Describes navigation destination of IssueGameScreen
      *
      * @param theme describes what action will be shown by Ui
      */

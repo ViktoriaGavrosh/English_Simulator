@@ -39,7 +39,7 @@ internal fun AppNavigation(
                 onTranslateButtonClick = {
                     navController.navigate(NavigationDestination.TranslateMenu)
                 },
-                onStoryButtonClick = {
+                onIssueButtonClick = {
                     navController.navigate(NavigationDestination.IssueMenu)
                 },
                 modifier = modifier,

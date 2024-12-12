@@ -11,7 +11,15 @@ import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.MenuScre
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
-// TODO fix + comment
+/**
+ * Composable to display menu of quest "Translate sentences"
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onToEnglishButtonClick callback that is executed when toEnglish button is clicked
+ * @param onToRussianButtonClick callback that is executed when toRussian button is clicked
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 fun TranslateMenuScreen(
     isVerticalScreen: Boolean,

@@ -28,7 +28,7 @@ interface IssueDao {
     /**
      * Return all rows from issue table by theme
      *
-     * @param
+     * @param theme theme of issues
      * @return flow of list [IssueDb]
      */
     @Query("SELECT * FROM issue WHERE theme = :theme")

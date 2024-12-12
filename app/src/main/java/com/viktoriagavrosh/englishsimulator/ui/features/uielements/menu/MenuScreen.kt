@@ -10,7 +10,16 @@ import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
-// TODO fix + comment
+/**
+ * Composable to display menu
+ *
+ * @param buttonItems list of [MenuButtonItem] for buttons
+ * @param title text for cover
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ * @param isBackButtonShow if true back button shown on top of screen
+ */
 @Composable
 internal fun MenuScreen(
     buttonItems: List<MenuButtonItem>,

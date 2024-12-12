@@ -11,13 +11,19 @@ import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.MenuScre
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
-
-// TODO fix + comment
+/**
+ * Composable to display menu
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onTranslateButtonClick callback that is executed when translate button is clicked
+ * @param onIssueButtonClick callback that is executed when issue button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 fun StartMenuScreen(
     isVerticalScreen: Boolean,
     onTranslateButtonClick: () -> Unit,
-    onStoryButtonClick: () -> Unit,
+    onIssueButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonItems = listOf(
@@ -27,7 +33,7 @@ fun StartMenuScreen(
         ),
         MenuButtonItem(
             title = stringResource(R.string.issue_button_title),
-            onClick = onStoryButtonClick,
+            onClick = onIssueButtonClick,
         )
     )
 
@@ -49,7 +55,7 @@ private fun VerticalStartMenuScreenPreview() {
         StartMenuScreen(
             isVerticalScreen = true,
             onTranslateButtonClick = {},
-            onStoryButtonClick = {},
+            onIssueButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -68,7 +74,7 @@ private fun HorizontalMenuScreenContentPreview() {
         StartMenuScreen(
             isVerticalScreen = false,
             onTranslateButtonClick = {},
-            onStoryButtonClick = {},
+            onIssueButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

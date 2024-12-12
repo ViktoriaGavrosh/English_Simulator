@@ -12,6 +12,9 @@ import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateViewM
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
+/**
+ * module for DI (Koin)
+ */
 val appModule = module {
     single<AppDatabase> { getDatabase(get()) }
     single<TranslateRepository> { LocalTranslateRepository(get()) }

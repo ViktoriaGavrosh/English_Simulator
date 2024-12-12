@@ -25,8 +25,9 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 /**
  * Composable to display menu of quest "Translate sentences"
  *
- * TODO fix it
+ * @param title text for cover
  * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param buttonItems list of [MenuButtonItem] for buttons
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -70,8 +71,9 @@ internal fun MenuScreenContent(
 }
 
 /**
- * Composable to display buttons (vertical screen orientation)
+ * Composable to display buttons (horizontal screen orientation)
  *
+ * @param buttonItems list of [MenuButtonItem] for buttons
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -106,6 +108,7 @@ private fun HorizontalButtons(
 /**
  * Composable to display buttons (vertical screen orientation)
  *
+ * @param buttonItems list of [MenuButtonItem] for buttons
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -143,9 +146,12 @@ private fun VerticalButtons(
 }
 
 /**
- * Composable to display column of buttons (vertical screen orientation)
+ * Composable to display column of buttons
  *
+ * @param buttonItems list of [MenuButtonItem] for buttons
  * @param modifier the modifier to be applied to this layout node
+ * @param isLargeButtons if true - button has large size
+ * @param isSmallSpase if true - small spase between buttons
  */
 @Composable
 private fun ButtonColumn(
@@ -193,6 +199,7 @@ private fun ButtonColumn(
  * @param onClick callback that is executed when button is clicked
  * @param text the text to be displayed
  * @param modifier the modifier to be applied to this layout node
+ * @param isLargeText if true - button has large text on it
  */
 @Composable
 private fun QuestButton(

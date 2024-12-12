@@ -3,7 +3,6 @@ package com.viktoriagavrosh.englishsimulator.ui.features.issue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.IssueRepository
-import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.UiState
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.toGameQuestion
@@ -19,6 +18,7 @@ import kotlinx.coroutines.launch
  * ViewModel to retrieve and update item from repository data source
  *
  * @param issueRepository instance of [IssueRepository]
+ * @param theme describes what action will be shown by Ui
  */
 class IssueGameViewModel(
     private val issueRepository: IssueRepository,
@@ -36,7 +36,7 @@ class IssueGameViewModel(
         get() = _uiState.asStateFlow()
 
     /**
-     * Update sentence and score value of [GameUiState]
+     * Update gameQuestion and score value of [GameUiState]
      */
     internal fun updateUiState() {
         _uiState.update {
@@ -48,7 +48,7 @@ class IssueGameViewModel(
     }
 
     /**
-     * Update [UiState] with data from [TranslateRepository]
+     * Update [UiState] with data from [IssueRepository]
      */
     internal fun initUiState() {
         val requestResultFlow = if (theme.isNotEmpty()) {

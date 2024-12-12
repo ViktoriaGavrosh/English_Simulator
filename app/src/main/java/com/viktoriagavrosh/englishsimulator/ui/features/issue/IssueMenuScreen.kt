@@ -12,7 +12,14 @@ import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.Me
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import org.koin.androidx.compose.koinViewModel
 
-// TODO fix + comment
+/**
+ * Composable to display menu of quest "Tell about yourself"
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onButtonClick callback that is executed when button is clicked
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 fun IssueMenuScreen(
     isVerticalScreen: Boolean,
@@ -31,7 +38,7 @@ fun IssueMenuScreen(
             )
         }
 
-        is RequestResult.Loadding -> {}
+        is RequestResult.Loading -> {}
         is RequestResult.Success -> {
             val themes = uiState.data ?: emptyList()
             val buttonItems: MutableList<MenuButtonItem> = mutableListOf()

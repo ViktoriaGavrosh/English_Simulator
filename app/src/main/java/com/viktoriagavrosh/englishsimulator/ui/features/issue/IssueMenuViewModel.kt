@@ -19,6 +19,6 @@ class IssueMenuViewModel(
     val uiState = repository.getAllThemes().stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
-        initialValue = RequestResult.Loadding()
+        initialValue = RequestResult.Loading()
     )
 }

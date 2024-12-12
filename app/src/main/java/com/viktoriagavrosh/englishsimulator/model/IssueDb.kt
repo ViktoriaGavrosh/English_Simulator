@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Model represents a single sentence given from database
+ * Model represents a single issue given from database
  *
  * @param id unique object identifier
  * @param englishQuestion issue text in English

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 /**
- * provide data for ui from data source    TODO fix it all
+ * provide data for ui from data source
  */
 interface IssueRepository {
 
@@ -37,7 +37,7 @@ interface IssueRepository {
 }
 
 /**
- * provide data for ui (RepeatScreen) from local database
+ * provide data for ui from local database
  *
  * @param database instance of local database
  */
@@ -99,5 +99,4 @@ internal class LocalIssueRepository(
             }
         }
     }
-
 }

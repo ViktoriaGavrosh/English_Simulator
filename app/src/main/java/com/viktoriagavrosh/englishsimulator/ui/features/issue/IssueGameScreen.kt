@@ -9,6 +9,14 @@ import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
+/**
+ * Composable to display quest "Tell about yourself"
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param theme describes what action will be shown by Ui
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
 @Composable
 fun IssueGameScreen(
     isVerticalScreen: Boolean,
