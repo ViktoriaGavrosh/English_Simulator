@@ -117,11 +117,8 @@ private fun VerticalButtons(
     modifier: Modifier = Modifier,
 ) {
     if (buttonItems.size > 4) {
-        val middleIndex = if (buttonItems.size % 2 == 0) {
-            (buttonItems.size / 2) - 1
-        } else {
-            buttonItems.size / 2
-        }
+        val middleIndex = (buttonItems.size + 1) / 2
+
         Row(
             modifier = modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -133,7 +130,7 @@ private fun VerticalButtons(
             )
             Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
             ButtonColumn(
-                buttonItems = buttonItems.subList(middleIndex + 1, buttonItems.size),
+                buttonItems = buttonItems.subList(middleIndex, buttonItems.size),
                 isLargeButtons = false,
             )
         }
@@ -251,6 +248,43 @@ private fun VerticalMenuScreenContentPreview() {
 )
 @Composable
 private fun HorizontalMenuScreenContentPreview() {
+    EnglishSimulatorTheme {
+        MenuScreenContent(
+            title = "Title of the game",
+            isVerticalScreen = false,
+            buttonItems = List(2) {
+                MenuButtonItem(title = "Button $it")
+            },
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light")
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun VerticalFullMenuScreenContentPreview() {
+    EnglishSimulatorTheme {
+        MenuScreenContent(
+            title = "Title of the game",
+            isVerticalScreen = true,
+            buttonItems = List(8) {
+                MenuButtonItem(title = "Button $it")
+            },
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light", widthDp = 1000)
+@Preview(
+    showBackground = true,
+    name = "Dark",
+    widthDp = 1000,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HorizontalFullMenuScreenContentPreview() {
     EnglishSimulatorTheme {
         MenuScreenContent(
             title = "Title of the game",

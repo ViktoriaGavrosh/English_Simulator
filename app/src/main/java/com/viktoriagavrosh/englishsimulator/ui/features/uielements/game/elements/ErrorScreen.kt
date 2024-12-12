@@ -3,6 +3,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.element
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -58,10 +59,28 @@ internal fun ErrorScreen(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun ErrorScreenPreview() {
+private fun VerticalErrorScreenPreview() {
     EnglishSimulatorTheme {
         ErrorScreen(
-            onErrorButtonClick = {}
+            onErrorButtonClick = {},
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 1000, name = "Light")
+@Preview(
+    showBackground = true,
+    widthDp = 1000,
+    name = "Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HorizontalErrorScreenPreview() {
+    EnglishSimulatorTheme {
+        ErrorScreen(
+            onErrorButtonClick = {},
+            modifier = Modifier.fillMaxSize()
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,9 +48,10 @@ internal fun MenuScreen(
     }
 }
 
-@Preview
+@Preview(showBackground = true, name = "Light")
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun MenuScreenPreview() {
+private fun VerticalMenuScreenPreview() {
     EnglishSimulatorTheme {
         MenuScreen(
             buttonItems = List(2) {
@@ -57,6 +59,64 @@ private fun MenuScreenPreview() {
             },
             title = "Title of the game",
             isVerticalScreen = true,
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 1000, name = "Light")
+@Preview(
+    showBackground = true,
+    widthDp = 1000,
+    name = "Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HorizontalIssueMenuScreenPreview() {
+    EnglishSimulatorTheme {
+        MenuScreen(
+            buttonItems = List(2) {
+                MenuButtonItem(title = "Button $it")
+            },
+            title = "Title of the game",
+            isVerticalScreen = false,
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light")
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun VerticalFullMenuScreenPreview() {
+    EnglishSimulatorTheme {
+        MenuScreen(
+            buttonItems = List(8) {
+                MenuButtonItem(title = "Button $it")
+            },
+            title = "Title of the game",
+            isVerticalScreen = true,
+            onBackClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 1000, name = "Light")
+@Preview(
+    showBackground = true,
+    widthDp = 1000,
+    name = "Dark",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HorizontalFullMenuScreenPreview() {
+    EnglishSimulatorTheme {
+        MenuScreen(
+            buttonItems = List(8) {
+                MenuButtonItem(title = "Button $it")
+            },
+            title = "Title of the game",
+            isVerticalScreen = false,
             onBackClick = {},
         )
     }

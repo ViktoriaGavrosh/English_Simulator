@@ -32,8 +32,8 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 /**
  * Composable to display quest "Translate sentences"
  *
- * @param gameQuestion item for ui
- * @param score quest score
+ * @param gameQuestionProvider provides item for ui
+ * @param scoreProvider provides score of game
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onBackClick callback that is executed when back button is clicked
  * @param onNextClick callback that is executed when next button is clicked
@@ -41,14 +41,13 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  */
 @Composable
 internal fun GameScreen(
-    gameQuestion: GameQuestion,
-    score: Int,
+    gameQuestionProvider: () -> GameQuestion,
+    scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier,
 ) {
-
     Column(
         modifier = modifier
             .background(MaterialTheme.colorScheme.primaryContainer),
@@ -57,15 +56,15 @@ internal fun GameScreen(
         BackRow(onBackClick = onBackClick)
         if (isVerticalScreen) {
             ColumnTranslate(
-                gameQuestion = gameQuestion,
-                score = score,
+                gameQuestionProvider = gameQuestionProvider,
+                scoreProvider = scoreProvider,
                 onNextClick = onNextClick,
                 modifier = Modifier.fillMaxHeight(),
             )
         } else {
             RowTranslate(
-                gameQuestion = gameQuestion,
-                score = score,
+                gameQuestionProvider = gameQuestionProvider,
+                scoreProvider = scoreProvider,
                 onNextClick = onNextClick,
                 modifier = Modifier.fillMaxSize(),
             )
@@ -76,19 +75,20 @@ internal fun GameScreen(
 /**
  * Composable to display TranslateScreen content (vertical screen orientation)
  *
- * @param gameQuestion instance [GameQuestion]
- * @param score quest score
+ * @param gameQuestionProvider provides item for ui
+ * @param scoreProvider provides score of game
  * @param onNextClick callback that is executed when next button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 private fun ColumnTranslate(
-    gameQuestion: GameQuestion,
-    score: Int,
+    gameQuestionProvider: () -> GameQuestion,
+    scoreProvider: () -> Int,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var isAnswerOpen by remember { mutableStateOf(false) }
+    val gameQuestion = gameQuestionProvider()
 
     Column(
         modifier = modifier.padding(
@@ -97,7 +97,7 @@ private fun ColumnTranslate(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround,
     ) {
-        ScoreBox(score = score)
+        ScoreBox(score = scoreProvider())
         TextBox(
             text = gameQuestion.question,
             modifier = Modifier
@@ -121,19 +121,20 @@ private fun ColumnTranslate(
 /**
  * Composable to display TranslateScreen content (horizontal screen orientation)
  *
- * @param gameQuestion instance [GameQuestion]
- * @param score quest score
+ * @param gameQuestionProvider provides item for ui
+ * @param scoreProvider provides score of game
  * @param onNextClick callback that is executed when next button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 private fun RowTranslate(
-    gameQuestion: GameQuestion,
-    score: Int,
+    gameQuestionProvider: () -> GameQuestion,
+    scoreProvider: () -> Int,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var isAnswerOpen by remember { mutableStateOf(false) }
+    val gameQuestion = gameQuestionProvider()
 
     Row(
         modifier = modifier.padding(
@@ -155,7 +156,7 @@ private fun RowTranslate(
                 modifier = Modifier
             )
             ScoreBox(
-                score = score,
+                score = scoreProvider(),
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_large)),
             )
         }
@@ -192,11 +193,13 @@ private fun RowTranslate(
 private fun VerticalTranslateScreenPreview() {
     EnglishSimulatorTheme {
         GameScreen(
-            gameQuestion = GameQuestion(
-                question = "Ru Text",
-                translate = "En Text"
-            ),
-            score = 0,
+            gameQuestionProvider = {
+                GameQuestion(
+                    question = "Ru Text",
+                    translate = "En Text"
+                )
+            },
+            scoreProvider = { 0 },
             isVerticalScreen = true,
             onBackClick = {},
             onNextClick = {},
@@ -216,11 +219,13 @@ private fun VerticalTranslateScreenPreview() {
 private fun HorizontalTranslateScreenPreview() {
     EnglishSimulatorTheme {
         GameScreen(
-            gameQuestion = GameQuestion(
-                question = "Ru Text",
-                translate = "En Text"
-            ),
-            score = 0,
+            gameQuestionProvider = {
+                GameQuestion(
+                    question = "Ru Text",
+                    translate = "En Text"
+                )
+            },
+            scoreProvider = { 0 },
             isVerticalScreen = false,
             onBackClick = {},
             onNextClick = {},
