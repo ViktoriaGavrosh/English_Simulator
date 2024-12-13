@@ -47,7 +47,7 @@ internal fun ErrorScreen(
             ),
         ) {
             Text(
-                text = stringResource(R.string.try_again),
+                text = stringResource(R.string.back),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))

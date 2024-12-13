@@ -49,7 +49,7 @@ class TranslateViewModel(
     /**
      * Update [UiState] with data from [TranslateRepository]
      */
-    internal fun initUiState() {
+    private fun initUiState() {
         val requestResultFlow = translateRepository.getAllSentences()
 
         viewModelScope.launch {

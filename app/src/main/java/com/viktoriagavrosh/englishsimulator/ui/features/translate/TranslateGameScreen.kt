@@ -41,7 +41,6 @@ internal fun TranslateGameScreen(
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
         onBackClick = onBackClick,
-        onErrorButtonClick = viewModel::initUiState,
         onNextButtonClick = viewModel::updateUiState,
         modifier = modifier,
     )
@@ -56,7 +55,6 @@ internal fun TranslateGameScreen(
  * @param isErrorProvider provides boolean value of ScreenState
  * @param onNextButtonClick callback that is executed when next button is clicked
  * @param onBackClick callback that is executed when back button is clicked
- * @param onErrorButtonClick callback that is executed when button on ErrorScreen is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -67,12 +65,11 @@ private fun TranslateGameScreen(
     isErrorProvider: () -> Boolean,
     onNextButtonClick: () -> Unit,
     onBackClick: () -> Unit,
-    onErrorButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (isErrorProvider()) {
         ErrorScreen(
-            onErrorButtonClick = onErrorButtonClick,
+            onErrorButtonClick = onBackClick,
             modifier = modifier
         )
     } else {
@@ -106,7 +103,6 @@ private fun VerticalTranslateGameScreenPreview() {
             isErrorProvider = { false },
             onNextButtonClick = {},
             onBackClick = {},
-            onErrorButtonClick = {},
         )
     }
 }
@@ -133,7 +129,6 @@ private fun HorizontalTranslateGameScreenPreview() {
             isErrorProvider = { false },
             onNextButtonClick = {},
             onBackClick = {},
-            onErrorButtonClick = {},
         )
     }
 }
@@ -150,7 +145,6 @@ private fun ErrorVerticalTranslateGameScreenPreview() {
             isErrorProvider = { true },
             onNextButtonClick = {},
             onBackClick = {},
-            onErrorButtonClick = {},
             modifier = Modifier.fillMaxSize(),
         )
     }
@@ -173,7 +167,6 @@ private fun ErrorHorizontalTranslateGameScreenPreview() {
             isErrorProvider = { true },
             onNextButtonClick = {},
             onBackClick = {},
-            onErrorButtonClick = {},
             modifier = Modifier.fillMaxSize(),
         )
     }

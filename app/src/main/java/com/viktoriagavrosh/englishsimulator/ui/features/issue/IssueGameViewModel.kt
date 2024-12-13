@@ -50,7 +50,7 @@ class IssueGameViewModel(
     /**
      * Update [UiState] with data from [IssueRepository]
      */
-    internal fun initUiState() {
+    private fun initUiState() {
         val requestResultFlow = if (theme.isNotEmpty()) {
             issueRepository.getAllIssueByTheme(theme = theme)
         } else {
