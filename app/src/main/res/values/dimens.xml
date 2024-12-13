@@ -13,6 +13,7 @@
     <dimen name="back_button_size">64dp</dimen>
     <dimen name="countBox_size">64dp</dimen>
     <dimen name="countBox_border">2dp</dimen>
-    <dimen name="menu_small_button_width">180dp</dimen>
-    <dimen name="menu_large_button_width">250dp</dimen>
+    <dimen name="menu_small_button_width">190dp</dimen>
+    <dimen name="menu_large_button_width">270dp</dimen>
+    <dimen name="menu_title_padding">60dp</dimen>
 </resources>

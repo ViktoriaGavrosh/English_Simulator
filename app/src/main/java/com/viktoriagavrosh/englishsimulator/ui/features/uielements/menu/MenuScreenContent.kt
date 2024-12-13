@@ -1,14 +1,16 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu
 
 import android.content.res.Configuration
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
@@ -38,7 +41,9 @@ internal fun MenuScreenContent(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = dimensionResource(R.dimen.padding_small)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround,
     ) {
@@ -49,7 +54,6 @@ internal fun MenuScreenContent(
             modifier = if (isVerticalScreen) {
                 Modifier
                     .padding(top = dimensionResource(R.dimen.padding_large))
-                    .padding(horizontal = dimensionResource(R.dimen.padding_super_extra_large))
             } else {
                 Modifier
             }
@@ -86,13 +90,16 @@ private fun HorizontalButtons(
         val chunkedButtonItems = buttonItems.chunked(subListSize)
 
         Row(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround,
         ) {
             for (subList in chunkedButtonItems) {
                 ButtonColumn(
                     buttonItems = subList,
+                    isLargeButtons = buttonItems.size < 3,
                     isSmallSpase = true,
                 )
             }
@@ -122,13 +129,12 @@ private fun VerticalButtons(
         Row(
             modifier = modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceAround,
         ) {
             ButtonColumn(
                 buttonItems = buttonItems.subList(0, middleIndex),
                 isLargeButtons = false,
             )
-            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
             ButtonColumn(
                 buttonItems = buttonItems.subList(middleIndex, buttonItems.size),
                 isLargeButtons = false,
@@ -212,10 +218,11 @@ private fun QuestButton(
         Text(
             text = text,
             textAlign = TextAlign.Center,
+            lineHeight = 20.sp,
             style = if (isLargeText) {
-                MaterialTheme.typography.titleLarge
-            } else {
                 MaterialTheme.typography.titleMedium
+            } else {
+                MaterialTheme.typography.titleSmall
             },
             modifier = Modifier
                 .padding(vertical = dimensionResource(R.dimen.padding_small))
@@ -231,9 +238,10 @@ private fun VerticalMenuScreenContentPreview() {
         MenuScreenContent(
             title = "Title of the game",
             isVerticalScreen = true,
-            buttonItems = List(2) {
-                MenuButtonItem(title = "Button $it")
-            },
+            buttonItems = listOf(
+                MenuButtonItem(title = "Button 1 with large text"),
+                MenuButtonItem(title = "Button 2"),
+            ),
             modifier = Modifier.fillMaxSize()
         )
     }

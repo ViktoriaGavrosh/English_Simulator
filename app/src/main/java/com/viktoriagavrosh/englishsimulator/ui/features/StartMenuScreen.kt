@@ -39,7 +39,11 @@ fun StartMenuScreen(
 
     MenuScreen(
         buttonItems = buttonItems,
-        title = stringResource(R.string.app_title),
+        title = if (isVerticalScreen) {
+            stringResource(R.string.app_vertical_title)
+        } else {
+            stringResource(R.string.app_horizontal_title)
+        },
         isVerticalScreen = isVerticalScreen,
         onBackClick = {},
         modifier = modifier,

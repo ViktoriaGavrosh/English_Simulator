@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">English Тренаж</string>
-    <string name="app_title">English Тренажер</string>
+    <string name="app_vertical_title">English\nТренажер</string>
+    <string name="app_horizontal_title">English Тренажер</string>
     <string name="ru_to_en">С Русского\nНа Английский</string>
     <string name="en_to_ru">С Английского\nНа Русский</string>
 
-    <string name="translate_title">QUIZ Перевод фраз</string>
-    <string name="issue_title">QUIZ Расскажи о себе</string>
+    <string name="translate_horizontal_title">QUIZ Перевод фраз</string>
+    <string name="translate_vertical_title">QUIZ\nПеревод\nфраз</string>
+    <string name="issue_horizontal_title">QUIZ Расскажи о себе</string>
+    <string name="issue_vertical_title">QUIZ\nРасскажи\nо себе</string>
     <string name="translate_button_title">Перевод фраз</string>
     <string name="issue_button_title">Расскажи о себе</string>
 
@@ -20,5 +23,5 @@
     <string name="repeat_screen">repeat screen</string>
     <string name="top_button">top button</string>
     <string name="bottom_button">bottom button</string>
-    <string name="all_themes">all</string>
+    <string name="all_themes">All</string>
 </resources>

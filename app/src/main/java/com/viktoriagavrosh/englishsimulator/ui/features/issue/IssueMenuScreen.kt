@@ -90,7 +90,11 @@ private fun IssueMenuScreen(
 
             MenuScreen(
                 buttonItems = buttonItems,
-                title = stringResource(R.string.issue_title),
+                title = if (isVerticalScreen) {
+                    stringResource(R.string.issue_vertical_title)
+                } else {
+                    stringResource(R.string.issue_horizontal_title)
+                },
                 isVerticalScreen = isVerticalScreen,
                 onBackClick = onBackClick,
                 modifier = modifier,
