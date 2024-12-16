@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * @param translateRepository instance of [TranslateRepository]
  * @param isToEnglish if true quiz "Translate from Russian to English"
  */
-class TranslateViewModel(
+class TranslateGameViewModel(
     private val translateRepository: TranslateRepository,
     private val isToEnglish: Boolean,
 ) : ViewModel() {

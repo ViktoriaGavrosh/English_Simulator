@@ -30,7 +30,7 @@ internal fun TranslateGameScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: TranslateViewModel = koinViewModel {
+    val viewModel: TranslateGameViewModel = koinViewModel {
         parametersOf(quest == Quest.RuToEn)
     }
     val uiState by viewModel.uiState.collectAsState()

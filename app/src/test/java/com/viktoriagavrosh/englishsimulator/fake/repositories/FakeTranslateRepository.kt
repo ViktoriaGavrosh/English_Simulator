@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.fake
+package com.viktoriagavrosh.englishsimulator.fake.repositories
 
 import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
 import com.viktoriagavrosh.englishsimulator.model.Sentence

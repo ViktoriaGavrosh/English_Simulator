@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator
+package com.viktoriagavrosh.englishsimulator.test.repository
 
 import com.viktoriagavrosh.englishsimulator.data.LocalTranslateRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeDb
@@ -12,7 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class TranslateGameRepositoryTest {
+class TranslateRepositoryTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()

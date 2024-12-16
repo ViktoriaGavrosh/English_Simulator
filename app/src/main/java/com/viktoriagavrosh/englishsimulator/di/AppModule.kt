@@ -8,7 +8,7 @@ import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateViewModel
+import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -19,7 +19,7 @@ val appModule = module {
     single<AppDatabase> { getDatabase(get()) }
     single<TranslateRepository> { LocalTranslateRepository(get()) }
     single<IssueRepository> { LocalIssueRepository(get()) }
-    viewModel { TranslateViewModel(get(), get()) }
+    viewModel { TranslateGameViewModel(get(), get()) }
     viewModel { IssueGameViewModel(get(), get()) }
     viewModel { IssueMenuViewModel(get()) }
 }

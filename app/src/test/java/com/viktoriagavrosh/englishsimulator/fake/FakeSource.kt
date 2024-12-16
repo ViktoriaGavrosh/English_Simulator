@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
+import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
@@ -12,11 +13,12 @@ object FakeSource {
         )
     }
 
-    val fakeSentences = List(5) {
-        Sentence(
+    val fakeIssuesDb = List(5) {
+        IssueDb(
             id = it,
-            ruText = "ru $it",
-            enText = "en $it",
+            englishQuestion = "english $it",
+            russianQuestion = "russian $it",
+            theme = if (it % 2 == 0) "Theme 1" else "Theme 2",
         )
     }
 }
