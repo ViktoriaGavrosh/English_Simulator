@@ -3,8 +3,8 @@ package com.viktoriagavrosh.englishsimulator.ui.features.translate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.GameQuestion
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.toGameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toGameQuestion
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -4,7 +4,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeTranslateRepository
 import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.toSentence
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toSentence
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toSentence

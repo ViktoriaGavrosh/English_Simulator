@@ -7,9 +7,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import org.koin.androidx.compose.koinViewModel

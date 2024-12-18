@@ -1,9 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
-import com.viktoriagavrosh.englishsimulator.model.Sentence
+import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
 
-object FakeSource {
+internal object FakeSource {
     val fakeSentencesDb = List(5) {
         val i = it + 1
         SentenceDb(
@@ -13,11 +15,25 @@ object FakeSource {
         )
     }
 
-    val fakeSentencesUi = List(5) {
-        Sentence(
+    val fakeIssuesDb = List(5) {
+        val i = it + 1
+        IssueDb(
+            id = i,
+            englishQuestion = "en $i",
+            russianQuestion = "ru $i",
+            theme = if (i % 2 == 0) "Theme 1" else "Theme 2"
+        )
+    }
+
+    val fakeButtonItems = List(5) {
+        MenuButtonItem(title = "Title $it")
+    }
+
+    val fakeGameQuestion = List(5) {
+        GameQuestion(
             id = it,
-            ruText = "ru $it",
-            enText = "en $it",
+            question = "question $it",
+            translate = "translate $it",
         )
     }
 }

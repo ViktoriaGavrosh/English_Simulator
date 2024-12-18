@@ -16,7 +16,7 @@ import java.io.IOException
 
 class SentenceDaoTest {
 
-    private lateinit var taleDao: SentenceDao
+    private lateinit var sentenceDao: SentenceDao
     private lateinit var appDatabase: AppRoomDatabase
 
     @Before
@@ -25,7 +25,7 @@ class SentenceDaoTest {
         appDatabase = Room.inMemoryDatabaseBuilder(context, AppRoomDatabase::class.java)
             .allowMainThreadQueries()
             .build()
-        taleDao = appDatabase.sentenceDao()
+        sentenceDao = appDatabase.sentenceDao()
     }
 
     @After
@@ -36,36 +36,36 @@ class SentenceDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun sentenceDao_Insert_insertSentence() = runBlocking {
+    fun sentenceDao_insert_insertItem() = runBlocking {
         addItemToDb()
         val expectedSentence = FakeSource.fakeSentencesDb[0]
-        val actualSentence = taleDao.getAllSentences().first().first()
+        val actualSentence = sentenceDao.getAllSentences().first().first()
         assertEquals(expectedSentence, actualSentence)
     }
 
     @Test
     @Throws(Exception::class)
-    fun sentenceDao_GetAllSentencesFromDB_returnListSentences() = runBlocking {
+    fun sentenceDao_getAllSentences_returnListSentences() = runBlocking {
         addListItemsToDb()
         val expectedList = FakeSource.fakeSentencesDb
-        val actualList = taleDao.getAllSentences().first()
+        val actualList = sentenceDao.getAllSentences().first()
         assertEquals(expectedList, actualList)
     }
 
     @Test
     @Throws(Exception::class)
-    fun sentenceDao_GetAllSentencesFromEmptyDb_returnsEmptyList() = runBlocking {
-        val isEmptyList = taleDao.getAllSentences().first().isEmpty()
+    fun sentenceDao_getAllSentencesFromEmptyDb_returnsEmptyList() = runBlocking {
+        val isEmptyList = sentenceDao.getAllSentences().first().isEmpty()
         assert(isEmptyList)
     }
 
     private suspend fun addItemToDb() {
-        taleDao.insert(FakeSource.fakeSentencesDb[0])
+        sentenceDao.insert(FakeSource.fakeSentencesDb[0])
     }
 
     private suspend fun addListItemsToDb() {
         for (i in FakeSource.fakeSentencesDb) {
-            taleDao.insert(i)
+            sentenceDao.insert(i)
         }
     }
 }

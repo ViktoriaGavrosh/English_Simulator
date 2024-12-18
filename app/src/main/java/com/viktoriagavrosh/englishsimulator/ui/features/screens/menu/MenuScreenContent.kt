@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu
+package com.viktoriagavrosh.englishsimulator.ui.features.screens.menu
 
 import android.content.res.Configuration
 import androidx.compose.foundation.horizontalScroll
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -22,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
@@ -213,7 +214,7 @@ private fun QuestButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier
+        modifier = modifier.sizeIn(minHeight = dimensionResource(R.dimen.button_min_height))
     ) {
         Text(
             text = text,

@@ -23,7 +23,7 @@ class IssueMenuViewModelTest {
     @Test
     fun issueMenuViewModel_initUiState_initListTheme() {
         runTest {
-            val expectedListTheme = fakeIssues.map { it.theme }.toSet().toList()
+            val expectedListTheme = fakeIssues.map { it.theme }.distinct()
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeIssues),
             )

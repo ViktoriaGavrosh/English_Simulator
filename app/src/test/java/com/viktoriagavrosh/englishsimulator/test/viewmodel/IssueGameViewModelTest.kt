@@ -4,7 +4,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeIssueRepository
 import com.viktoriagavrosh.englishsimulator.model.Issue
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.toIssue
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toIssue
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toIssue
@@ -55,7 +55,7 @@ class IssueGameViewModelTest {
     }
 
     @Test
-    fun issueGameViewModel_updateUiState_gameQuestionUpdated() {
+    fun issueGameViewModel_updateUiState_gameQuestionUpdated() { // sometimes failed because updateUiState() contains random()
         runTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeIssues)

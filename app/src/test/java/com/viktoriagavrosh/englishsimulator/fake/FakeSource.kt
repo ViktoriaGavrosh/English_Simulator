@@ -1,10 +1,10 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.Sentence
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
-object FakeSource {
+
+internal object FakeSource {
     val fakeSentencesDb = List(5) {
         SentenceDb(
             id = it,

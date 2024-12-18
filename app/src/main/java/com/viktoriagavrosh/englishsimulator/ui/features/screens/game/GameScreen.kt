@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.uielements.game
+package com.viktoriagavrosh.englishsimulator.ui.features.screens.game
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -22,11 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.BackRow
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.NextButton
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.ScoreBox
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.TextBox
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.BackRow
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.NextButton
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ScoreBox
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.TextBox
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**

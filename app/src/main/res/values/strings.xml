@@ -11,6 +11,7 @@
     <string name="issue_vertical_title">QUIZ\nРасскажи\nо себе</string>
     <string name="translate_button_title">Перевод фраз</string>
     <string name="issue_button_title">Расскажи о себе</string>
+    <string name="all_themes">All</string>
 
     <string name="back">Back</string>
     <string name="answer">Answer</string>
@@ -19,9 +20,14 @@
 
     <string name="back_button">back_button</string>
     <string name="next_button">next button</string>
-    <string name="translate_menu_screen">translate menu screen</string>
-    <string name="repeat_screen">repeat screen</string>
+
     <string name="top_button">top button</string>
     <string name="bottom_button">bottom button</string>
-    <string name="all_themes">All</string>
+
+    <string name="start_menu_screen">start menu screen</string>
+    <string name="translate_menu_screen">translate menu screen</string>
+    <string name="issue_menu_screen">issue menu screen</string>
+    <string name="translate_game_screen">translate game screen</string>
+    <string name="issue_game_screen">issue game screen</string>
+
 </resources>

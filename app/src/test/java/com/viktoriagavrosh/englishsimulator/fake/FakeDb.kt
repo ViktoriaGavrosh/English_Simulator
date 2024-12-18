@@ -40,8 +40,8 @@ private class FakeIssueDao : IssueDao {
     }
 
     override fun getAllThemes(): Flow<List<String>> {
-        val themes = issues.map { it.theme }.toSet()
-        return flow { emit(themes.toList()) }
+        val themes = issues.map { it.theme }.distinct()
+        return flow { emit(themes) }
     }
 
     override fun getAllIssuesByTheme(theme: String): Flow<List<IssueDb>> {

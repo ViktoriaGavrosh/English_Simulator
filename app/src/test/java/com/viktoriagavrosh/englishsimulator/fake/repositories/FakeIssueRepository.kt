@@ -23,7 +23,7 @@ class FakeIssueRepository(
 
     override fun getAllThemes(): Flow<RequestResult<List<String>>> {
         val themes = requestResult.map { list ->
-            list.map { it.theme }.toSet().toList()
+            list.map { it.theme }.distinct()
         }
         return flow { emit(themes) }
     }

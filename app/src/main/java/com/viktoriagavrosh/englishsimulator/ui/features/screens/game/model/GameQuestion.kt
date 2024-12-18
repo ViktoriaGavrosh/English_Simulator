@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.model
+package com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model
 
 import com.viktoriagavrosh.englishsimulator.model.Issue
 import com.viktoriagavrosh.englishsimulator.model.Sentence

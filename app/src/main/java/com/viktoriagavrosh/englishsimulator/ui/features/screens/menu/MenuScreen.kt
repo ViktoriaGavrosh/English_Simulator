@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu
+package com.viktoriagavrosh.englishsimulator.ui.features.screens.menu
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.game.elements.BackRow
-import com.viktoriagavrosh.englishsimulator.ui.features.uielements.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.BackRow
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**

@@ -42,7 +42,7 @@ internal fun AppNavigation(
                 onIssueButtonClick = {
                     navController.navigate(NavigationDestination.IssueMenu)
                 },
-                modifier = modifier,
+                modifier = modifier.testTag(stringResource(R.string.start_menu_screen)),
             )
         }
         composable<NavigationDestination.TranslateMenu> {
@@ -65,7 +65,7 @@ internal fun AppNavigation(
                     navController.navigate(NavigationDestination.IssueGame(theme))
                 },
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier,
+                modifier = modifier.testTag(stringResource(R.string.issue_menu_screen)),
             )
         }
         composable<NavigationDestination.TranslateGame> { backStackEntry ->
@@ -74,7 +74,7 @@ internal fun AppNavigation(
                 isVerticalScreen = isVerticalScreen,
                 quest = quest,
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier.testTag(stringResource(R.string.repeat_screen)),
+                modifier = modifier.testTag(stringResource(R.string.translate_game_screen)),
             )
         }
         composable<NavigationDestination.IssueGame> { backStackEntry ->
@@ -83,7 +83,7 @@ internal fun AppNavigation(
                 isVerticalScreen = isVerticalScreen,
                 theme = theme,
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier,
+                modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
             )
         }
     }

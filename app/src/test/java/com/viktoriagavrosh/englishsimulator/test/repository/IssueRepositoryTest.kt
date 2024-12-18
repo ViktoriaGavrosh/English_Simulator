@@ -84,7 +84,7 @@ class IssueRepositoryTest {
     @Test
     fun issueRepository_getAllThemes_returnListString() {
         runTest {
-            val expectedList = FakeSource.fakeIssuesDb.map { it.theme }.toSet().toList()
+            val expectedList = FakeSource.fakeIssuesDb.map { it.theme }.distinct()
             val actualList = repository.getAllThemes()
                 .first().data ?: emptyList()
 
