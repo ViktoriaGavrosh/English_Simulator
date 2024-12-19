@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
@@ -16,7 +17,7 @@ interface AppDatabase {
  * Database class with a singleton Instance object.
  */
 @Database(
-    entities = [SentenceDb::class, IssueDb::class],
+    entities = [SentenceDb::class, IssueDb::class, DialogDb::class],
     version = 2,
     exportSchema = false,
 )
