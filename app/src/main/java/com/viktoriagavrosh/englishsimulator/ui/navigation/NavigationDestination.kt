@@ -43,6 +43,12 @@ sealed class NavigationDestination {
      */
     @Serializable
     data class IssueGame(val theme: String = "") : NavigationDestination()
+
+    /**
+     * Describes navigation destination of DialogGameScreen
+     */
+    @Serializable
+    data object DialogGame : NavigationDestination()
 }
 
 /**

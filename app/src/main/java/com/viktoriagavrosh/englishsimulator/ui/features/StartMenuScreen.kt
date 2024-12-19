@@ -24,6 +24,7 @@ fun StartMenuScreen(
     isVerticalScreen: Boolean,
     onTranslateButtonClick: () -> Unit,
     onIssueButtonClick: () -> Unit,
+    onDialogButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonItems = listOf(
@@ -34,6 +35,10 @@ fun StartMenuScreen(
         MenuButtonItem(
             title = stringResource(R.string.issue_button_title),
             onClick = onIssueButtonClick,
+        ),
+        MenuButtonItem(
+            title = stringResource(R.string.dialog_button_title),
+            onClick = onDialogButtonClick,
         )
     )
 
@@ -60,6 +65,7 @@ private fun VerticalStartMenuScreenPreview() {
             isVerticalScreen = true,
             onTranslateButtonClick = {},
             onIssueButtonClick = {},
+            onDialogButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -79,6 +85,7 @@ private fun HorizontalMenuScreenContentPreview() {
             isVerticalScreen = false,
             onTranslateButtonClick = {},
             onIssueButtonClick = {},
+            onDialogButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

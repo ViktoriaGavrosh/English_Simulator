@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.StartMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameScreen
@@ -41,6 +42,9 @@ internal fun AppNavigation(
                 },
                 onIssueButtonClick = {
                     navController.navigate(NavigationDestination.IssueMenu)
+                },
+                onDialogButtonClick = {
+                    navController.navigate(NavigationDestination.DialogGame)
                 },
                 modifier = modifier.testTag(stringResource(R.string.start_menu_screen)),
             )
@@ -84,6 +88,13 @@ internal fun AppNavigation(
                 theme = theme,
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
+            )
+        }
+        composable<NavigationDestination.DialogGame> {
+            DialogGameScreen(
+                isVerticalScreen = isVerticalScreen,
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.dialog_game_screen)),
             )
         }
     }
