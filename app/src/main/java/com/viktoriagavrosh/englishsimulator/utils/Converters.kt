@@ -1,5 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.utils
 
+import com.viktoriagavrosh.englishsimulator.model.Dialog
+import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.Issue
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.Sentence
@@ -29,5 +31,18 @@ internal fun IssueDb.toIssue(): Issue {
         englishQuestion = englishQuestion,
         russianQuestion = russianQuestion,
         theme = theme,
+    )
+}
+
+/**
+ * Converts [DialogDb] instance to [Dialog] instance for repository
+ *
+ * @return [Dialog] instance
+ */
+internal fun DialogDb.toDialog(): Dialog {
+    return Dialog(
+        id = id,
+        question = question,
+        shortAnswer = shortAnswer,
     )
 }

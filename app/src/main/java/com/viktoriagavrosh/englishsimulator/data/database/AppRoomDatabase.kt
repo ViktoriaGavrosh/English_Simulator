@@ -11,6 +11,7 @@ import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 interface AppDatabase {
     fun sentenceDao(): SentenceDao
     fun issueDao(): IssueDao
+    fun dialogDao(): DialogDao
 }
 
 /**
@@ -24,6 +25,7 @@ interface AppDatabase {
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
     abstract override fun sentenceDao(): SentenceDao
     abstract override fun issueDao(): IssueDao
+    abstract override fun dialogDao(): DialogDao
 }
 
 /**
