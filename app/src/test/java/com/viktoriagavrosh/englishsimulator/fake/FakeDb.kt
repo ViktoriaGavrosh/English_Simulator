@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flow
 internal class FakeDb : AppDatabase {
     override fun sentenceDao(): SentenceDao = FakeSentenceDao()
     override fun issueDao(): IssueDao = FakeIssueDao()
-    override fun dialogDao(): DialogDao  = FakeDialogDao()
+    override fun dialogDao(): DialogDao = FakeDialogDao()
 }
 
 private class FakeSentenceDao : SentenceDao {

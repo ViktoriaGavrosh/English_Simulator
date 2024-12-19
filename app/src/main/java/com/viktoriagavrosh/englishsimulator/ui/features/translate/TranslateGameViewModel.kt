@@ -93,7 +93,7 @@ class TranslateGameViewModel(
 }
 
 /**
- * Holds TranslateGameScreen state
+ * Holds GameScreen state
  *
  * @param gameQuestion instance [GameQuestion]
  * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.

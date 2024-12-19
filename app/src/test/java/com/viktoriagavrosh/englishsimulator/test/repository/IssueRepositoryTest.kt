@@ -48,7 +48,7 @@ class IssueRepositoryTest {
         runTest {
             val theme = FakeSource.fakeIssuesDb[0].theme
             val expectedList = FakeSource.fakeIssuesDb
-                .filter { it.theme == theme}
+                .filter { it.theme == theme }
                 .map { it.toIssue() }
             val actualList = repository.getAllIssueByTheme(theme = theme)
                 .first().data ?: emptyList()

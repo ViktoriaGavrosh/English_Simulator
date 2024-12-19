@@ -3,9 +3,9 @@ package com.viktoriagavrosh.englishsimulator.ui.features.issue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.IssueRepository
-import com.viktoriagavrosh.englishsimulator.ui.features.translate.UiState
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toGameQuestion
+import com.viktoriagavrosh.englishsimulator.ui.features.translate.UiState
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,18 +25,18 @@ class IssueGameViewModel(
     private val theme: String,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(GameUiState())
+    private val _uiState = MutableStateFlow(UiState())
     private lateinit var gameQuestions: List<GameQuestion>
 
     init {
         initUiState()
     }
 
-    internal val uiState: StateFlow<GameUiState>
+    internal val uiState: StateFlow<UiState>
         get() = _uiState.asStateFlow()
 
     /**
-     * Update gameQuestion and score value of [GameUiState]
+     * Update gameQuestion and score value of [UiState]
      */
     internal fun updateUiState() {
         _uiState.update {
@@ -96,16 +96,3 @@ class IssueGameViewModel(
         }
     }
 }
-
-/**
- * Holds IssueGameScreen state
- *
- * @param gameQuestion instance [GameQuestion]
- * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
- * @param score quest score
- */
-internal data class GameUiState(
-    val gameQuestion: GameQuestion = GameQuestion(),
-    val isError: Boolean = false,
-    val score: Int = 0,
-)
