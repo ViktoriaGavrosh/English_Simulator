@@ -87,6 +87,7 @@ class StartMenuScreenTest {
                     isVerticalScreen = isVerticalScreen,
                     onTranslateButtonClick = {},
                     onIssueButtonClick = {},
+                    onDialogButtonClick = {},
                     modifier = Modifier.fillMaxSize(),
                 )
             }
