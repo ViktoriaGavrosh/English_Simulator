@@ -157,9 +157,28 @@ class NavigationTest {
         )
     }
 
+    @Test
+    fun navHost_startMenuScreen_dialogButtonClick_navigateToDialogGameScreen() {
+        navigateToDialogGameScreen()
+
+        assertTrue(
+            navController.currentBackStackEntry
+                ?.destination
+                ?.hasRoute<NavigationDestination.DialogGame>()
+                ?: false
+        )
+    }
+
     private fun navigateToTranslateMenuScreen() {
         composeTestRule.onNodeWithTextById(R.string.translate_button_title)
             .performClick()
+
+        assertTrue(
+            navController.currentBackStackEntry
+                ?.destination
+                ?.hasRoute<NavigationDestination.TranslateMenu>()
+                ?: false
+        )
     }
 
     private fun navigateToIssueMenuScreen() {
@@ -180,6 +199,11 @@ class NavigationTest {
         composeTestRule.onNodeWithTextById(R.string.issue_button_title)
             .performClick()
         composeTestRule.onNodeWithTextById(R.string.all_themes)
+            .performClick()
+    }
+
+    private fun navigateToDialogGameScreen() {
+        composeTestRule.onNodeWithTextById(R.string.dialog_button_title)
             .performClick()
     }
 }
