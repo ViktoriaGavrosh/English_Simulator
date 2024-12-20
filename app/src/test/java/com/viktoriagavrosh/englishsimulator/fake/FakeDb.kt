@@ -58,12 +58,16 @@ private class FakeIssueDao : IssueDao {
 }
 
 private class FakeDialogDao : DialogDao {
+
+    val dialogs = FakeSource.fakeDialogsDb.toMutableList()
+
     override fun getAllDialogs(): Flow<List<DialogDb>> {
-        TODO("Not yet implemented")
+        return flow {
+            emit(dialogs)
+        }
     }
 
     override suspend fun insert(dialogDb: DialogDb) {
-        TODO("Not yet implemented")
+        dialogs.add(dialogDb)
     }
-
 }
