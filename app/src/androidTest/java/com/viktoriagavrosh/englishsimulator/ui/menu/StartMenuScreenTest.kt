@@ -67,6 +67,22 @@ class StartMenuScreenTest {
     }
 
     @Test
+    fun startMenuScreen_vertical_dialogButtonIsDisplayed() {
+        setMenuScreen(isVerticalScreen = true)
+        composeTestRule.onNodeWithTextById(R.string.dialog_button_title)
+            .assertExists("No dialog button")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun startMenuScreen_horizontal_dialogButtonIsDisplayed() {
+        setMenuScreen(isVerticalScreen = false)
+        composeTestRule.onNodeWithTextById(R.string.dialog_button_title)
+            .assertExists("No dialog button")
+            .assertIsDisplayed()
+    }
+
+    @Test
     fun startMenuScreen_vertical_backButtonIsNotDisplayed() {
         setMenuScreen(isVerticalScreen = true)
         composeTestRule.onNodeWithContentDescriptionById(R.string.back)
