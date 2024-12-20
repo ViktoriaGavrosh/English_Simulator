@@ -8,6 +8,9 @@ import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
+/**
+ * Database interface
+ */
 interface AppDatabase {
     fun sentenceDao(): SentenceDao
     fun issueDao(): IssueDao
