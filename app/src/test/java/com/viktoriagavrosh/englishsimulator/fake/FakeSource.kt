@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
+import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 
@@ -19,6 +20,14 @@ internal object FakeSource {
             englishQuestion = "english $it",
             russianQuestion = "russian $it",
             theme = if (it % 2 == 0) "Theme 1" else "Theme 2",
+        )
+    }
+
+    val fakeDialogsDb = List(5) {
+        DialogDb(
+            id = it,
+            question = "question $it",
+            shortAnswer = "answer $it",
         )
     }
 }
