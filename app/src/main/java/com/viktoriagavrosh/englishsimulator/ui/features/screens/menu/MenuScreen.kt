@@ -25,6 +25,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 internal fun MenuScreen(
     buttonItems: List<MenuButtonItem>,
     title: String,
+    isScreenWithButtons: Boolean = true,  // TODO fix it
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -36,6 +37,7 @@ internal fun MenuScreen(
         MenuScreenContent(
             title = title,
             isVerticalScreen = isVerticalScreen,
+            isScreenWithButtons = isScreenWithButtons,
             buttonItems = buttonItems,
             modifier = Modifier.fillMaxSize()
         )

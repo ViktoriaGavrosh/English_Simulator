@@ -37,7 +37,7 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs["release"]
-            isMinifyEnabled = true
+            isMinifyEnabled = false                // only for develop branch
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
