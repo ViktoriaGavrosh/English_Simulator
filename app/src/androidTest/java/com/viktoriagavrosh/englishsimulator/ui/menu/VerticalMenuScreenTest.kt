@@ -74,17 +74,22 @@ class VerticalMenuScreenTest {
     @Test
     fun menuScreen_vertical_menuButtonIsDisplayed() {
         val buttonTitle = "MenuButton"
-        setMenuScreen(buttonItems = listOf(MenuButtonItem(title = buttonTitle)))
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = buttonTitle)),
+            isScreenWithButtons = true,
+        )
         composeTestRule.onNodeWithText(buttonTitle)
             .assertExists("No menu button")
             .assertIsDisplayed()
-
     }
 
     @Test
     fun menuScreen_vertical_menuButtonHasClickAction() {
         val buttonTitle = "MenuButton"
-        setMenuScreen(buttonItems = listOf(MenuButtonItem(title = buttonTitle)))
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = buttonTitle)),
+            isScreenWithButtons = true,
+        )
         composeTestRule.onNodeWithText(buttonTitle)
             .assertHasClickAction()
     }
@@ -92,7 +97,10 @@ class VerticalMenuScreenTest {
     @Test
     fun menuScreen_vertical_largeMenuButtonSizeIsRelevant() {
         val buttonTitle = "MenuButton"
-        setMenuScreen(buttonItems = listOf(MenuButtonItem(title = buttonTitle)))
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = buttonTitle)),
+            isScreenWithButtons = true,
+        )
         composeTestRule.onNodeWithText(buttonTitle)
             .assertHeightIsAtLeast(48.dp)
     }
@@ -100,8 +108,45 @@ class VerticalMenuScreenTest {
     @Test
     fun menuScreen_vertical_smallMenuButtonSizeIsRelevant() {
         val buttonTitle = FakeSource.fakeButtonItems[0].title
-        setMenuScreen(buttonItems = FakeSource.fakeButtonItems)
+        setMenuScreen(
+            buttonItems = FakeSource.fakeButtonItems,
+            isScreenWithButtons = true,
+        )
         composeTestRule.onNodeWithText(buttonTitle)
+            .assertHeightIsAtLeast(48.dp)
+    }
+
+    @Test
+    fun menuScreen_vertical_menuCardIsDisplayed() {
+        val cardTitle = "MenuCard"
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = cardTitle)),
+            isScreenWithButtons = false,
+        )
+        composeTestRule.onNodeWithText(cardTitle)
+            .assertExists("No menu card")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun menuScreen_vertical_menuCardHasClickAction() {
+        val cardTitle = "MenuCard"
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = cardTitle)),
+            isScreenWithButtons = false,
+        )
+        composeTestRule.onNodeWithText(cardTitle)
+            .assertHasClickAction()
+    }
+
+    @Test
+    fun menuScreen_vertical_menuCardSizeIsRelevant() {
+        val cardTitle = "MenuCard"
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = cardTitle)),
+            isScreenWithButtons = false,
+        )
+        composeTestRule.onNodeWithText(cardTitle)
             .assertHeightIsAtLeast(48.dp)
     }
 
@@ -109,12 +154,14 @@ class VerticalMenuScreenTest {
         buttonItems: List<MenuButtonItem> = listOf(MenuButtonItem(title = "button")),
         title: String = "Title",
         isBackButtonShow: Boolean = true,
+        isScreenWithButtons: Boolean = true,
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
                 MenuScreen(
                     buttonItems = buttonItems,
                     title = title,
+                    isScreenWithButtons = isScreenWithButtons,
                     isVerticalScreen = true,
                     onBackClick = {},
                     modifier = Modifier.fillMaxSize(),

@@ -105,17 +105,53 @@ class HorizontalMenuScreenTest {
             .assertHeightIsAtLeast(48.dp)
     }
 
+    @Test
+    fun menuScreen_horizontal_menuCardIsDisplayed() {
+        val cardTitle = "MenuCard"
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = cardTitle)),
+            isScreenWithButtons = false,
+        )
+        composeTestRule.onNodeWithText(cardTitle)
+            .assertExists("No menu card")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun menuScreen_horizontal_menuCardHasClickAction() {
+        val cardTitle = "MenuCard"
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = cardTitle)),
+            isScreenWithButtons = false,
+        )
+        composeTestRule.onNodeWithText(cardTitle)
+            .assertHasClickAction()
+    }
+
+    @Test
+    fun menuScreen_horizontal_menuCardSizeIsRelevant() {
+        val cardTitle = "MenuCard"
+        setMenuScreen(
+            buttonItems = listOf(MenuButtonItem(title = cardTitle)),
+            isScreenWithButtons = false,
+        )
+        composeTestRule.onNodeWithText(cardTitle)
+            .assertHeightIsAtLeast(48.dp)
+    }
+
 
     private fun setMenuScreen(
         buttonItems: List<MenuButtonItem> = listOf(MenuButtonItem(title = "button")),
         title: String = "Title",
         isBackButtonShow: Boolean = true,
+        isScreenWithButtons: Boolean = true,
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
                 MenuScreen(
                     buttonItems = buttonItems,
                     title = title,
+                    isScreenWithButtons = isScreenWithButtons,
                     isVerticalScreen = false,
                     onBackClick = {},
                     modifier = Modifier.fillMaxSize(),

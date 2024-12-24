@@ -50,23 +50,23 @@ class IssueMenuScreenTest {
     }
 
     @Test
-    fun issueMenuScreen_vertical_allThemeButtonIsDisplayed() {
+    fun issueMenuScreen_vertical_allThemeCardIsDisplayed() {
         setMenuScreen(isVerticalScreen = true)
         composeTestRule.onNodeWithTextById(R.string.all_themes)
-            .assertExists("No all button on IssueMenuScreen")
+            .assertExists("No all card on IssueMenuScreen")
             .assertIsDisplayed()
     }
 
     @Test
-    fun issueMenuScreen_horizontal_allThemeButtonIsDisplayed() {
+    fun issueMenuScreen_horizontal_allThemeCardIsDisplayed() {
         setMenuScreen(isVerticalScreen = false)
         composeTestRule.onNodeWithTextById(R.string.all_themes)
-            .assertExists("No all button on IssueMenuScreen")
+            .assertExists("No all card on IssueMenuScreen")
             .assertIsDisplayed()
     }
 
     @Test
-    fun issueMenuScreen_vertical_customButtonsIsDisplayed() {
+    fun issueMenuScreen_vertical_customCardsIsDisplayed() {
         val themes = listOf("one", "two", "three")
 
         setMenuScreen(
@@ -74,20 +74,20 @@ class IssueMenuScreenTest {
             themes = themes,
         )
         composeTestRule.onNodeWithText(themes[0])
-            .assertExists("No one button on IssueMenuScreen")
+            .assertExists("No one card on IssueMenuScreen")
             .assertIsDisplayed()
 
         composeTestRule.onNodeWithText(themes[1])
-            .assertExists("No two button on IssueMenuScreen")
+            .assertExists("No two card on IssueMenuScreen")
             .assertIsDisplayed()
 
         composeTestRule.onNodeWithText(themes[2])
-            .assertExists("No three button on IssueMenuScreen")
+            .assertExists("No three card on IssueMenuScreen")
             .assertIsDisplayed()
     }
 
     @Test
-    fun issueMenuScreen_horizontal_customButtonsIsDisplayed() {
+    fun issueMenuScreen_horizontal_customCardsIsDisplayed() {
         val themes = listOf("one", "two", "three")
 
         setMenuScreen(
@@ -95,15 +95,15 @@ class IssueMenuScreenTest {
             themes = themes,
         )
         composeTestRule.onNodeWithText(themes[0])
-            .assertExists("No one button on IssueMenuScreen")
+            .assertExists("No one card on IssueMenuScreen")
             .assertIsDisplayed()
 
         composeTestRule.onNodeWithText(themes[1])
-            .assertExists("No two button on IssueMenuScreen")
+            .assertExists("No two card on IssueMenuScreen")
             .assertIsDisplayed()
 
         composeTestRule.onNodeWithText(themes[2])
-            .assertExists("No three button on IssueMenuScreen")
+            .assertExists("No three card on IssueMenuScreen")
             .assertIsDisplayed()
     }
 
