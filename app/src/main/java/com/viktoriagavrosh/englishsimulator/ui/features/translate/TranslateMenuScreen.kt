@@ -46,6 +46,7 @@ fun TranslateMenuScreen(
         } else {
             stringResource(R.string.translate_horizontal_title)
         },
+        isScreenWithButtons = true,
         isVerticalScreen = isVerticalScreen,
         onBackClick = onBackClick,
         modifier = modifier,

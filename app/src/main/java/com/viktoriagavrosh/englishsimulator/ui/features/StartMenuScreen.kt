@@ -49,6 +49,7 @@ fun StartMenuScreen(
         } else {
             stringResource(R.string.app_horizontal_title)
         },
+        isScreenWithButtons = true,
         isVerticalScreen = isVerticalScreen,
         onBackClick = {},
         modifier = modifier,

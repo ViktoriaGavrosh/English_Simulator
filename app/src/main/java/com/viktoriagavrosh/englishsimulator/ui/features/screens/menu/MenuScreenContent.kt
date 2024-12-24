@@ -25,6 +25,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  *
  * @param title text for cover
  * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param isScreenWithButtons if true buttons will show
  * @param buttonItems list of [MenuButtonItem] for buttons
  * @param modifier the modifier to be applied to this layout node
  */
@@ -51,6 +52,7 @@ internal fun MenuScreenContent(
                     .padding(top = dimensionResource(R.dimen.padding_large))
             } else {
                 Modifier
+                    .padding(bottom = dimensionResource(R.dimen.padding_large))
             }
         )
         if (isVerticalScreen) {
@@ -65,7 +67,9 @@ internal fun MenuScreenContent(
             HorizontalContent(
                 buttonItems = buttonItems,
                 isScreenWithButtons = isScreenWithButtons,
-                modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+                    .padding(dimensionResource(R.dimen.padding_large)),
             )
         }
     }
@@ -145,6 +149,46 @@ private fun HorizontalFullMenuScreenContentPreview() {
                 MenuButtonItem(title = "Button $it")
             },
             isScreenWithButtons = true,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light")
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun VerticalCardMenuScreenContentPreview() {
+    EnglishSimulatorTheme {
+        MenuScreenContent(
+            title = "Title of the game",
+            isVerticalScreen = true,
+            buttonItems = listOf(
+                MenuButtonItem(title = "Button 1 with large text"),
+                MenuButtonItem(title = "Button 2"),
+            ),
+            isScreenWithButtons = false,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light", widthDp = 1000)
+@Preview(
+    showBackground = true,
+    name = "Dark",
+    widthDp = 1000,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HorizontalCardMenuScreenContentPreview() {
+    EnglishSimulatorTheme {
+        MenuScreenContent(
+            title = "Title of the game",
+            isVerticalScreen = false,
+            buttonItems = List(2) {
+                MenuButtonItem(title = "Button $it")
+            },
+            isScreenWithButtons = false,
             modifier = Modifier.fillMaxSize()
         )
     }

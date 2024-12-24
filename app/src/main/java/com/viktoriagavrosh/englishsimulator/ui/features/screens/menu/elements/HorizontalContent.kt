@@ -18,9 +18,10 @@ import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuB
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display buttons (horizontal screen orientation)
+ * Composable to display content (horizontal screen orientation)
  *
  * @param buttonItems list of [MenuButtonItem] for buttons
+ * @param isScreenWithButtons if true buttons will show
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -29,44 +30,81 @@ internal fun HorizontalContent(
     isScreenWithButtons: Boolean,
     modifier: Modifier = Modifier,
 ) {
+    if (isScreenWithButtons) {
+        ButtonGrid(
+            buttonItems = buttonItems,
+            modifier = modifier,
+        )
+    } else {
+        CardGrid(
+            buttonItems = buttonItems,
+            modifier = modifier,
+        )
+    }
+}
+
+/**
+ * Composable to display buttons (horizontal screen orientation)
+ *
+ * @param buttonItems list of [MenuButtonItem] for buttons
+ * @param modifier the modifier to be applied to this layout node
+ */
+@Composable
+private fun ButtonGrid(
+    buttonItems: List<MenuButtonItem>,
+    modifier: Modifier = Modifier,
+) {
     LazyVerticalGrid(
-        columns = if (isScreenWithButtons) {
-            GridCells.Fixed(2)
-        } else {
-            GridCells.Adaptive(minSize = dimensionResource(R.dimen.menu_small_button_width))
-        },
+        columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
         modifier = modifier,
     ) {
-        if (isScreenWithButtons) {
-            items(buttonItems) { item ->
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    QuestButton(
-                        onClick = item.onClick,
-                        text = item.title,
-                        modifier = Modifier
-                            .fillMaxWidth(0.7F)
-                    )
-                }
-            }
-        } else {
-            items(buttonItems) { item ->
+
+        items(buttonItems) { item ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
                 QuestButton(
                     onClick = item.onClick,
                     text = item.title,
                     modifier = Modifier
-                    //.fillMaxWidth()
-                    //.padding(bottom = dimensionResource(R.dimen.padding_medium)),
+                        .fillMaxWidth(0.7F)
                 )
             }
         }
     }
 }
 
+/**
+ * Composable to display cards (horizontal screen orientation)
+ *
+ * @param buttonItems list of [MenuButtonItem] for buttons
+ * @param modifier the modifier to be applied to this layout node
+ */
+@Composable
+private fun CardGrid(
+    buttonItems: List<MenuButtonItem>,
+    modifier: Modifier = Modifier,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = dimensionResource(R.dimen.menu_large_button_width)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+        modifier = modifier,
+    ) {
+
+        items(buttonItems) { item ->
+            QuestCard(
+                onClick = item.onClick,
+                text = item.title,
+                modifier = Modifier
+                    .fillMaxWidth(),
+            )
+        }
+    }
+}
 
 @Preview(showBackground = true, widthDp = 1000, name = "Light")
 @Preview(
@@ -86,7 +124,7 @@ private fun HorizontalContentPreview() {
                 MenuButtonItem(title = "Button 4"),
             ),
             isScreenWithButtons = true,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

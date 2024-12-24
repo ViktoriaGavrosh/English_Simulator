@@ -16,6 +16,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  *
  * @param buttonItems list of [MenuButtonItem] for buttons
  * @param title text for cover
+ * @param isScreenWithButtons if true buttons will show
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onBackClick callback that is executed when back button is clicked
  * @param modifier the modifier to be applied to this layout node
@@ -25,7 +26,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 internal fun MenuScreen(
     buttonItems: List<MenuButtonItem>,
     title: String,
-    isScreenWithButtons: Boolean = true,  // TODO fix it
+    isScreenWithButtons: Boolean,
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -59,6 +60,7 @@ private fun VerticalMenuScreenPreview() {
             buttonItems = List(2) {
                 MenuButtonItem(title = "Button $it")
             },
+            isScreenWithButtons = true,
             title = "Title of the game",
             isVerticalScreen = true,
             onBackClick = {},
@@ -80,6 +82,7 @@ private fun HorizontalIssueMenuScreenPreview() {
             buttonItems = List(2) {
                 MenuButtonItem(title = "Button $it")
             },
+            isScreenWithButtons = true,
             title = "Title of the game",
             isVerticalScreen = false,
             onBackClick = {},
@@ -96,6 +99,7 @@ private fun VerticalFullMenuScreenPreview() {
             buttonItems = List(8) {
                 MenuButtonItem(title = "Button $it")
             },
+            isScreenWithButtons = true,
             title = "Title of the game",
             isVerticalScreen = true,
             onBackClick = {},
@@ -117,6 +121,7 @@ private fun HorizontalFullMenuScreenPreview() {
             buttonItems = List(8) {
                 MenuButtonItem(title = "Button $it")
             },
+            isScreenWithButtons = true,
             title = "Title of the game",
             isVerticalScreen = false,
             onBackClick = {},

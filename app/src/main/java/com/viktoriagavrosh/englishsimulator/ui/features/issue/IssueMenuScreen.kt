@@ -95,6 +95,7 @@ internal fun IssueMenuScreen(
                 } else {
                     stringResource(R.string.issue_horizontal_title)
                 },
+                isScreenWithButtons = false,
                 isVerticalScreen = isVerticalScreen,
                 onBackClick = onBackClick,
                 modifier = modifier,
@@ -109,7 +110,11 @@ internal fun IssueMenuScreen(
 private fun VerticalIssueMenuScreenPreview() {
     EnglishSimulatorTheme {
         IssueMenuScreen(
-            screenStateProvider = { RequestResult.Success(listOf("first", "the second button")) },
+            screenStateProvider = {
+                RequestResult.Success(
+                    List(8) { "Theme $it" }
+                )
+            },
             isVerticalScreen = true,
             onButtonClick = {},
             onBackClick = {},
@@ -129,66 +134,9 @@ private fun VerticalIssueMenuScreenPreview() {
 private fun HorizontalIssueMenuScreenPreview() {
     EnglishSimulatorTheme {
         IssueMenuScreen(
-            screenStateProvider = { RequestResult.Success(listOf("first", "the second button")) },
-            isVerticalScreen = false,
-            onButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun VerticalFullIssueMenuScreenPreview() {
-    EnglishSimulatorTheme {
-        IssueMenuScreen(
             screenStateProvider = {
                 RequestResult.Success(
-                    listOf(
-                        "first",
-                        "second",
-                        "third",
-                        "fourth",
-                        "fifth",
-                        "sixth",
-                        "seventh",
-                        "eighth"
-                    )
-                )
-            },
-            isVerticalScreen = true,
-            onButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun HorizontalFullIssueMenuScreenPreview() {
-    EnglishSimulatorTheme {
-        IssueMenuScreen(
-            screenStateProvider = {
-                RequestResult.Success(
-                    listOf(
-                        "first",
-                        "second",
-                        "third",
-                        "fourth",
-                        "fifth",
-                        "sixth",
-                        "seventh",
-                        "eighth"
-                    )
+                    List(8) { "Theme $it" }
                 )
             },
             isVerticalScreen = false,
