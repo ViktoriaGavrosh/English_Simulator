@@ -3,6 +3,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model
 import com.viktoriagavrosh.englishsimulator.model.Dialog
 import com.viktoriagavrosh.englishsimulator.model.Issue
 import com.viktoriagavrosh.englishsimulator.model.Sentence
+import com.viktoriagavrosh.englishsimulator.model.Word
 
 /**
  * Converts [Sentence] instance to [GameQuestion] instance for ui (GameScreen)
@@ -48,6 +49,22 @@ fun Dialog.toGameQuestion(): GameQuestion {
 }
 
 /**
+ * Converts [Word] instance to [GameQuestion] instance for ui (GameScreen)
+ *
+ * @return [GameQuestion] instance
+ */
+fun Word.toGameQuestion(isToEnglish: Boolean = true): GameQuestion {
+    val question = if (isToEnglish) russianWord else englishWord
+    val translate = if (isToEnglish) englishWord else russianWord
+
+    return GameQuestion(
+        id = id,
+        question = question,
+        translate = translate,
+    )
+}
+
+/**
  * Converts [GameQuestion] instance to [Sentence] instance for ui (GameScreen)
  *
  * @param isToEnglish if true - quiz "Translate from Russian to English"
@@ -89,5 +106,23 @@ fun GameQuestion.toDialog(): Dialog {
         id = id,
         question = question,
         shortAnswer = translate,
+    )
+}
+
+/**
+ * Converts [GameQuestion] instance to [Word] instance for ui (GameScreen)
+ *
+ * @param theme theme of issue
+ * @return [Word] instance
+ */
+fun GameQuestion.toWord(theme: String, isToEnglish: Boolean): Word {
+    val ruText = if (isToEnglish) question else translate
+    val enText = if (isToEnglish) translate else question
+
+    return Word(
+        id = id,
+        englishWord = enText,
+        russianWord = ruText,
+        theme = theme,
     )
 }

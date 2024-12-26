@@ -17,6 +17,8 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onTranslateButtonClick callback that is executed when translate button is clicked
  * @param onIssueButtonClick callback that is executed when issue button is clicked
+ * @param onDialogButtonClick callback that is executed when dialog button is clicked
+ * @param onWordButtonClick callback that is executed when word button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -25,6 +27,7 @@ fun StartMenuScreen(
     onTranslateButtonClick: () -> Unit,
     onIssueButtonClick: () -> Unit,
     onDialogButtonClick: () -> Unit,
+    onWordButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonItems = listOf(
@@ -39,6 +42,10 @@ fun StartMenuScreen(
         MenuButtonItem(
             title = stringResource(R.string.dialog_button_title),
             onClick = onDialogButtonClick,
+        ),
+        MenuButtonItem(
+            title = stringResource(R.string.word_button_title),
+            onClick = onWordButtonClick,
         )
     )
 
@@ -67,6 +74,7 @@ private fun VerticalStartMenuScreenPreview() {
             onTranslateButtonClick = {},
             onIssueButtonClick = {},
             onDialogButtonClick = {},
+            onWordButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -87,6 +95,7 @@ private fun HorizontalMenuScreenContentPreview() {
             onTranslateButtonClick = {},
             onIssueButtonClick = {},
             onDialogButtonClick = {},
+            onWordButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

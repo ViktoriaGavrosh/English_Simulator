@@ -46,6 +46,9 @@ internal fun AppNavigation(
                 onDialogButtonClick = {
                     navController.navigate(NavigationDestination.DialogGame)
                 },
+                onWordButtonClick = {
+                    navController.navigate(NavigationDestination.WordMenu)
+                },
                 modifier = modifier.testTag(stringResource(R.string.start_menu_screen)),
             )
         }
@@ -96,6 +99,43 @@ internal fun AppNavigation(
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.dialog_game_screen)),
             )
+        }
+        composable<NavigationDestination.WordMenu> {
+            /*
+            WordMenuScreen(
+                isVerticalScreen = isVerticalScreen,
+                onButtonClick = { theme ->
+                    navController.navigate(NavigationDestination.IssueGame(theme))
+                },
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.issue_menu_screen)),
+            )
+
+             */
+        }
+        composable<NavigationDestination.WordGame> { backStackEntry ->
+            val data = backStackEntry.toRoute<NavigationDestination.WordGame>()
+            /*
+            WordGameScreen(
+                isVerticalScreen = isVerticalScreen,
+                theme = data.theme,
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
+            )
+
+             */
+        }
+        composable<NavigationDestination.WordUpdate> { backStackEntry ->
+            val wordId = backStackEntry.toRoute<NavigationDestination.WordUpdate>().wordId
+            /*
+            WordGameScreen(
+                isVerticalScreen = isVerticalScreen,
+                theme = data.theme,
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
+            )
+
+             */
         }
     }
 }

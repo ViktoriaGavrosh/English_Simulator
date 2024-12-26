@@ -29,6 +29,12 @@ sealed class NavigationDestination {
     data object IssueMenu : NavigationDestination()
 
     /**
+     * Describes navigation destination of WordMenuScreen
+     */
+    @Serializable
+    data object WordMenu : NavigationDestination()
+
+    /**
      * Describes navigation destination of TranslateGameScreen
      *
      * @param quest constant describes what action will be shown by Ui
@@ -49,6 +55,26 @@ sealed class NavigationDestination {
      */
     @Serializable
     data object DialogGame : NavigationDestination()
+
+    /**
+     * Describes navigation destination of WordGameScreen
+     *
+     * @param theme describes what action will be shown by Ui
+     * @param quest describes what action will be shown by Ui
+     */
+    @Serializable
+    data class WordGame(
+        val theme: String = "",
+        val quest: Quest = RuToEn
+    ) : NavigationDestination()
+
+    /**
+     * Describes navigation destination of IssueGameScreen
+     *
+     * @param id describes what action will be shown by Ui
+     */
+    @Serializable
+    data class WordUpdate(val wordId: Int = 0) : NavigationDestination()
 }
 
 /**
