@@ -15,14 +15,15 @@ interface AppDatabase {
     fun sentenceDao(): SentenceDao
     fun issueDao(): IssueDao
     fun dialogDao(): DialogDao
+    fun wordDao(): WordDao
 }
 
 /**
  * Database class with a singleton Instance object.
  */
 @Database(
-    entities = [SentenceDb::class, IssueDb::class, DialogDb::class],
-    version = 2,
+    entities = [SentenceDb::class, IssueDb::class, DialogDb::class, WordDao::class],
+    version = 3,
     exportSchema = false,
 )
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {

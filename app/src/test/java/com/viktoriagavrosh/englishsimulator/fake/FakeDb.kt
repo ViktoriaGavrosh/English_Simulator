@@ -4,6 +4,7 @@ import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.DialogDao
 import com.viktoriagavrosh.englishsimulator.data.database.IssueDao
 import com.viktoriagavrosh.englishsimulator.data.database.SentenceDao
+import com.viktoriagavrosh.englishsimulator.data.database.WordDao
 import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
@@ -14,6 +15,9 @@ internal class FakeDb : AppDatabase {
     override fun sentenceDao(): SentenceDao = FakeSentenceDao()
     override fun issueDao(): IssueDao = FakeIssueDao()
     override fun dialogDao(): DialogDao = FakeDialogDao()
+    override fun wordDao(): WordDao {
+        TODO("Not yet implemented")
+    }
 }
 
 private class FakeSentenceDao : SentenceDao {

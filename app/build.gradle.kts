@@ -79,7 +79,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.ui.text.google.fonts)
-    ksp(libs.androidx.room.compiler)
+    compileOnly(libs.androidx.room.compiler)     // TODO change it later
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
