@@ -71,20 +71,18 @@ internal class LocalIssueRepository(
      * @return flow of [RequestResult] with list [Issue]
      */
     override fun getAllIssueByTheme(theme: String): Flow<RequestResult<List<Issue>>> {
-        val result = try {
-            val a = database.issueDao()
-            val b = a.getAllIssuesByTheme(theme = theme)
-            val c = b.map { list ->
-                list.map { it.toIssue() }
-            }
-            val d = c.map<List<Issue>, RequestResult<List<Issue>>> { RequestResult.Success(it) }
-            d
+        return try {
+            database.issueDao()
+                .getAllIssuesByTheme(theme = theme)
+                .map { list ->
+                    list.map { it.toIssue() }
+                }
+                .map<List<Issue>, RequestResult<List<Issue>>> { RequestResult.Success(it) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))
             }
         }
-        return result
     }
 
     /**
