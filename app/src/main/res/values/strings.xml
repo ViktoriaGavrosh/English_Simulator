@@ -4,6 +4,8 @@
     <string name="app_horizontal_title">English Тренажер</string>
     <string name="ru_to_en">С Русского\nНа Английский</string>
     <string name="en_to_ru">С Английского\nНа Русский</string>
+    <string name="short_ru_to_en">На английский</string>
+    <string name="short_en_to_ru">На русский</string>
 
     <string name="translate_horizontal_title">QUIZ Перевод фраз</string>
     <string name="translate_vertical_title">QUIZ\nПеревод\nфраз</string>

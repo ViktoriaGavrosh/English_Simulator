@@ -21,6 +21,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param onBackClick callback that is executed when back button is clicked
  * @param modifier the modifier to be applied to this layout node
  * @param isBackButtonShow if true back button shown on top of screen
+ * @param isDropdownMenuShow if true DropdownMenu shown on screen
  */
 @Composable
 internal fun MenuScreen(
@@ -31,6 +32,8 @@ internal fun MenuScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     isBackButtonShow: Boolean = true,
+    isDropdownMenuShow: Boolean = false,
+    onDropdownMenuValueChange: (String) -> Unit = {},
 ) {
     Box(
         modifier = modifier,
@@ -39,7 +42,9 @@ internal fun MenuScreen(
             title = title,
             isVerticalScreen = isVerticalScreen,
             isScreenWithButtons = isScreenWithButtons,
+            isDropdownMenuShow = isDropdownMenuShow,
             buttonItems = buttonItems,
+            onDropdownMenuValueChange = onDropdownMenuValueChange,
             modifier = Modifier.fillMaxSize()
         )
         if (isBackButtonShow) {

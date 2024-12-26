@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements.HorizontalContent
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements.SelectionDropdownMenu
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements.VerticalContent
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
@@ -34,9 +36,15 @@ internal fun MenuScreenContent(
     title: String,
     isVerticalScreen: Boolean,
     isScreenWithButtons: Boolean,
+    isDropdownMenuShow: Boolean,
     buttonItems: List<MenuButtonItem>,
+    onDropdownMenuValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val options = listOf(
+        stringResource(R.string.short_ru_to_en),
+        stringResource(R.string.short_en_to_ru)
+    )
     Column(
         modifier = modifier
             .padding(horizontal = dimensionResource(R.dimen.padding_small)),
@@ -49,19 +57,26 @@ internal fun MenuScreenContent(
             textAlign = TextAlign.Center,
             modifier = if (isVerticalScreen) {
                 Modifier
-                    .padding(top = dimensionResource(R.dimen.padding_large))
+                    .padding(top = dimensionResource(R.dimen.padding_extra_large))
             } else {
                 Modifier
                     .padding(bottom = dimensionResource(R.dimen.padding_large))
             }
         )
+        if (isDropdownMenuShow) {
+            SelectionDropdownMenu(
+                options = options,
+                selectedOption = options[0],
+                onValueChange = onDropdownMenuValueChange,
+            )
+        }
         if (isVerticalScreen) {
             VerticalContent(
                 buttonItems = buttonItems,
                 isScreenWithButtons = isScreenWithButtons,
                 modifier = Modifier.padding(
-                    top = dimensionResource(R.dimen.padding_extra_large)
-                ),
+                    top = dimensionResource(R.dimen.padding_large)
+                )
             )
         } else {
             HorizontalContent(
@@ -88,6 +103,8 @@ private fun VerticalMenuScreenContentPreview() {
                 MenuButtonItem(title = "Button 2"),
             ),
             isScreenWithButtons = true,
+            isDropdownMenuShow = false,
+            onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -110,6 +127,8 @@ private fun HorizontalMenuScreenContentPreview() {
                 MenuButtonItem(title = "Button $it")
             },
             isScreenWithButtons = true,
+            isDropdownMenuShow = false,
+            onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -126,7 +145,9 @@ private fun VerticalFullMenuScreenContentPreview() {
             buttonItems = List(8) {
                 MenuButtonItem(title = "Button $it")
             },
-            isScreenWithButtons = true,
+            isScreenWithButtons = false,
+            isDropdownMenuShow = true,
+            onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -148,7 +169,9 @@ private fun HorizontalFullMenuScreenContentPreview() {
             buttonItems = List(8) {
                 MenuButtonItem(title = "Button $it")
             },
-            isScreenWithButtons = true,
+            isScreenWithButtons = false,
+            isDropdownMenuShow = true,
+            onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -162,11 +185,12 @@ private fun VerticalCardMenuScreenContentPreview() {
         MenuScreenContent(
             title = "Title of the game",
             isVerticalScreen = true,
-            buttonItems = listOf(
-                MenuButtonItem(title = "Button 1 with large text"),
-                MenuButtonItem(title = "Button 2"),
-            ),
+            buttonItems = List(8) {
+                MenuButtonItem(title = "Button $it")
+            },
             isScreenWithButtons = false,
+            isDropdownMenuShow = false,
+            onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -185,10 +209,12 @@ private fun HorizontalCardMenuScreenContentPreview() {
         MenuScreenContent(
             title = "Title of the game",
             isVerticalScreen = false,
-            buttonItems = List(2) {
+            buttonItems = List(8) {
                 MenuButtonItem(title = "Button $it")
             },
             isScreenWithButtons = false,
+            isDropdownMenuShow = false,
+            onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize()
         )
     }
