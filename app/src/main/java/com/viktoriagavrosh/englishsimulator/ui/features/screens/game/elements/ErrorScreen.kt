@@ -38,19 +38,19 @@ internal fun ErrorScreen(
             text = stringResource(R.string.something_happened),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.displayLarge,
-            modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))
+            modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
         )
         Button(
             onClick = onErrorButtonClick,
             modifier = Modifier.padding(
-                top = dimensionResource(R.dimen.padding_super_extra_large)
+                top = dimensionResource(R.dimen.padding_double_large)
             ),
         ) {
             Text(
                 text = stringResource(R.string.back),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
             )
         }
     }

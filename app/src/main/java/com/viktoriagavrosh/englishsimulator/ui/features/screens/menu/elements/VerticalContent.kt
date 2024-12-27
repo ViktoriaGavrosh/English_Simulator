@@ -27,12 +27,12 @@ internal fun VerticalContent(
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(
             if (isScreenWithButtons) {
-                dimensionResource(R.dimen.padding_extra_large)
+                dimensionResource(R.dimen.padding_double_medium)
             } else {
-                dimensionResource(R.dimen.padding_large)
+                dimensionResource(R.dimen.padding_medium)
             }
         ),
-        modifier = modifier.padding(bottom = dimensionResource(R.dimen.padding_large)),
+        modifier = modifier.padding(bottom = dimensionResource(R.dimen.padding_medium)),
     ) {
         items(
             items = buttonItems,
@@ -43,7 +43,7 @@ internal fun VerticalContent(
                     text = item.title,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = dimensionResource(R.dimen.padding_double_extra_large)),
+                        .padding(horizontal = dimensionResource(R.dimen.padding_extra_large)),
                 )
             } else {
                 QuestCard(
@@ -51,7 +51,7 @@ internal fun VerticalContent(
                     text = item.title,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = dimensionResource(R.dimen.padding_medium))
+                        .padding(horizontal = dimensionResource(R.dimen.padding_double_small))
                 )
             }
         }

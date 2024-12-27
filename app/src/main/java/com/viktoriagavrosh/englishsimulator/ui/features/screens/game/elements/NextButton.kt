@@ -35,7 +35,7 @@ internal fun NextButton(
             painter = painterResource(R.drawable.ic_next),
             contentDescription = stringResource(R.string.next_question),
             modifier = Modifier
-                .padding(horizontal = dimensionResource(R.dimen.padding_double_extra_large))
+                .padding(horizontal = dimensionResource(R.dimen.padding_extra_large))
                 .size(dimensionResource(R.dimen.icon_size))
         )
     }

@@ -57,10 +57,10 @@ internal fun MenuScreenContent(
             textAlign = TextAlign.Center,
             modifier = if (isVerticalScreen) {
                 Modifier
-                    .padding(top = dimensionResource(R.dimen.padding_extra_large))
+                    .padding(top = dimensionResource(R.dimen.padding_double_medium))
             } else {
                 Modifier
-                    .padding(bottom = dimensionResource(R.dimen.padding_large))
+                    .padding(bottom = dimensionResource(R.dimen.padding_medium))
             }
         )
         if (isDropdownMenuShow) {
@@ -75,7 +75,7 @@ internal fun MenuScreenContent(
                 buttonItems = buttonItems,
                 isScreenWithButtons = isScreenWithButtons,
                 modifier = Modifier.padding(
-                    top = dimensionResource(R.dimen.padding_large)
+                    top = dimensionResource(R.dimen.padding_medium)
                 )
             )
         } else {
@@ -84,7 +84,7 @@ internal fun MenuScreenContent(
                 isScreenWithButtons = isScreenWithButtons,
                 modifier = Modifier
                     .wrapContentWidth(Alignment.CenterHorizontally)
-                    .padding(dimensionResource(R.dimen.padding_large)),
+                    .padding(dimensionResource(R.dimen.padding_medium)),
             )
         }
     }

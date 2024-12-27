@@ -4,11 +4,13 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -19,10 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.BackRow
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.IconRow
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.NextButton
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ScoreBox
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.TextBox
@@ -38,6 +42,8 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param onBackClick callback that is executed when back button is clicked
  * @param onNextClick callback that is executed when next button is clicked
  * @param modifier the modifier to be applied to this layout node
+ * @param isEditButtonShow if true Edit button will be shown
+ * @param onEditButtonClick callback that is executed when edit button is clicked
  */
 @Composable
 internal fun GameScreen(
@@ -47,26 +53,47 @@ internal fun GameScreen(
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier,
+    isEditButtonShow: Boolean = false,
+    onEditButtonClick: () -> Unit = {},
 ) {
-    Column(
+    Box(
         modifier = modifier
             .background(MaterialTheme.colorScheme.primaryContainer),
-        verticalArrangement = Arrangement.Center,
     ) {
-        BackRow(onBackClick = onBackClick)
+        IconRow(
+            iconId = R.drawable.ic_back,
+            contentDescription = stringResource(R.string.back),
+            onIconClick = onBackClick,
+            modifier = Modifier.testTag(stringResource(R.string.back_button)),
+        )
+        if (isEditButtonShow) {
+            IconRow(
+                iconId = R.drawable.ic_edit,
+                contentDescription = stringResource(R.string.edit),
+                onIconClick = onEditButtonClick,
+                isLeft = false,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(stringResource(R.string.edit_button))
+            )
+        }
         if (isVerticalScreen) {
             ColumnTranslate(
                 gameQuestionProvider = gameQuestionProvider,
                 scoreProvider = scoreProvider,
                 onNextClick = onNextClick,
-                modifier = Modifier.fillMaxHeight(),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(top = dimensionResource(R.dimen.padding_large)),
             )
         } else {
             RowTranslate(
                 gameQuestionProvider = gameQuestionProvider,
                 scoreProvider = scoreProvider,
                 onNextClick = onNextClick,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = dimensionResource(R.dimen.padding_large)),
             )
         }
     }
@@ -92,7 +119,7 @@ private fun ColumnTranslate(
 
     Column(
         modifier = modifier.padding(
-            horizontal = dimensionResource(R.dimen.padding_double_extra_large)
+            horizontal = dimensionResource(R.dimen.padding_extra_large)
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround,
@@ -138,7 +165,7 @@ private fun RowTranslate(
 
     Row(
         modifier = modifier.padding(
-            horizontal = dimensionResource(R.dimen.padding_super_extra_large)
+            horizontal = dimensionResource(R.dimen.padding_double_large)
         ),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -147,7 +174,7 @@ private fun RowTranslate(
             modifier = Modifier
                 .weight(1F)
                 .fillMaxHeight()
-                .padding(bottom = dimensionResource(R.dimen.padding_large)),
+                .padding(bottom = dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -157,15 +184,15 @@ private fun RowTranslate(
             )
             ScoreBox(
                 score = scoreProvider(),
-                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_large)),
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium)),
             )
         }
-        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_super_extra_large)))
+        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_double_large)))
         Column(
             modifier = Modifier
                 .weight(1F)
                 .fillMaxHeight()
-                .padding(bottom = dimensionResource(R.dimen.padding_large)),
+                .padding(bottom = dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -181,7 +208,7 @@ private fun RowTranslate(
                     isAnswerOpen = false
                     onNextClick()
                 },
-                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_large)),
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium)),
             )
         }
     }
@@ -230,6 +257,28 @@ private fun HorizontalTranslateScreenPreview() {
             onBackClick = {},
             onNextClick = {},
             modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light")
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun EditVerticalTranslateScreenPreview() {
+    EnglishSimulatorTheme {
+        GameScreen(
+            gameQuestionProvider = {
+                GameQuestion(
+                    question = "Ru Text",
+                    translate = "En Text"
+                )
+            },
+            scoreProvider = { 0 },
+            isVerticalScreen = true,
+            onBackClick = {},
+            onNextClick = {},
+            modifier = Modifier.fillMaxSize(),
+            isEditButtonShow = true,
         )
     }
 }

@@ -50,7 +50,7 @@ internal fun TextBox(
                 text = text,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
             )
         } else {
             Icon(

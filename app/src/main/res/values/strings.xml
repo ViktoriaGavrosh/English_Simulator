@@ -18,12 +18,14 @@
     <string name="all_themes">All</string>
 
     <string name="back">Back</string>
+    <string name="edit">Edit word</string>
     <string name="answer">Answer</string>
     <string name="next_question">next question</string>
     <string name="something_happened">Something Happened</string>
 
     <string name="back_button">back_button</string>
     <string name="next_button">next button</string>
+    <string name="edit_button">edit button</string>
 
     <string name="top_button">top button</string>
     <string name="bottom_button">bottom button</string>

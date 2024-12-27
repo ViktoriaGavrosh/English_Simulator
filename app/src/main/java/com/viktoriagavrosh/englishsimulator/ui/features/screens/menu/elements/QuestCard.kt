@@ -45,7 +45,7 @@ internal fun QuestCard(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = dimensionResource(R.dimen.padding_extra_large))
+                .padding(vertical = dimensionResource(R.dimen.padding_double_medium))
         )
     }
 }

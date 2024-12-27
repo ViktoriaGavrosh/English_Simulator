@@ -56,8 +56,8 @@ private fun ButtonGrid(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_small)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_small)),
         modifier = modifier,
     ) {
 
@@ -90,8 +90,8 @@ private fun CardGrid(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = dimensionResource(R.dimen.menu_large_button_width)),
-        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_small)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_small)),
         modifier = modifier,
     ) {
 
