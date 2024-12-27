@@ -16,6 +16,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuScreen
 
 /**
  * Composable with navigation between app screens
@@ -101,17 +102,14 @@ internal fun AppNavigation(
             )
         }
         composable<NavigationDestination.WordMenu> {
-            /*
             WordMenuScreen(
                 isVerticalScreen = isVerticalScreen,
                 onButtonClick = { theme ->
                     navController.navigate(NavigationDestination.IssueGame(theme))
                 },
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier.testTag(stringResource(R.string.issue_menu_screen)),
+                modifier = modifier.testTag(stringResource(R.string.word_menu_screen)),
             )
-
-             */
         }
         composable<NavigationDestination.WordGame> { backStackEntry ->
             val data = backStackEntry.toRoute<NavigationDestination.WordGame>()
