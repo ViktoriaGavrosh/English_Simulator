@@ -31,6 +31,14 @@ interface WordDao {
     fun getAllWordsByTheme(theme: String): Flow<List<WordDb>>
 
     /**
+     * Return all themes from word table
+     *
+     * @return flow of list [WordDb]
+     */
+    @Query("SELECT DISTINCT theme FROM word")
+    fun getAllThemes(): Flow<List<String>>
+
+    /**
      * will insert element into the database (word table)
      *
      * @param wordDb object [WordDb] that will be insert

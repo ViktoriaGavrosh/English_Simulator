@@ -104,8 +104,13 @@ internal fun AppNavigation(
         composable<NavigationDestination.WordMenu> {
             WordMenuScreen(
                 isVerticalScreen = isVerticalScreen,
-                onButtonClick = { theme ->
-                    navController.navigate(NavigationDestination.IssueGame(theme))
+                onButtonClick = { theme, quest ->
+                    navController.navigate(
+                        NavigationDestination.WordGame(
+                            theme = theme,
+                            quest = quest
+                        )
+                    )
                 },
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.word_menu_screen)),

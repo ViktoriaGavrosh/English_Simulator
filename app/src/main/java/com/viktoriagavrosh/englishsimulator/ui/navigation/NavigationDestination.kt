@@ -1,7 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.navigation
 
-import androidx.annotation.Keep
-import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest.EnToRu
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest.RuToEn
 import kotlinx.serialization.Serializable
 
@@ -71,28 +69,8 @@ sealed class NavigationDestination {
     /**
      * Describes navigation destination of IssueGameScreen
      *
-     * @param id describes what action will be shown by Ui
+     * @param wordId describes what action will be shown by Ui
      */
     @Serializable
     data class WordUpdate(val wordId: Int = 0) : NavigationDestination()
-}
-
-/**
- * Constants describes what action will be shown by Ui
- *
- * @see RuToEn
- * @see EnToRu
- */
-@Keep
-enum class Quest {
-
-    /**
-     * Quest "Translate from Russian into English"
-     */
-    RuToEn,
-
-    /**
-     * Quest "Translate from English into Russian"
-     */
-    EnToRu
 }

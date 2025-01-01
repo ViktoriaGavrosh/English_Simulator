@@ -29,6 +29,13 @@ interface WordRepository {
     fun getAllWordsByTheme(theme: String): Flow<RequestResult<List<Word>>>
 
     /**
+     * Retrieve all themes from given database
+     *
+     * @return flow of [RequestResult] with list [String]
+     */
+    fun getAllThemes(): Flow<RequestResult<List<String>>>
+
+    /**
      * will insert element into given data source
      *
      * @param wordDb object [WordDb] that will be insert
@@ -77,6 +84,22 @@ internal class LocalWordRepository(
                     list.map { it.toWord() }
                 }
                 .map<List<Word>, RequestResult<List<Word>>> { RequestResult.Success(it) }
+        } catch (e: Exception) {
+            flow {
+                emit(RequestResult.Error(e))
+            }
+        }
+    }
+
+    /**
+     * Retrieve all themes from given database
+     *
+     * @return flow of [RequestResult] with list [String]
+     */
+    override fun getAllThemes(): Flow<RequestResult<List<String>>> {
+        return try {
+            database.wordDao().getAllThemes()
+                .map<List<String>, RequestResult<List<String>>> { RequestResult.Success(it) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))

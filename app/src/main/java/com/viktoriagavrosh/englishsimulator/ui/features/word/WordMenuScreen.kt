@@ -12,6 +12,7 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import org.koin.androidx.compose.koinViewModel
@@ -27,18 +28,21 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun WordMenuScreen(
     isVerticalScreen: Boolean,
-    onButtonClick: (String) -> Unit,
+    onButtonClick: (String, Quest) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: WordMenuViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val language by viewModel.selectedOption.collectAsStateWithLifecycle()
 
     WordMenuScreen(
         screenStateProvider = { uiState },
         isVerticalScreen = isVerticalScreen,
-        onButtonClick = onButtonClick,
+        onButtonClick = { theme -> onButtonClick(theme, language) },
         onBackClick = onBackClick,
+        dropdownMenuOptions = Quest.entries.map { it.text },
+        dropdownMenuSelectedOptionProvider = { language.text },
         onDropdownMenuValueChange = viewModel::updateLanguage,
         modifier = modifier,
     )
@@ -51,6 +55,8 @@ fun WordMenuScreen(
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onButtonClick callback that is executed when button is clicked
  * @param onBackClick callback that is executed when back button is clicked
+ * @param dropdownMenuSelectedOptionProvider provides selected item for dropdownMenu
+ * @param dropdownMenuOptions list of items to select for dropdownMenu
  * @param onDropdownMenuValueChange callback that is executed when dropdown menu value is changed
  * @param modifier the modifier to be applied to this layout node
  */
@@ -60,6 +66,8 @@ internal fun WordMenuScreen(
     isVerticalScreen: Boolean,
     onButtonClick: (String) -> Unit,
     onBackClick: () -> Unit,
+    dropdownMenuSelectedOptionProvider: () -> String,
+    dropdownMenuOptions: List<String>,
     onDropdownMenuValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -102,7 +110,8 @@ internal fun WordMenuScreen(
                 isVerticalScreen = isVerticalScreen,
                 onBackClick = onBackClick,
                 modifier = modifier,
-                isDropdownMenuShow = true,
+                dropdownMenuOptions = dropdownMenuOptions,
+                dropdownMenuSelectedOptionProvider = dropdownMenuSelectedOptionProvider,
                 onDropdownMenuValueChange = onDropdownMenuValueChange,
             )
         }
@@ -123,6 +132,8 @@ private fun VerticalWordMenuScreenPreview() {
             isVerticalScreen = true,
             onButtonClick = {},
             onBackClick = {},
+            dropdownMenuOptions = listOf("first", "second"),
+            dropdownMenuSelectedOptionProvider = { "first" },
             onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize(),
         )
@@ -148,6 +159,8 @@ private fun HorizontalWordMenuScreenPreview() {
             isVerticalScreen = false,
             onButtonClick = {},
             onBackClick = {},
+            dropdownMenuOptions = listOf("first", "second"),
+            dropdownMenuSelectedOptionProvider = { "first" },
             onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize(),
         )
@@ -164,6 +177,8 @@ private fun ErrorVerticalWordMenuScreenPreview() {
             isVerticalScreen = true,
             onButtonClick = {},
             onBackClick = {},
+            dropdownMenuOptions = emptyList(),
+            dropdownMenuSelectedOptionProvider = { "" },
             onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize(),
         )
@@ -185,6 +200,8 @@ private fun ErrorHorizontalWordMenuScreenPreview() {
             isVerticalScreen = false,
             onButtonClick = {},
             onBackClick = {},
+            dropdownMenuOptions = emptyList(),
+            dropdownMenuSelectedOptionProvider = { "" },
             onDropdownMenuValueChange = {},
             modifier = Modifier.fillMaxSize(),
         )

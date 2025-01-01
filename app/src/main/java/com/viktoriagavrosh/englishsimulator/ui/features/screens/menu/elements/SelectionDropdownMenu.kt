@@ -18,18 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
+/**
+ * Composable to display selection menu
+ *
+ * @param options list of items to select
+ * @param selectedOptionProvider provides selected item
+ * @param onValueChange callback that is executed when item is selected
+ * @param modifier the modifier to be applied to this layout node
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SelectionDropdownMenu(
     options: List<String>,
-    selectedOption: String,
+    selectedOptionProvider: () -> String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    var selected by remember { mutableStateOf("") }
-    if (selected.isEmpty()) selected = selectedOption
-
     val textFieldColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5F)
 
     ExposedDropdownMenuBox(
@@ -38,7 +43,7 @@ internal fun SelectionDropdownMenu(
         modifier = modifier,
     ) {
         OutlinedTextField(
-            value = selected,
+            value = selectedOptionProvider(),
             onValueChange = onValueChange,
             readOnly = true,
             trailingIcon = {
@@ -61,9 +66,8 @@ internal fun SelectionDropdownMenu(
                         Text(text = item)
                     },
                     onClick = {
-                        selected = item
                         isExpanded = false
-                        onValueChange(selected)
+                        onValueChange(item)
                     }
                 )
             }
@@ -78,7 +82,7 @@ private fun SelectionDropdownMenuPreview() {
     EnglishSimulatorTheme {
         SelectionDropdownMenu(
             options = options,
-            selectedOption = options[0],
+            selectedOptionProvider = { options[0] },
             onValueChange = {},
         )
     }
