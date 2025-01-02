@@ -3,10 +3,10 @@ package com.viktoriagavrosh.englishsimulator.ui.features.issue
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
@@ -32,7 +32,7 @@ fun IssueGameScreen(
     val viewModel: IssueGameViewModel = koinViewModel {
         parametersOf(theme)
     }
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     IssueGameScreen(
         gameQuestionProvider = { uiState.gameQuestion },

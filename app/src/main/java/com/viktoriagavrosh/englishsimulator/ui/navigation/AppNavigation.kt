@@ -16,6 +16,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuScreen
 
 /**
@@ -118,15 +119,13 @@ internal fun AppNavigation(
         }
         composable<NavigationDestination.WordGame> { backStackEntry ->
             val data = backStackEntry.toRoute<NavigationDestination.WordGame>()
-            /*
             WordGameScreen(
                 isVerticalScreen = isVerticalScreen,
+                quest = data.quest,
                 theme = data.theme,
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
+                modifier = modifier.testTag(stringResource(R.string.word_game_screen)),
             )
-
-             */
         }
         composable<NavigationDestination.WordUpdate> { backStackEntry ->
             val wordId = backStackEntry.toRoute<NavigationDestination.WordUpdate>().wordId

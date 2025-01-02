@@ -3,10 +3,10 @@ package com.viktoriagavrosh.englishsimulator.ui.features.translate
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
@@ -33,7 +33,7 @@ internal fun TranslateGameScreen(
     val viewModel: TranslateGameViewModel = koinViewModel {
         parametersOf(quest == Quest.RuToEn)
     }
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     TranslateGameScreen(
         gameQuestionProvider = { uiState.gameQuestion },

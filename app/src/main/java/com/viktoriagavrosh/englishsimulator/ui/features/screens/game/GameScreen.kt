@@ -34,7 +34,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQ
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display quest "Translate sentences"
+ * Composable to display quest
  *
  * @param gameQuestionProvider provides item for ui
  * @param scoreProvider provides score of game

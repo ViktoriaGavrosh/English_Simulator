@@ -40,5 +40,6 @@
     <string name="translate_game_screen">translate game screen</string>
     <string name="issue_game_screen">issue game screen</string>
     <string name="dialog_game_screen">dialog game screen</string>
+    <string name="word_game_screen">word game screen</string>
 
 </resources>
