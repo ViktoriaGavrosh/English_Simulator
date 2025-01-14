@@ -40,7 +40,7 @@ import org.koin.core.parameter.parametersOf
  * @param wordId unique word identifier
  */
 @Composable
-fun WordUpdateDialog(
+fun WordUpdateScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     wordId: Int = 0,
@@ -50,7 +50,7 @@ fun WordUpdateDialog(
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    WordUpdateDialog(
+    WordUpdateScreen(
         englishTextProvider = { uiState.word.englishWord },
         russianTextProvider = { uiState.word.russianWord },
         themeProvider = { uiState.word.theme },
@@ -87,7 +87,7 @@ fun WordUpdateDialog(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-internal fun WordUpdateDialog(
+internal fun WordUpdateScreen(
     englishTextProvider: () -> String,
     russianTextProvider: () -> String,
     themeProvider: () -> String,
@@ -103,7 +103,7 @@ internal fun WordUpdateDialog(
     AlertDialog(
         onDismissRequest = onBackClick,
         confirmButton = {
-            UpdateDialogButtons(
+            UpdateScreenButtons(
                 isWordValidProvider = isWordValidProvider,
                 onDeleteClick = onDeleteClick,
                 onBackClick = onBackClick,
@@ -113,7 +113,7 @@ internal fun WordUpdateDialog(
         },
         modifier = modifier,
         text = {
-            UpdateDialogContent(
+            UpdateScreenContent(
                 englishTextProvider = englishTextProvider,
                 russianTextProvider = russianTextProvider,
                 themeProvider = themeProvider,
@@ -135,7 +135,7 @@ internal fun WordUpdateDialog(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun UpdateDialogButtons(
+private fun UpdateScreenButtons(
     isWordValidProvider: () -> Boolean,
     onDeleteClick: () -> Unit,
     onBackClick: () -> Unit,
@@ -182,7 +182,7 @@ private fun UpdateDialogButtons(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun UpdateDialogContent(
+private fun UpdateScreenContent(
     englishTextProvider: () -> String,
     russianTextProvider: () -> String,
     themeProvider: () -> String,
@@ -251,7 +251,7 @@ private fun UpdateTextField(
 @Composable
 private fun WordUpdateDialogPreview() {
     EnglishSimulatorTheme {
-        WordUpdateDialog(
+        WordUpdateScreen(
             englishTextProvider = { "En Text" },
             russianTextProvider = { "Ru Text" },
             themeProvider = { "Theme" },

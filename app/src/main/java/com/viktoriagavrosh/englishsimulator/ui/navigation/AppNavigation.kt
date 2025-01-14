@@ -18,7 +18,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameS
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateDialog
+import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateScreen
 
 /**
  * Composable with navigation between app screens
@@ -140,7 +140,7 @@ internal fun AppNavigation(
         }
         composable<NavigationDestination.WordUpdate> { backStackEntry ->
             val wordId = backStackEntry.toRoute<NavigationDestination.WordUpdate>().wordId
-            WordUpdateDialog(
+            WordUpdateScreen(
                 onBackClick = { navController.navigateUp() },
                 modifier = Modifier.testTag(stringResource(R.string.issue_game_screen)),
                 wordId = wordId,

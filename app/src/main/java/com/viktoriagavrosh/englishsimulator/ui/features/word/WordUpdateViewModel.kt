@@ -134,7 +134,7 @@ class WordUpdateViewModel(
 }
 
 /**
- * holds [WordUpdateDialog] state
+ * holds [WordUpdateScreen] state
  *
  * @param word instance [Word]
  * @param isWordValid if true, new word can be saved
