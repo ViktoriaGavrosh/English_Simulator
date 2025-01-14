@@ -42,8 +42,8 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param onBackClick callback that is executed when back button is clicked
  * @param onNextClick callback that is executed when next button is clicked
  * @param modifier the modifier to be applied to this layout node
- * @param isEditButtonShow if true Edit button will be shown
- * @param onEditButtonClick callback that is executed when edit button is clicked
+ * @param isUpdateButtonShow if true Edit button will be shown
+ * @param onUpdateButtonClick callback that is executed when edit button is clicked
  */
 @Composable
 internal fun GameScreen(
@@ -53,8 +53,8 @@ internal fun GameScreen(
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier,
-    isEditButtonShow: Boolean = false,
-    onEditButtonClick: () -> Unit = {},
+    isUpdateButtonShow: Boolean = false,
+    onUpdateButtonClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -66,11 +66,11 @@ internal fun GameScreen(
             onIconClick = onBackClick,
             modifier = Modifier.testTag(stringResource(R.string.back_button)),
         )
-        if (isEditButtonShow) {
+        if (isUpdateButtonShow) {
             IconRow(
                 iconId = R.drawable.ic_edit,
                 contentDescription = stringResource(R.string.edit),
-                onIconClick = onEditButtonClick,
+                onIconClick = onUpdateButtonClick,
                 isLeft = false,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -278,7 +278,7 @@ private fun EditVerticalTranslateScreenPreview() {
             onBackClick = {},
             onNextClick = {},
             modifier = Modifier.fillMaxSize(),
-            isEditButtonShow = true,
+            isUpdateButtonShow = true,
         )
     }
 }

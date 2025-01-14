@@ -30,6 +30,7 @@ fun WordMenuScreen(
     isVerticalScreen: Boolean,
     onButtonClick: (String, Quest) -> Unit,
     onBackClick: () -> Unit,
+    onAddButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: WordMenuViewModel = koinViewModel()
@@ -44,6 +45,7 @@ fun WordMenuScreen(
         dropdownMenuOptions = Quest.entries.map { it.text },
         dropdownMenuSelectedOptionProvider = { language.text },
         onDropdownMenuValueChange = viewModel::updateLanguage,
+        onAddButtonClick = onAddButtonClick,
         modifier = modifier,
     )
 }
@@ -69,6 +71,7 @@ internal fun WordMenuScreen(
     dropdownMenuSelectedOptionProvider: () -> String,
     dropdownMenuOptions: List<String>,
     onDropdownMenuValueChange: (String) -> Unit,
+    onAddButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val screenState = screenStateProvider()) {
@@ -113,6 +116,8 @@ internal fun WordMenuScreen(
                 dropdownMenuOptions = dropdownMenuOptions,
                 dropdownMenuSelectedOptionProvider = dropdownMenuSelectedOptionProvider,
                 onDropdownMenuValueChange = onDropdownMenuValueChange,
+                isAddButtonShow = true,
+                onAddButtonClick = onAddButtonClick,
             )
         }
     }
@@ -135,6 +140,7 @@ private fun VerticalWordMenuScreenPreview() {
             dropdownMenuOptions = listOf("first", "second"),
             dropdownMenuSelectedOptionProvider = { "first" },
             onDropdownMenuValueChange = {},
+            onAddButtonClick = {},
             modifier = Modifier.fillMaxSize(),
         )
     }
@@ -162,6 +168,7 @@ private fun HorizontalWordMenuScreenPreview() {
             dropdownMenuOptions = listOf("first", "second"),
             dropdownMenuSelectedOptionProvider = { "first" },
             onDropdownMenuValueChange = {},
+            onAddButtonClick = {},
             modifier = Modifier.fillMaxSize(),
         )
     }
@@ -180,6 +187,7 @@ private fun ErrorVerticalWordMenuScreenPreview() {
             dropdownMenuOptions = emptyList(),
             dropdownMenuSelectedOptionProvider = { "" },
             onDropdownMenuValueChange = {},
+            onAddButtonClick = {},
             modifier = Modifier.fillMaxSize(),
         )
     }
@@ -203,6 +211,7 @@ private fun ErrorHorizontalWordMenuScreenPreview() {
             dropdownMenuOptions = emptyList(),
             dropdownMenuSelectedOptionProvider = { "" },
             onDropdownMenuValueChange = {},
+            onAddButtonClick = {},
             modifier = Modifier.fillMaxSize(),
         )
     }

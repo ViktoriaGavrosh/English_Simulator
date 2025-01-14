@@ -2,9 +2,9 @@ package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.model.Word
-import com.viktoriagavrosh.englishsimulator.model.WordDb
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toWordDb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -36,11 +36,33 @@ interface WordRepository {
     fun getAllThemes(): Flow<RequestResult<List<String>>>
 
     /**
+     * Retrieve item from given data source by id
+     *
+     * @param id unique item id
+     * @return flow of [RequestResult] with [Word]
+     */
+    fun getWordById(id: Int): Flow<RequestResult<Word>>
+
+    /**
      * will insert element into given data source
      *
-     * @param wordDb object [WordDb] that will be insert
+     * @param word object [Word] that will be insert
      */
-    suspend fun insert(wordDb: WordDb)
+    suspend fun insert(word: Word)
+
+    /**
+     * will update element into given data source
+     *
+     * @param word object [Word] that will be update
+     */
+    suspend fun update(word: Word)
+
+    /**
+     * will delete element from given data source
+     *
+     * @param word object [Word] that will be delete
+     */
+    suspend fun delete(word: Word)
 }
 
 /**
@@ -108,11 +130,47 @@ internal class LocalWordRepository(
     }
 
     /**
+     * Retrieve item from given database by id
+     *
+     * @param id unique word id
+     * @return flow of [RequestResult] with [Word]
+     */
+    override fun getWordById(id: Int): Flow<RequestResult<Word>> {
+        return try {
+            database.wordDao()
+                .getWordById(id = id)
+                .map { RequestResult.Success(it.toWord()) }
+        } catch (e: Exception) {
+            flow {
+                emit(RequestResult.Error(e))
+            }
+        }
+    }
+
+    /**
      * will insert element into database
      *
-     * @param wordDb object [WordDb] that will be insert
+     * @param word object [Word] that will be insert
      */
-    override suspend fun insert(wordDb: WordDb) {
-        database.wordDao().insert(wordDb)
+    override suspend fun insert(word: Word) {
+        database.wordDao().insert(word.toWordDb())
+    }
+
+    /**
+     * will update element into database
+     *
+     * @param word object [Word] that will be update
+     */
+    override suspend fun update(word: Word) {
+        database.wordDao().update(word.toWordDb())
+    }
+
+    /**
+     * will delete element from given data source
+     *
+     * @param word object [Word] that will be delete
+     */
+    override suspend fun delete(word: Word) {
+        database.wordDao().delete(word.toWordDb())
     }
 }

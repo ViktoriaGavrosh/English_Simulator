@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">En-Тренажер</string>
+    <string name="app_name">EnТренажер</string>
     <string name="app_vertical_title">English\nТренажер</string>
     <string name="app_horizontal_title">English Тренажер</string>
     <string name="ru_to_en">С Русского\nНа Английский</string>
@@ -22,13 +22,21 @@
 
     <string name="back">Back</string>
     <string name="edit">Edit word</string>
+    <string name="add">Add word</string>
     <string name="answer">Answer</string>
+    <string name="english_text">english</string>
+    <string name="russian_text">russian</string>
+    <string name="theme">theme</string>
     <string name="next_question">next question</string>
     <string name="something_happened">Something Happened</string>
 
     <string name="back_button">back_button</string>
     <string name="next_button">next button</string>
     <string name="edit_button">edit button</string>
+    <string name="add_button">add button</string>
+    <string name="delete_word">delete word</string>
+    <string name="cancel">cancel</string>
+    <string name="save">save</string>
 
     <string name="top_button">top button</string>
     <string name="bottom_button">bottom button</string>
@@ -41,5 +49,6 @@
     <string name="issue_game_screen">issue game screen</string>
     <string name="dialog_game_screen">dialog game screen</string>
     <string name="word_game_screen">word game screen</string>
+
 
 </resources>

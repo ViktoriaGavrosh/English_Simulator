@@ -40,6 +40,8 @@ internal fun MenuScreen(
     dropdownMenuSelectedOptionProvider: () -> String = { "" },
     dropdownMenuOptions: List<String> = emptyList(),
     onDropdownMenuValueChange: (String) -> Unit = {},
+    isAddButtonShow: Boolean = false,
+    onAddButtonClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier,
@@ -63,6 +65,17 @@ internal fun MenuScreen(
                     .fillMaxWidth()
                     .testTag(stringResource(R.string.back_button)),
             )
+            if (isAddButtonShow) {
+                IconRow(
+                    iconId = R.drawable.ic_add,
+                    contentDescription = stringResource(R.string.add),
+                    onIconClick = onAddButtonClick,
+                    isLeft = false,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(stringResource(R.string.add_button))
+                )
+            }
         }
     }
 }

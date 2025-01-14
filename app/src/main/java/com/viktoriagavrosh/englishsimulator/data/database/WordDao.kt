@@ -1,9 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.data.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.viktoriagavrosh.englishsimulator.model.WordDb
 import kotlinx.coroutines.flow.Flow
 
@@ -33,10 +35,19 @@ interface WordDao {
     /**
      * Return all themes from word table
      *
-     * @return flow of list [WordDb]
+     * @return flow of list themes
      */
     @Query("SELECT DISTINCT theme FROM word")
     fun getAllThemes(): Flow<List<String>>
+
+    /**
+     * Retrieve item from word table source by id
+     *
+     * @param id unique item id
+     * @return flow of list [WordDb]
+     */
+    @Query("SELECT * FROM word WHERE id = :id")
+    fun getWordById(id: Int): Flow<WordDb>
 
     /**
      * will insert element into the database (word table)
@@ -45,4 +56,20 @@ interface WordDao {
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(wordDb: WordDb)
+
+    /**
+     * will update element into the database (word table)
+     *
+     * @param wordDb object [WordDb] that will be update
+     */
+    @Update
+    suspend fun update(wordDb: WordDb)
+
+    /**
+     * will delete element from word table
+     *
+     * @param wordDb object [WordDb] that will be delete
+     */
+    @Delete
+    suspend fun delete(wordDb: WordDb)
 }

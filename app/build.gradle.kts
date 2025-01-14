@@ -21,8 +21,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        resourceConfigurations += setOf("ru", "en")
     }
 
     signingConfigs {

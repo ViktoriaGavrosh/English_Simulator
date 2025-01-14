@@ -18,6 +18,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameS
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateDialog
 
 /**
  * Composable with navigation between app screens
@@ -114,6 +115,9 @@ internal fun AppNavigation(
                     )
                 },
                 onBackClick = { navController.navigateUp() },
+                onAddButtonClick = {
+                    navController.navigate(NavigationDestination.WordUpdate(wordId = 0))
+                },
                 modifier = modifier.testTag(stringResource(R.string.word_menu_screen)),
             )
         }
@@ -123,21 +127,24 @@ internal fun AppNavigation(
                 isVerticalScreen = isVerticalScreen,
                 quest = data.quest,
                 theme = data.theme,
+                onUpdateButtonClick = { id ->
+                    navController.navigate(
+                        NavigationDestination.WordUpdate(
+                            wordId = id,
+                        )
+                    )
+                },
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.word_game_screen)),
             )
         }
         composable<NavigationDestination.WordUpdate> { backStackEntry ->
             val wordId = backStackEntry.toRoute<NavigationDestination.WordUpdate>().wordId
-            /*
-            WordGameScreen(
-                isVerticalScreen = isVerticalScreen,
-                theme = data.theme,
+            WordUpdateDialog(
                 onBackClick = { navController.navigateUp() },
-                modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
+                modifier = Modifier.testTag(stringResource(R.string.issue_game_screen)),
+                wordId = wordId,
             )
-
-             */
         }
     }
 }
