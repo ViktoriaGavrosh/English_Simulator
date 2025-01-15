@@ -3,6 +3,7 @@ package com.viktoriagavrosh.englishsimulator.fake
 import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.WordDb
 
 
 internal object FakeSource {
@@ -28,6 +29,15 @@ internal object FakeSource {
             id = it,
             question = "question $it",
             shortAnswer = "answer $it",
+        )
+    }
+
+    val fakeWordsDb = List(5) {
+        WordDb(
+            id = it,
+            englishWord = "english word $it",
+            russianWord = "russian word $it",
+            theme = if (it % 2 == 0) "Theme 1" else "Theme 2",
         )
     }
 }

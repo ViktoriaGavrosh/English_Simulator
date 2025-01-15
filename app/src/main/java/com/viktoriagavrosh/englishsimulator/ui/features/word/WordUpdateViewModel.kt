@@ -79,9 +79,9 @@ class WordUpdateViewModel(
         viewModelScope.launch {
             val newWord = uiState.first().word
             if (newWord.id == 0) {
-                repository.insert(word = newWord)
+                repository.insertWord(word = newWord)
             } else {
-                repository.update(word = newWord)
+                repository.updateWord(word = newWord)
             }
         }
     }
@@ -93,7 +93,7 @@ class WordUpdateViewModel(
     fun deleteWord() {
         viewModelScope.launch {
             val newWord = uiState.first().word
-            repository.delete(word = newWord)
+            repository.deleteWord(word = newWord)
         }
     }
 

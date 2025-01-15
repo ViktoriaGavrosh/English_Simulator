@@ -1,0 +1,194 @@
+package com.viktoriagavrosh.englishsimulator.test.repository
+
+import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
+import com.viktoriagavrosh.englishsimulator.fake.FakeDb
+import com.viktoriagavrosh.englishsimulator.fake.FakeSource
+import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.utils.RequestResult
+import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
+import com.viktoriagavrosh.englishsimulator.utils.toWord
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
+import org.junit.Rule
+import org.junit.Test
+
+class WordRepositoryTest {
+
+    @get:Rule
+    val testDispatcher = TestDispatcherRule()
+
+    private val repository = LocalWordRepository(FakeDb())
+
+    @Test
+    fun wordRepository_getAllWords_returnListWord() {
+        runTest {
+            val expectedList = FakeSource.fakeWordsDb.map { it.toWord() }
+            val actualList = repository.getAllWords()
+                .first().data ?: emptyList()
+
+            assertEquals(
+                expectedList,
+                actualList
+            )
+        }
+    }
+
+    @Test
+    fun wordRepository_getAllWords_returnRequestResultSuccess() {
+        runTest {
+            val isSuccess = repository.getAllWords()
+                .first() is RequestResult.Success
+
+            assert(isSuccess)
+        }
+    }
+
+    @Test
+    fun wordRepository_getAllWordsByTheme_returnListWord() {
+        runTest {
+            val theme = FakeSource.fakeWordsDb[0].theme
+            val expectedList = FakeSource.fakeWordsDb
+                .filter { it.theme == theme }
+                .map { it.toWord() }
+            val actualList = repository.getAllWordsByTheme(theme = theme)
+                .first().data ?: emptyList()
+
+            assertEquals(
+                expectedList,
+                actualList
+            )
+        }
+    }
+
+    @Test
+    fun wordRepository_getAllWordsByTheme_returnRequestResultSuccess() {
+        runTest {
+            val theme = FakeSource.fakeWordsDb[0].theme
+            val isSuccess = repository.getAllWordsByTheme(theme = theme)
+                .first() is RequestResult.Success
+
+            assert(isSuccess)
+        }
+    }
+
+    @Test
+    fun wordRepository_getAllWordsByTheme_returnRequestResultError() {
+        runTest {
+            val theme = "no"
+            val isError = repository.getAllWordsByTheme(theme = theme)
+                .first() is RequestResult.Error
+            assert(isError)
+        }
+    }
+
+    @Test
+    fun wordRepository_getAllThemes_returnListString() {
+        runTest {
+            val expectedList = FakeSource.fakeWordsDb.map { it.theme }.distinct()
+            val actualList = repository.getAllThemes()
+                .first().data ?: emptyList()
+
+            assertEquals(
+                expectedList,
+                actualList
+            )
+        }
+    }
+
+    @Test
+    fun wordRepository_getAllThemes_returnRequestResultSuccess() {
+        runTest {
+            val isSuccess = repository.getAllThemes()
+                .first() is RequestResult.Success
+
+            assert(isSuccess)
+        }
+    }
+
+    @Test
+    fun wordRepository_getWordById_returnWord() {
+        runTest {
+            val id = FakeSource.fakeWordsDb[2].id
+            val expected = FakeSource.fakeWordsDb.first { it.id == id }.toWord()
+            val actual = repository.getWordById(id)
+                .first().data ?: Word()
+
+            assertEquals(
+                expected,
+                actual
+            )
+        }
+    }
+
+    @Test
+    fun wordRepository_getWordById_returnRequestResultSuccess() {
+        runTest {
+            val id = FakeSource.fakeWordsDb[2].id
+            val isSuccess = repository.getWordById(id)
+                .first() is RequestResult.Success
+
+            assert(isSuccess)
+        }
+    }
+
+    @Test
+    fun wordRepository_getWordById_returnRequestResultError() {
+        runTest {
+            val id = 136
+            val isError = repository.getWordById(id)
+                .first() is RequestResult.Error
+            assert(isError)
+        }
+    }
+
+    @Test
+    fun wordRepository_insertWord_newWordInsert() {
+        runTest {
+            val id = 125
+            val expected = Word(id = id)
+            repository.insertWord(expected)
+            val actual = repository.getWordById(id)
+                .first().data ?: Word()
+            repository.deleteWord(expected)
+            assertEquals(
+                expected,
+                actual
+            )
+        }
+    }
+
+    @Test
+    fun wordRepository_updateWord_newWordUpdated() {
+        runTest {
+            val newText = "newText"
+            val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText).toWord()
+            repository.updateWord(expected)
+            val actual = repository.getWordById(expected.id)
+                .first().data ?: Word()
+            assertEquals(
+                expected,
+                actual
+            )
+        }
+    }
+
+    @Test
+    fun wordRepository_deleteWord_newWordDeleted() {
+        runTest {
+            val id = 125
+            val expected = Word(id = id)
+            repository.insertWord(expected)
+            val actual = repository.getWordById(id)
+                .first().data ?: Word()
+            assertEquals(
+                expected,
+                actual
+            )
+            repository.deleteWord(expected)
+            val isError = repository.getWordById(id)
+                .first() is RequestResult.Error
+            assert(isError)
+        }
+    }
+}

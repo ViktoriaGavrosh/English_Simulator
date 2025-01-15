@@ -8,6 +8,7 @@ import com.viktoriagavrosh.englishsimulator.data.database.WordDao
 import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.WordDb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -15,9 +16,7 @@ internal class FakeDb : AppDatabase {
     override fun sentenceDao(): SentenceDao = FakeSentenceDao()
     override fun issueDao(): IssueDao = FakeIssueDao()
     override fun dialogDao(): DialogDao = FakeDialogDao()
-    override fun wordDao(): WordDao {
-        TODO("Not yet implemented")
-    }
+    override fun wordDao(): WordDao = FakeWordDao
 }
 
 private class FakeSentenceDao : SentenceDao {
@@ -73,5 +72,46 @@ private class FakeDialogDao : DialogDao {
 
     override suspend fun insert(dialogDb: DialogDb) {
         dialogs.add(dialogDb)
+    }
+}
+
+private object FakeWordDao : WordDao {
+
+    val words = FakeSource.fakeWordsDb.toMutableList()
+
+    override suspend fun delete(wordDb: WordDb) {
+        words.remove(wordDb)
+    }
+
+    override fun getAllThemes(): Flow<List<String>> {
+        val themes = words.map { it.theme }.distinct()
+        return flow { emit(themes) }
+    }
+
+    override fun getAllWords(): Flow<List<WordDb>> {
+        return flow {
+            emit(words)
+        }
+    }
+
+    override fun getAllWordsByTheme(theme: String): Flow<List<WordDb>> {
+        val result = words.filter { it.theme == theme }
+        if (result.isEmpty()) throw IllegalArgumentException()
+        return flow { emit(result) }
+    }
+
+    override fun getWordById(id: Int): Flow<WordDb> {
+        val result = words.first { it.id == id }
+        return flow { emit(result) }
+    }
+
+    override suspend fun insert(wordDb: WordDb) {
+        words.add(wordDb)
+    }
+
+    override suspend fun update(wordDb: WordDb) {
+        val oldWord = words.first { it.id == wordDb.id }
+        val index = words.indexOf(oldWord)
+        words[index] = wordDb
     }
 }

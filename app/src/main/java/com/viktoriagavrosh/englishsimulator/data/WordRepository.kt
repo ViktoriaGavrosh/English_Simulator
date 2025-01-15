@@ -48,21 +48,21 @@ interface WordRepository {
      *
      * @param word object [Word] that will be insert
      */
-    suspend fun insert(word: Word)
+    suspend fun insertWord(word: Word)
 
     /**
      * will update element into given data source
      *
      * @param word object [Word] that will be update
      */
-    suspend fun update(word: Word)
+    suspend fun updateWord(word: Word)
 
     /**
      * will delete element from given data source
      *
      * @param word object [Word] that will be delete
      */
-    suspend fun delete(word: Word)
+    suspend fun deleteWord(word: Word)
 }
 
 /**
@@ -152,7 +152,7 @@ internal class LocalWordRepository(
      *
      * @param word object [Word] that will be insert
      */
-    override suspend fun insert(word: Word) {
+    override suspend fun insertWord(word: Word) {
         database.wordDao().insert(word.toWordDb())
     }
 
@@ -161,7 +161,7 @@ internal class LocalWordRepository(
      *
      * @param word object [Word] that will be update
      */
-    override suspend fun update(word: Word) {
+    override suspend fun updateWord(word: Word) {
         database.wordDao().update(word.toWordDb())
     }
 
@@ -170,7 +170,7 @@ internal class LocalWordRepository(
      *
      * @param word object [Word] that will be delete
      */
-    override suspend fun delete(word: Word) {
+    override suspend fun deleteWord(word: Word) {
         database.wordDao().delete(word.toWordDb())
     }
 }
