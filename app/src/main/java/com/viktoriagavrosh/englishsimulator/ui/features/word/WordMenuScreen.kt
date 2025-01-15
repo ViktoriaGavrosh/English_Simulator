@@ -35,7 +35,7 @@ fun WordMenuScreen(
 ) {
     val viewModel: WordMenuViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val language by viewModel.selectedOption.collectAsStateWithLifecycle()
+    val language by viewModel.selectedLanguage.collectAsStateWithLifecycle()
 
     WordMenuScreen(
         screenStateProvider = { uiState },

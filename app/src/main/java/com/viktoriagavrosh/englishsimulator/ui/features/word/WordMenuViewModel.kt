@@ -28,9 +28,9 @@ class WordMenuViewModel(
         initialValue = RequestResult.Loading()
     )
 
-    private var _selectedOption = MutableStateFlow(Quest.RuToEn)
-    internal val selectedOption: StateFlow<Quest>
-        get() = _selectedOption.asStateFlow()
+    private var _selectedLanguage = MutableStateFlow(Quest.RuToEn)
+    internal val selectedLanguage: StateFlow<Quest>
+        get() = _selectedLanguage.asStateFlow()
 
     fun updateLanguage(newValue: String) {
         val quest = when (newValue) {
@@ -39,7 +39,7 @@ class WordMenuViewModel(
             else -> throw IllegalArgumentException("Element of dropdownMenu does not add to Quest enum")
         }
         viewModelScope.launch {
-            _selectedOption.update { quest }
+            _selectedLanguage.update { quest }
         }
     }
 }
