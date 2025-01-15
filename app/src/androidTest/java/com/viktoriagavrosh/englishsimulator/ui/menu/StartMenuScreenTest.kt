@@ -104,6 +104,7 @@ class StartMenuScreenTest {
                     onTranslateButtonClick = {},
                     onIssueButtonClick = {},
                     onDialogButtonClick = {},
+                    onWordButtonClick = {},
                     modifier = Modifier.fillMaxSize(),
                 )
             }
