@@ -97,19 +97,7 @@ class WordUpdateViewModel(
         }
     }
 
-    private fun updateState(word: Word) {
-        val isWordValid = validateWord(word)
-        viewModelScope.launch {
-            _uiState.update {
-                it.copy(
-                    word = word,
-                    isWordValid = isWordValid
-                )
-            }
-        }
-    }
-
-    private fun initUiState(wordId: Int = 0) {
+    fun initUiState(wordId: Int = 0) {               // not private for testing
         viewModelScope.launch {
             if (wordId == 0) return@launch
             val flowResult = repository.getWordById(id = wordId).first()
@@ -122,9 +110,26 @@ class WordUpdateViewModel(
                         isWordValid = validateWord(word = word),
                     )
                 }
+            } else {
+                _uiState.update {
+                    it.copy(word = Word())
+                }
             }
         }
     }
+
+    private fun updateState(word: Word) {
+        val isWordValid = validateWord(word)
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    word = word,
+                    isWordValid = isWordValid
+                )
+            }
+        }
+    }
+
 
     private fun validateWord(word: Word): Boolean {
         return word.englishWord.isNotEmpty()
