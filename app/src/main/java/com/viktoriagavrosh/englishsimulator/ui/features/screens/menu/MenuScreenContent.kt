@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
@@ -76,9 +78,11 @@ internal fun MenuScreenContent(
             VerticalContent(
                 buttonItems = buttonItems,
                 isScreenWithButtons = isScreenWithButtons,
-                modifier = Modifier.padding(
-                    top = dimensionResource(R.dimen.padding_medium)
-                )
+                modifier = Modifier
+                    .padding(
+                        top = dimensionResource(R.dimen.padding_medium)
+                    )
+                    .testTag(stringResource(R.string.vertical_menu_content_tag)),
             )
         } else {
             HorizontalContent(
@@ -86,7 +90,8 @@ internal fun MenuScreenContent(
                 isScreenWithButtons = isScreenWithButtons,
                 modifier = Modifier
                     .wrapContentWidth(Alignment.CenterHorizontally)
-                    .padding(dimensionResource(R.dimen.padding_medium)),
+                    .padding(dimensionResource(R.dimen.padding_medium))
+                    .testTag(stringResource(R.string.horizontal_menu_content_tag)),
             )
         }
     }

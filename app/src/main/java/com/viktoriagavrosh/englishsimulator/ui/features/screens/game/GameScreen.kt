@@ -64,7 +64,6 @@ internal fun GameScreen(
             iconId = R.drawable.ic_back,
             contentDescription = stringResource(R.string.back),
             onIconClick = onBackClick,
-            modifier = Modifier.testTag(stringResource(R.string.back_button)),
         )
         if (isUpdateButtonShow) {
             IconRow(
@@ -74,7 +73,6 @@ internal fun GameScreen(
                 isLeft = false,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .testTag(stringResource(R.string.edit_button))
             )
         }
         if (isVerticalScreen) {

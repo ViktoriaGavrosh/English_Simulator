@@ -62,8 +62,7 @@ internal fun MenuScreen(
                 contentDescription = stringResource(R.string.back),
                 onIconClick = onBackClick,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag(stringResource(R.string.back_button)),
+                    .fillMaxWidth(),
             )
             if (isAddButtonShow) {
                 IconRow(
@@ -72,8 +71,7 @@ internal fun MenuScreen(
                     onIconClick = onAddButtonClick,
                     isLeft = false,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag(stringResource(R.string.add_button))
+                        .fillMaxWidth(),
                 )
             }
         }
