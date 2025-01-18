@@ -52,5 +52,6 @@
 
     <string name="vertical_menu_content_tag">Vertical menu content</string>
     <string name="horizontal_menu_content_tag">Horizontal menu content</string>
+    <string name="dropdown_menu_tag">DropdownMenu</string>
 
 </resources>

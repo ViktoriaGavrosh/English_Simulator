@@ -72,6 +72,7 @@ internal fun MenuScreenContent(
                 options = dropdownMenuOptions,
                 selectedOptionProvider = dropdownMenuSelectedOptionProvider,
                 onValueChange = onDropdownMenuValueChange,
+                modifier = Modifier.testTag(stringResource(R.string.dropdown_menu_tag))
             )
         }
         if (isVerticalScreen) {
