@@ -252,7 +252,7 @@ class NavigationTest {
     @Test
     fun navHost_wordUpdateScreen_cancelButtonClick_navigateToWordGameScreen() {
         navigateToWordUpdateScreen()
-        composeTestRule.onNodeWithTextById(R.string.cancel)
+        composeTestRule.onNodeWithTextById(R.string.cancel_action)
             .performClick()
 
         assertTrue(
@@ -296,7 +296,7 @@ class NavigationTest {
         navigateToWordMenuScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.add)
             .performClick()
-        composeTestRule.onNodeWithTextById(R.string.cancel)
+        composeTestRule.onNodeWithTextById(R.string.cancel_action)
             .performClick()
 
         assertTrue(

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -149,6 +151,7 @@ private fun UpdateScreenButtons(
     ) {
         IconButton(
             onClick = onDeleteClick,
+            modifier = Modifier.size(dimensionResource(R.dimen.icon_size)),
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_delete),
@@ -158,12 +161,18 @@ private fun UpdateScreenButtons(
         }
         OutlinedButton(
             onClick = onBackClick,
+            modifier = Modifier
+                .heightIn(min = dimensionResource(R.dimen.button_min_height))
+                .testTag(stringResource(R.string.cancel_button_tag))
         ) {
             Text(text = stringResource(R.string.cancel))
         }
         Button(
             onClick = onSaveClick,
-            enabled = isWordValidProvider()
+            enabled = isWordValidProvider(),
+            modifier = Modifier
+                .heightIn(min = dimensionResource(R.dimen.button_min_height))
+                .testTag(stringResource(R.string.save_button_tag))
         ) {
             Text(text = stringResource(R.string.save))
         }
