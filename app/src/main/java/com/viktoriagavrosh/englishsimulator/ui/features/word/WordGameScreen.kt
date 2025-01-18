@@ -21,7 +21,7 @@ import org.koin.core.parameter.parametersOf
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param quest Constant [Quest] describes what action will be shown by Ui
  * @param theme describes what action will be shown by Ui
- * @param onUpdateButtonClick callback that is executed when update button is clicked
+ * @param onEditButtonClick callback that is executed when update button is clicked
  * @param onBackClick callback that is executed when back button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
@@ -30,7 +30,7 @@ fun WordGameScreen(
     isVerticalScreen: Boolean,
     quest: Quest,
     theme: String,
-    onUpdateButtonClick: (Int) -> Unit,
+    onEditButtonClick: (Int) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -45,7 +45,7 @@ fun WordGameScreen(
         scoreProvider = { uiState.score },
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
-        onUpdateButtonClick = { onUpdateButtonClick(uiState.gameQuestion.id) },
+        onEditButtonClick = { onEditButtonClick(uiState.gameQuestion.id) },
         onBackClick = onBackClick,
         onNextButtonClick = viewModel::updateUiState,
         modifier = modifier,
@@ -60,7 +60,7 @@ fun WordGameScreen(
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param isErrorProvider provides boolean value of ScreenState
  * @param onNextButtonClick callback that is executed when next button is clicked
- * @param onUpdateButtonClick callback that is executed when update button is clicked
+ * @param onEditButtonClick callback that is executed when update button is clicked
  * @param onBackClick callback that is executed when back button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
@@ -71,7 +71,7 @@ internal fun WordGameScreen(
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
     onNextButtonClick: () -> Unit,
-    onUpdateButtonClick: () -> Unit,
+    onEditButtonClick: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -88,8 +88,8 @@ internal fun WordGameScreen(
             onBackClick = onBackClick,
             onNextClick = onNextButtonClick,
             modifier = modifier,
-            isUpdateButtonShow = true,
-            onUpdateButtonClick = onUpdateButtonClick,
+            isEditButtonShow = true,
+            onEditButtonClick = onEditButtonClick,
         )
     }
 }
@@ -112,7 +112,7 @@ private fun VerticalWordGameScreenPreview() {
             isVerticalScreen = true,
             isErrorProvider = { false },
             onNextButtonClick = {},
-            onUpdateButtonClick = {},
+            onEditButtonClick = {},
             onBackClick = {},
         )
     }
@@ -139,7 +139,7 @@ private fun HorizontalWordGameScreenPreview() {
             isVerticalScreen = false,
             isErrorProvider = { false },
             onNextButtonClick = {},
-            onUpdateButtonClick = {},
+            onEditButtonClick = {},
             onBackClick = {},
         )
     }
@@ -156,7 +156,7 @@ private fun ErrorVerticalWordGameScreenPreview() {
             isVerticalScreen = true,
             isErrorProvider = { true },
             onNextButtonClick = {},
-            onUpdateButtonClick = {},
+            onEditButtonClick = {},
             onBackClick = {},
             modifier = Modifier.fillMaxSize(),
         )
@@ -179,7 +179,7 @@ private fun ErrorHorizontalWordGameScreenPreview() {
             isVerticalScreen = false,
             isErrorProvider = { true },
             onNextButtonClick = {},
-            onUpdateButtonClick = {},
+            onEditButtonClick = {},
             onBackClick = {},
             modifier = Modifier.fillMaxSize(),
         )

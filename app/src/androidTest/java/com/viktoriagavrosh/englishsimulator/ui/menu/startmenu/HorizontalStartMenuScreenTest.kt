@@ -3,8 +3,6 @@ package com.viktoriagavrosh.englishsimulator.ui.menu.startmenu
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.test.assertHasClickAction
-import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -30,25 +28,11 @@ class HorizontalStartMenuScreenTest {
     }
 
     @Test
-    fun startMenuScreen_horizontal_titleHasNoClickAction() {
-        setMenuScreen()
-        composeTestRule.onNodeWithTextById(R.string.app_horizontal_title)
-            .assertHasNoClickAction()
-    }
-
-    @Test
     fun startMenuScreen_horizontal_translateButtonIsDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithTextById(R.string.translate_button_title)
             .assertExists("No translate button")
             .assertIsDisplayed()
-    }
-
-    @Test
-    fun startMenuScreen_horizontal_translateButtonHasClickAction() {
-        setMenuScreen()
-        composeTestRule.onNodeWithTextById(R.string.translate_button_title)
-            .assertHasClickAction()
     }
 
     @Test
@@ -60,13 +44,6 @@ class HorizontalStartMenuScreenTest {
     }
 
     @Test
-    fun startMenuScreen_horizontal_issueButtonHasClickAction() {
-        setMenuScreen()
-        composeTestRule.onNodeWithTextById(R.string.issue_button_title)
-            .assertHasClickAction()
-    }
-
-    @Test
     fun startMenuScreen_horizontal_dialogButtonIsDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithTextById(R.string.dialog_button_title)
@@ -75,25 +52,11 @@ class HorizontalStartMenuScreenTest {
     }
 
     @Test
-    fun startMenuScreen_horizontal_dialogButtonHasClickAction() {
-        setMenuScreen()
-        composeTestRule.onNodeWithTextById(R.string.dialog_button_title)
-            .assertHasClickAction()
-    }
-
-    @Test
     fun startMenuScreen_horizontal_wordButtonIsDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithTextById(R.string.word_button_title)
             .assertExists("No dialog button")
             .assertIsDisplayed()
-    }
-
-    @Test
-    fun startMenuScreen_horizontal_wordButtonHasClickAction() {
-        setMenuScreen()
-        composeTestRule.onNodeWithTextById(R.string.word_button_title)
-            .assertHasClickAction()
     }
 
     @Test

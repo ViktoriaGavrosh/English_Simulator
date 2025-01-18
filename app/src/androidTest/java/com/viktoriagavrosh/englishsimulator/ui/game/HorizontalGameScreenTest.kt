@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -44,6 +45,35 @@ class HorizontalGameScreenTest {
     fun gameScreen_horizontal_backButtonSizeIsRelevant() {
         setGameScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.back)
+            .assertHeightIsAtLeast(48.dp)
+    }
+
+    @Test
+    fun gameScreen_horizontal_editButtonIsDisplayed() {
+        setGameScreen(isEditButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.edit)
+            .assertExists("No edit button on GameScreen")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun gameScreen_horizontal_editButtonIsNotDisplayed() {
+        setGameScreen(isEditButtonShow = false)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.edit)
+            .assertIsNotDisplayed()
+    }
+
+    @Test
+    fun gameScreen_horizontal_editButtonHasClickAction() {
+        setGameScreen(isEditButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.edit)
+            .assertHasClickAction()
+    }
+
+    @Test
+    fun gameScreen_horizontal_editButtonSizeIsRelevant() {
+        setGameScreen(isEditButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.edit)
             .assertHeightIsAtLeast(48.dp)
     }
 
@@ -132,6 +162,7 @@ class HorizontalGameScreenTest {
     private fun setGameScreen(
         gameQuestion: GameQuestion = FakeSource.fakeGameQuestion[0],
         score: Int = 0,
+        isEditButtonShow: Boolean = false,
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
@@ -142,6 +173,8 @@ class HorizontalGameScreenTest {
                     onBackClick = {},
                     onNextClick = {},
                     modifier = Modifier.fillMaxSize(),
+                    isEditButtonShow = isEditButtonShow,
+                    onEditButtonClick = {},
                 )
             }
         }

@@ -127,7 +127,7 @@ internal fun AppNavigation(
                 isVerticalScreen = isVerticalScreen,
                 quest = data.quest,
                 theme = data.theme,
-                onUpdateButtonClick = { id ->
+                onEditButtonClick = { id ->
                     navController.navigate(
                         NavigationDestination.WordUpdate(
                             wordId = id,

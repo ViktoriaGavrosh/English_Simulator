@@ -57,7 +57,7 @@ fun IssueGameScreen(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun IssueGameScreen(
+internal fun IssueGameScreen(
     gameQuestionProvider: () -> GameQuestion,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,

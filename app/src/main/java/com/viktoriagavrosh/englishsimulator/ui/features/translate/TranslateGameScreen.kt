@@ -58,7 +58,7 @@ internal fun TranslateGameScreen(
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
-private fun TranslateGameScreen(
+internal fun TranslateGameScreen(
     gameQuestionProvider: () -> GameQuestion,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
