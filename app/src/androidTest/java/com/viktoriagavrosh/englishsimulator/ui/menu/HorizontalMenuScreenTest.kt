@@ -10,6 +10,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
@@ -17,6 +18,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithContentDescriptionById
+import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTagById
 import org.junit.Rule
 import org.junit.Test
 
@@ -53,6 +55,36 @@ class HorizontalMenuScreenTest {
         composeTestRule.onNodeWithContentDescriptionById(R.string.back)
             .assertHeightIsAtLeast(48.dp)
     }
+
+    @Test
+    fun menuScreen_horizontal_addButtonIsDisplayed() {
+        setMenuScreen(isAddButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.add)
+            .assertExists("No add button")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun menuScreen_horizontal_addButtonIsNotDisplayed() {
+        setMenuScreen(isAddButtonShow = false)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.add)
+            .assertIsNotDisplayed()
+    }
+
+    @Test
+    fun menuScreen_horizontal_addButtonHasClickAction() {
+        setMenuScreen(isAddButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.add)
+            .assertHasClickAction()
+    }
+
+    @Test
+    fun menuScreen_horizontal_addButtonSizeIsRelevant() {
+        setMenuScreen(isAddButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.add)
+            .assertHeightIsAtLeast(48.dp)
+    }
+
 
     @Test
     fun menuScreen_horizontal_titleIsDisplayed() {
@@ -139,12 +171,65 @@ class HorizontalMenuScreenTest {
             .assertHeightIsAtLeast(48.dp)
     }
 
+    @Test
+    fun menuScreen_horizontal_dropdownMenuIsDisplayed() {
+        setMenuScreen()
+        composeTestRule.onNodeWithTagById(R.string.dropdown_menu_tag)
+            .assertExists("No dropdownMenu on WordMenuScreen")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun menuScreen_horizontal_dropdownMenuSizeIsRelevant() {
+        setMenuScreen()
+        composeTestRule.onNodeWithTagById(R.string.dropdown_menu_tag)
+            .assertHeightIsAtLeast(48.dp)
+    }
+
+    @Test
+    fun wordMenuScreen_horizontal_textOnDropdownMenuIsDisplayed() {
+        val options = listOf("first", "second")
+        setMenuScreen(
+            dropdownMenuOptions = options,
+            selectedOption = options[0]
+        )
+        composeTestRule.onNodeWithText(options[0])
+            .assertExists("No text on dropdownMenu on MenuScreen")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun wordMenuScreen_horizontal_secondTextOnDropdownMenuIsNotDisplayed() {
+        val options = listOf("first", "second")
+        setMenuScreen(
+            dropdownMenuOptions = options,
+            selectedOption = options[0]
+        )
+        composeTestRule.onNodeWithText(options[1])
+            .assertIsNotDisplayed()
+    }
+
+    @Test
+    fun wordMenuScreen_horizontal_secondTextOnDropdownMenuIsDisplayed() {
+        val options = listOf("first", "second")
+        setMenuScreen(
+            dropdownMenuOptions = options,
+            selectedOption = options[0]
+        )
+        composeTestRule.onNodeWithText(options[0]).performClick()
+        composeTestRule.onNodeWithText(options[1])
+            .assertExists("No second text on dropdownMenu on MenuScreen")
+            .assertIsDisplayed()
+    }
 
     private fun setMenuScreen(
         buttonItems: List<MenuButtonItem> = listOf(MenuButtonItem(title = "button")),
         title: String = "Title",
         isBackButtonShow: Boolean = true,
         isScreenWithButtons: Boolean = true,
+        dropdownMenuOptions: List<String> = listOf("one", "two"),
+        selectedOption: String = "one",
+        isAddButtonShow: Boolean = false,
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
@@ -156,6 +241,11 @@ class HorizontalMenuScreenTest {
                     onBackClick = {},
                     modifier = Modifier.fillMaxSize(),
                     isBackButtonShow = isBackButtonShow,
+                    dropdownMenuSelectedOptionProvider = { selectedOption },
+                    dropdownMenuOptions = dropdownMenuOptions,
+                    onDropdownMenuValueChange = {},
+                    isAddButtonShow = isAddButtonShow,
+                    onAddButtonClick = {},
                 )
             }
         }
