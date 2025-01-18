@@ -12,6 +12,7 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.StartMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithContentDescriptionById
+import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTagById
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTextById
 import org.junit.Rule
 import org.junit.Test
@@ -106,6 +107,13 @@ class HorizontalStartMenuScreenTest {
     fun startMenuScreen_horizontal_addButtonIsNotDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.add)
+            .assertIsNotDisplayed()
+    }
+
+    @Test
+    fun startMenuScreen_horizontal_dropdownMenuIsNotDisplayed() {
+        setMenuScreen()
+        composeTestRule.onNodeWithTagById(R.string.dropdown_menu_tag)
             .assertIsNotDisplayed()
     }
 
