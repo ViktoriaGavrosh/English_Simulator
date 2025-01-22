@@ -46,7 +46,6 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
         name = "english"
     )
         .createFromAsset("database/english.db")
-        .fallbackToDestructiveMigration()
         .build()
 
     return appRoomDatabase
