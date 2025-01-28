@@ -8,6 +8,18 @@ EnТренажер (English Тренажер) — это уникальное м
 
 Создано как дополнительный ресурс для самостоятельной работы учащихся школы английского языка.
 
+<div>
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator1.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator2.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator3.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator4.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+</div>
+
+<div>
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator5.jpg" title="Image" alt="Image" width="210" height="100"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator6.jpg" title="Image" alt="Image" width="210" height="100"/>&nbsp;
+</div>
+
 ## Основные функции
 
 1. **Квест - Перевод фраз**
@@ -31,7 +43,7 @@ EnТренажер (English Тренажер) — это уникальное м
 - Удобный и интуитивно понятный интерфейс.
 - Основной акцент на активное использование языка с помощью практики.
 - Приложение работает в оффлайн режиме для использования без доступа в интернет.
-
+<!--
 ## Установка
 
 - Клонируйте репозиторий:  
@@ -41,7 +53,7 @@ EnТренажер (English Тренажер) — это уникальное м
   cd English_Simulator
 
 - Установите необходимые зависимости и запустите приложение.
-
+-->
 ##
 
 С приложением  "English Тренажер" вы сможете уверенно и свободно общаться на английском, улучшая
