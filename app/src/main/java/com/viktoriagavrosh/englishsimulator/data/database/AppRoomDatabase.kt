@@ -31,6 +31,7 @@ internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
     abstract override fun sentenceDao(): SentenceDao
     abstract override fun issueDao(): IssueDao
     abstract override fun dialogDao(): DialogDao
+    abstract override fun wordDao(): WordDao
 }
 
 /**
@@ -46,6 +47,7 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
         name = "english"
     )
         .createFromAsset("database/english.db")
+        .fallbackToDestructiveMigration()           // TODO only for develop brunch
         .build()
 
     return appRoomDatabase

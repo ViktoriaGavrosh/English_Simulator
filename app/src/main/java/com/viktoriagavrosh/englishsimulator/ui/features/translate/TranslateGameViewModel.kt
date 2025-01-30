@@ -33,7 +33,7 @@ class TranslateGameViewModel(
 
     internal val uiState: StateFlow<UiState>
         get() = _uiState.asStateFlow()
-
+    
     /**
      * Update sentence and score value of [UiState]
      */
