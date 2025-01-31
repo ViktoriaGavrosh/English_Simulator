@@ -1,9 +1,9 @@
 package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
-import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import com.viktoriagavrosh.englishsimulator.utils.toWordDb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,17 +16,17 @@ interface WordRepository {
     /**
      * Retrieve all items from given data source
      *
-     * @return flow of [RequestResult] with list [Word]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    fun getAllWords(): Flow<RequestResult<List<Word>>>
+    fun getAllItems(): Flow<RequestResult<List<UiItem>>>
 
     /**
      * Retrieve all items from given data source by theme
      *
      * @param theme theme of items
-     * @return flow of [RequestResult] with list [Word]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    fun getAllWordsByTheme(theme: String): Flow<RequestResult<List<Word>>>
+    fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<UiItem>>>
 
     /**
      * Retrieve all themes from given database
@@ -39,30 +39,30 @@ interface WordRepository {
      * Retrieve item from given data source by id
      *
      * @param id unique item id
-     * @return flow of [RequestResult] with [Word]
+     * @return flow of [RequestResult] with [UiItem]
      */
-    fun getWordById(id: Int): Flow<RequestResult<Word>>
+    fun getWordById(id: Int): Flow<RequestResult<UiItem>>
 
     /**
      * will insert element into given data source
      *
-     * @param word object [Word] that will be insert
+     * @param word object [UiItem] that will be insert
      */
-    suspend fun insertWord(word: Word)
+    suspend fun insertWord(word: UiItem)
 
     /**
      * will update element into given data source
      *
-     * @param word object [Word] that will be update
+     * @param word object [UiItem] that will be update
      */
-    suspend fun updateWord(word: Word)
+    suspend fun updateWord(word: UiItem)
 
     /**
      * will delete element from given data source
      *
-     * @param word object [Word] that will be delete
+     * @param word object [UiItem] that will be delete
      */
-    suspend fun deleteWord(word: Word)
+    suspend fun deleteWord(word: UiItem)
 }
 
 /**
@@ -72,19 +72,19 @@ interface WordRepository {
  */
 internal class LocalWordRepository(
     private val database: AppDatabase
-) : WordRepository {
+) : WordRepository, GameRepository {
     /**
-     * Retrieve all [Word] from database
+     * Retrieve all [UiItem] from database
      *
-     * @return flow of [RequestResult] with list [Word]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    override fun getAllWords(): Flow<RequestResult<List<Word>>> {
+    override fun getAllItems(): Flow<RequestResult<List<UiItem>>> {
         return try {
             database.wordDao().getAllWords()
                 .map { list ->
-                    list.map { it.toWord() }
+                    list.map { it.toUiItem() }
                 }
-                .map<List<Word>, RequestResult<List<Word>>> { RequestResult.Success(it) }
+                .map<List<UiItem>, RequestResult<List<UiItem>>> { RequestResult.Success(it) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))
@@ -93,19 +93,19 @@ internal class LocalWordRepository(
     }
 
     /**
-     * Retrieve all [Word] from database by theme
+     * Retrieve all [UiItem] from database by theme
      *
      * @param theme theme of words
-     * @return flow of [RequestResult] with list [Word]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    override fun getAllWordsByTheme(theme: String): Flow<RequestResult<List<Word>>> {
+    override fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<UiItem>>> {
         return try {
             database.wordDao()
                 .getAllWordsByTheme(theme = theme)
                 .map { list ->
-                    list.map { it.toWord() }
+                    list.map { it.toUiItem() }
                 }
-                .map<List<Word>, RequestResult<List<Word>>> { RequestResult.Success(it) }
+                .map<List<UiItem>, RequestResult<List<UiItem>>> { RequestResult.Success(it) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))
@@ -133,13 +133,13 @@ internal class LocalWordRepository(
      * Retrieve item from given database by id
      *
      * @param id unique word id
-     * @return flow of [RequestResult] with [Word]
+     * @return flow of [RequestResult] with [UiItem]
      */
-    override fun getWordById(id: Int): Flow<RequestResult<Word>> {
+    override fun getWordById(id: Int): Flow<RequestResult<UiItem>> {
         return try {
             database.wordDao()
                 .getWordById(id = id)
-                .map { RequestResult.Success(it.toWord()) }
+                .map { RequestResult.Success(it.toUiItem()) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))
@@ -150,27 +150,27 @@ internal class LocalWordRepository(
     /**
      * will insert element into database
      *
-     * @param word object [Word] that will be insert
+     * @param word object [UiItem] that will be insert
      */
-    override suspend fun insertWord(word: Word) {
+    override suspend fun insertWord(word: UiItem) {
         database.wordDao().insert(word.toWordDb())
     }
 
     /**
      * will update element into database
      *
-     * @param word object [Word] that will be update
+     * @param word object [UiItem] that will be update
      */
-    override suspend fun updateWord(word: Word) {
+    override suspend fun updateWord(word: UiItem) {
         database.wordDao().update(word.toWordDb())
     }
 
     /**
      * will delete element from given data source
      *
-     * @param word object [Word] that will be delete
+     * @param word object [UiItem] that will be delete
      */
-    override suspend fun deleteWord(word: Word) {
+    override suspend fun deleteWord(word: UiItem) {
         database.wordDao().delete(word.toWordDb())
     }
 }

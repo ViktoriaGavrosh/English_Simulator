@@ -6,7 +6,7 @@ import com.viktoriagavrosh.englishsimulator.model.Word
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -18,12 +18,12 @@ class WordUpdateViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeWords = FakeSource.fakeWordsDb.map { it.toWord() }
+    private val fakeWords = FakeSource.fakeWordsDb.map { it.toUiItem() }
 
     @Test
     fun wordUpdateViewModel_initUiState_initWord() {
         runTest {
-            val expectedWord = FakeSource.fakeWordsDb[2].toWord()
+            val expectedWord = FakeSource.fakeWordsDb[2].toUiItem()
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeWords),
                 wordId = expectedWord.id,
@@ -49,7 +49,7 @@ class WordUpdateViewModelTest {
     @Test
     fun wordUpdateViewModel_initUiState_initDefaultWordWithError() {
         runTest {
-            val word = FakeSource.fakeWordsDb[2].toWord()
+            val word = FakeSource.fakeWordsDb[2].toUiItem()
             val viewModel = initViewModel(
                 requestResult = RequestResult.Error(),
                 wordId = word.id,
@@ -64,7 +64,7 @@ class WordUpdateViewModelTest {
     fun wordUpdateViewModel_initUiState_initFieldIsWordValidTrue() {
         runTest {
             val viewModel = initViewModel(
-                wordId = FakeSource.fakeWordsDb[2].toWord().id
+                wordId = FakeSource.fakeWordsDb[2].toUiItem().id
             )
             val actualValueIsWordValidField = viewModel.uiState.first().isWordValid
             assert(actualValueIsWordValidField)
@@ -102,12 +102,12 @@ class WordUpdateViewModelTest {
     fun wordUpdateViewModel_updateEnglishText_uiStateUpdated() {
         runTest {
             val newText = "new text"
-            val word = FakeSource.fakeWordsDb[1].toWord()
+            val word = FakeSource.fakeWordsDb[1].toUiItem()
             val viewModel = initViewModel(
                 wordId = word.id
             )
             viewModel.updateEnglishText(text = newText)
-            val expectedWord = word.copy(englishWord = newText)
+            val expectedWord = word.copy(questionText = newText)
             val actualWord = viewModel.uiState.first().word
             assertEquals(expectedWord, actualWord)
         }
@@ -117,12 +117,12 @@ class WordUpdateViewModelTest {
     fun wordUpdateViewModel_updateRussianText_uiStateUpdated() {
         runTest {
             val newText = "new text"
-            val word = FakeSource.fakeWordsDb[1].toWord()
+            val word = FakeSource.fakeWordsDb[1].toUiItem()
             val viewModel = initViewModel(
                 wordId = word.id
             )
             viewModel.updateRussianText(text = newText)
-            val expectedWord = word.copy(russianWord = newText)
+            val expectedWord = word.copy(answerText = newText)
             val actualWord = viewModel.uiState.first().word
             assertEquals(expectedWord, actualWord)
         }
@@ -132,7 +132,7 @@ class WordUpdateViewModelTest {
     fun wordUpdateViewModel_updateTheme_uiStateUpdated() {
         runTest {
             val newTheme = "new theme"
-            val word = FakeSource.fakeWordsDb[1].toWord()
+            val word = FakeSource.fakeWordsDb[1].toUiItem()
             val viewModel = initViewModel(
                 wordId = word.id
             )
@@ -147,13 +147,13 @@ class WordUpdateViewModelTest {
     fun wordUpdateViewModel_saveWord_updateWord() {
         runTest {
             val newText = "new text"
-            val word = FakeSource.fakeWordsDb[1].toWord()
+            val word = FakeSource.fakeWordsDb[1].toUiItem()
             val viewModel = initViewModel(
                 wordId = word.id
             )
             viewModel.updateEnglishText(text = newText)
             viewModel.saveWord()
-            val expectedWord = word.copy(englishWord = newText)
+            val expectedWord = word.copy(questionText = newText)
             viewModel.initUiState(wordId = word.id)
             val actualWord = viewModel.uiState.first().word
             assertEquals(expectedWord, actualWord)
@@ -163,7 +163,7 @@ class WordUpdateViewModelTest {
     @Test
     fun wordUpdateViewModel_deleteWord_wordDeleted() {
         runTest {
-            val word = FakeSource.fakeWordsDb[1].toWord()
+            val word = FakeSource.fakeWordsDb[1].toUiItem()
             val viewModel = initViewModel(
                 wordId = word.id
             )

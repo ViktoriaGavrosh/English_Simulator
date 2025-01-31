@@ -53,8 +53,8 @@ fun WordUpdateScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     WordUpdateScreen(
-        englishTextProvider = { uiState.word.englishWord },
-        russianTextProvider = { uiState.word.russianWord },
+        englishTextProvider = { uiState.word.questionText },
+        russianTextProvider = { uiState.word.answerText },
         themeProvider = { uiState.word.theme },
         isWordValidProvider = { uiState.isWordValid },
         onEnglishTextChange = viewModel::updateEnglishText,

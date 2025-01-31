@@ -10,7 +10,7 @@ class FakeTranslateRepository(
     private val requestResult: RequestResult<List<Sentence>>
 ) : TranslateRepository {
 
-    override fun getAllSentences(): Flow<RequestResult<List<Sentence>>> {
+    override fun getAllItems(): Flow<RequestResult<List<Sentence>>> {
         return flow {
             emit(requestResult)
         }

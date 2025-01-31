@@ -6,7 +6,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.model.Word
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -23,8 +23,8 @@ class WordRepositoryTest {
     @Test
     fun wordRepository_getAllWords_returnListWord() {
         runTest {
-            val expectedList = FakeSource.fakeWordsDb.map { it.toWord() }
-            val actualList = repository.getAllWords()
+            val expectedList = FakeSource.fakeWordsDb.map { it.toUiItem() }
+            val actualList = repository.getAllItems()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -37,7 +37,7 @@ class WordRepositoryTest {
     @Test
     fun wordRepository_getAllWords_returnRequestResultSuccess() {
         runTest {
-            val isSuccess = repository.getAllWords()
+            val isSuccess = repository.getAllItems()
                 .first() is RequestResult.Success
 
             assert(isSuccess)
@@ -50,8 +50,8 @@ class WordRepositoryTest {
             val theme = FakeSource.fakeWordsDb[0].theme
             val expectedList = FakeSource.fakeWordsDb
                 .filter { it.theme == theme }
-                .map { it.toWord() }
-            val actualList = repository.getAllWordsByTheme(theme = theme)
+                .map { it.toUiItem() }
+            val actualList = repository.getAllItemsByTheme(theme = theme)
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -65,7 +65,7 @@ class WordRepositoryTest {
     fun wordRepository_getAllWordsByTheme_returnRequestResultSuccess() {
         runTest {
             val theme = FakeSource.fakeWordsDb[0].theme
-            val isSuccess = repository.getAllWordsByTheme(theme = theme)
+            val isSuccess = repository.getAllItemsByTheme(theme = theme)
                 .first() is RequestResult.Success
 
             assert(isSuccess)
@@ -76,7 +76,7 @@ class WordRepositoryTest {
     fun wordRepository_getAllWordsByTheme_returnRequestResultError() {
         runTest {
             val theme = "no"
-            val isError = repository.getAllWordsByTheme(theme = theme)
+            val isError = repository.getAllItemsByTheme(theme = theme)
                 .first() is RequestResult.Error
             assert(isError)
         }
@@ -110,7 +110,7 @@ class WordRepositoryTest {
     fun wordRepository_getWordById_returnWord() {
         runTest {
             val id = FakeSource.fakeWordsDb[2].id
-            val expected = FakeSource.fakeWordsDb.first { it.id == id }.toWord()
+            val expected = FakeSource.fakeWordsDb.first { it.id == id }.toUiItem()
             val actual = repository.getWordById(id)
                 .first().data ?: Word()
 
@@ -162,7 +162,7 @@ class WordRepositoryTest {
     fun wordRepository_updateWord_newWordUpdated() {
         runTest {
             val newText = "newText"
-            val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText).toWord()
+            val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText).toUiItem()
             repository.updateWord(expected)
             val actual = repository.getWordById(expected.id)
                 .first().data ?: Word()

@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.flow
 class FakeIssueRepository(
     private val requestResult: RequestResult<List<Issue>>
 ) : IssueRepository {
-    override fun getAllIssue(): Flow<RequestResult<List<Issue>>> {
+    override fun getAllItems(): Flow<RequestResult<List<Issue>>> {
         return flow { emit(requestResult) }
     }
 
-    override fun getAllIssueByTheme(theme: String): Flow<RequestResult<List<Issue>>> {
+    override fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<Issue>>> {
         val issues = requestResult.map { list ->
             list.filter { it.theme == theme }
         }

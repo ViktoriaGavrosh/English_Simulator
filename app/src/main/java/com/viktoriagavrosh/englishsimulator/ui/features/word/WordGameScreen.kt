@@ -8,12 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 
 /**
  * Composable to display quest "FlashCards"
@@ -35,7 +37,7 @@ fun WordGameScreen(
     modifier: Modifier = Modifier,
 ) {
     val isToEnglish = quest == Quest.RuToEn
-    val viewModel: WordGameViewModel = koinViewModel {
+    val viewModel: GameViewModel = koinViewModel(named("WordScreen")) {
         parametersOf(theme, isToEnglish)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

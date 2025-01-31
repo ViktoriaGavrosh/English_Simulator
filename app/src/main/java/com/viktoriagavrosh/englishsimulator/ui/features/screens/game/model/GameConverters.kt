@@ -1,19 +1,16 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model
 
-import com.viktoriagavrosh.englishsimulator.model.Dialog
-import com.viktoriagavrosh.englishsimulator.model.Issue
-import com.viktoriagavrosh.englishsimulator.model.Sentence
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.QuizName
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 
 /**
- * Converts [Sentence] instance to [GameQuestion] instance for ui (GameScreen)
+ * Converts [UiItem] instance to [GameQuestion] instance for ui (GameScreen)
  *
- * @param isToEnglish if true - quiz "Translate from Russian to English"
  * @return [GameQuestion] instance
  */
-fun Sentence.toGameQuestion(isToEnglish: Boolean = true): GameQuestion {
-    val question = if (isToEnglish) ruText else enText
-    val translate = if (isToEnglish) enText else ruText
+fun UiItem.toGameQuestion(isToEnglish: Boolean = false): GameQuestion {
+    val question = if (isToEnglish) answerText else questionText
+    val translate = if (isToEnglish) questionText else answerText
 
     return GameQuestion(
         id = id,
@@ -23,106 +20,24 @@ fun Sentence.toGameQuestion(isToEnglish: Boolean = true): GameQuestion {
 }
 
 /**
- * Converts [Issue] instance to [GameQuestion] instance for ui (GameScreen)
+ * Converts [GameQuestion] instance to [UiItem] instance for ui (GameScreen)
  *
- * @return [GameQuestion] instance
+ * @param theme theme of issue
+ * @return [UiItem] instance
  */
-fun Issue.toGameQuestion(): GameQuestion {
-    return GameQuestion(
-        id = id,
-        question = englishQuestion,
-        translate = russianQuestion,
-    )
-}
-
-/**
- * Converts [Dialog] instance to [GameQuestion] instance for ui (GameScreen)
- *
- * @return [GameQuestion] instance
- */
-fun Dialog.toGameQuestion(): GameQuestion {
-    return GameQuestion(
-        id = id,
-        question = question,
-        translate = shortAnswer,
-    )
-}
-
-/**
- * Converts [Word] instance to [GameQuestion] instance for ui (GameScreen)
- *
- * @return [GameQuestion] instance
- */
-fun Word.toGameQuestion(isToEnglish: Boolean = true): GameQuestion {
-    val question = if (isToEnglish) russianWord else englishWord
-    val translate = if (isToEnglish) englishWord else russianWord
-
-    return GameQuestion(
-        id = id,
-        question = question,
-        translate = translate,
-    )
-}
-
-/**
- * Converts [GameQuestion] instance to [Sentence] instance for ui (GameScreen)
- *
- * @param isToEnglish if true - quiz "Translate from Russian to English"
- * @return [Sentence] instance
- */
-fun GameQuestion.toSentence(isToEnglish: Boolean): Sentence {
+fun GameQuestion.toUiItem(
+    theme: String = "",
+    isToEnglish: Boolean = true,
+    quizName: QuizName = QuizName.Word
+): UiItem {
     val ruText = if (isToEnglish) question else translate
     val enText = if (isToEnglish) translate else question
 
-    return Sentence(
+    return UiItem(
         id = id,
-        ruText = ruText,
-        enText = enText,
-    )
-}
-
-/**
- * Converts [GameQuestion] instance to [Issue] instance for ui (GameScreen)
- *
- * @param theme theme of issue
- * @return [Issue] instance
- */
-fun GameQuestion.toIssue(theme: String): Issue {
-    return Issue(
-        id = id,
-        englishQuestion = question,
-        russianQuestion = translate,
+        questionText = enText,
+        answerText = ruText,
         theme = theme,
-    )
-}
-
-/**
- * Converts [GameQuestion] instance to [Dialog] instance for ui (GameScreen)
- *
- * @return [Dialog] instance
- */
-fun GameQuestion.toDialog(): Dialog {
-    return Dialog(
-        id = id,
-        question = question,
-        shortAnswer = translate,
-    )
-}
-
-/**
- * Converts [GameQuestion] instance to [Word] instance for ui (GameScreen)
- *
- * @param theme theme of issue
- * @return [Word] instance
- */
-fun GameQuestion.toWord(theme: String, isToEnglish: Boolean): Word {
-    val ruText = if (isToEnglish) question else translate
-    val enText = if (isToEnglish) translate else question
-
-    return Word(
-        id = id,
-        englishWord = enText,
-        russianWord = ruText,
-        theme = theme,
+        quizName = quizName
     )
 }

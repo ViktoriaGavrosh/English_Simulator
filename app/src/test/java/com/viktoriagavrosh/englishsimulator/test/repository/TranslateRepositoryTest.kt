@@ -5,7 +5,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toSentence
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -22,8 +22,8 @@ class TranslateRepositoryTest {
     @Test
     fun translateRepository_getAllSentences_returnListSentences() {
         runTest {
-            val expectedList = FakeSource.fakeSentencesDb.map { it.toSentence() }
-            val actualList = repository.getAllSentences()
+            val expectedList = FakeSource.fakeSentencesDb.map { it.toUiItem() }
+            val actualList = repository.getAllItems()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -36,7 +36,7 @@ class TranslateRepositoryTest {
     @Test
     fun translateRepository_getAllSentences_returnRequestResultSuccess() {
         runTest {
-            val isSuccess = repository.getAllSentences()
+            val isSuccess = repository.getAllItems()
                 .first() is RequestResult.Success
 
             assert(isSuccess)

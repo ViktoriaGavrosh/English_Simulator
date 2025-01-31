@@ -7,19 +7,19 @@ import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toWor
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
 import org.junit.Rule
 import org.junit.Test
 
-class WordGameViewModelTest {
+class GameViewModelTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeWords = FakeSource.fakeWordsDb.map { it.toWord() }
+    private val fakeWords = FakeSource.fakeWordsDb.map { it.toUiItem() }
 
     @Test
     fun wordGameViewModel_initUiState_initGameQuestion() {

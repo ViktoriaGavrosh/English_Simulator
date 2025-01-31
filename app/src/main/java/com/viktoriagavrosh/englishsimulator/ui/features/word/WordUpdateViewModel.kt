@@ -3,7 +3,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.word
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,7 +37,7 @@ class WordUpdateViewModel(
     fun updateEnglishText(text: String) {
         viewModelScope.launch {
             val newWord = uiState.first().word.copy(
-                englishWord = text
+                questionText = text
             )
             updateState(newWord)
         }
@@ -51,7 +51,7 @@ class WordUpdateViewModel(
     fun updateRussianText(text: String) {
         viewModelScope.launch {
             val newWord = uiState.first().word.copy(
-                russianWord = text
+                answerText = text
             )
             updateState(newWord)
         }
@@ -112,13 +112,13 @@ class WordUpdateViewModel(
                 }
             } else {
                 _uiState.update {
-                    it.copy(word = Word())
+                    it.copy(word = UiItem())
                 }
             }
         }
     }
 
-    private fun updateState(word: Word) {
+    private fun updateState(word: UiItem) {
         val isWordValid = validateWord(word)
         viewModelScope.launch {
             _uiState.update {
@@ -131,9 +131,9 @@ class WordUpdateViewModel(
     }
 
 
-    private fun validateWord(word: Word): Boolean {
-        return word.englishWord.isNotEmpty()
-                && word.russianWord.isNotEmpty()
+    private fun validateWord(word: UiItem): Boolean {
+        return word.questionText.isNotEmpty()
+                && word.answerText.isNotEmpty()
                 && word.theme.isNotEmpty()
     }
 }
@@ -141,10 +141,10 @@ class WordUpdateViewModel(
 /**
  * holds [WordUpdateScreen] state
  *
- * @param word instance [Word]
+ * @param word instance [UiItem]
  * @param isWordValid if true, new word can be saved
  */
 data class UpdateUiState(
-    val word: Word = Word(),
+    val word: UiItem = UiItem(),
     val isWordValid: Boolean = false,
 )

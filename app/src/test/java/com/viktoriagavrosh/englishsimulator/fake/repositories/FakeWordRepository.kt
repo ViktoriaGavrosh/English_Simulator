@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.flow
 class FakeWordRepository(
     private var requestResult: RequestResult<List<Word>>
 ) : WordRepository {
-    override fun getAllWords(): Flow<RequestResult<List<Word>>> {
+    override fun getAllItems(): Flow<RequestResult<List<Word>>> {
         return flow { emit(requestResult) }
     }
 
-    override fun getAllWordsByTheme(theme: String): Flow<RequestResult<List<Word>>> {
+    override fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<Word>>> {
         val wordsResult = requestResult.map { list ->
             list.filter { it.theme == theme }
         }

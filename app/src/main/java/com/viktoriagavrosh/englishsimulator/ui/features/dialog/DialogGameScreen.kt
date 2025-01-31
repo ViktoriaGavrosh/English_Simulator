@@ -8,10 +8,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.qualifier.named
 
 /**
  * Composable to display quest "Short dialogs"
@@ -26,7 +28,7 @@ fun DialogGameScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: DialogGameViewModel = koinViewModel()
+    val viewModel: GameViewModel = koinViewModel(named("DialogScreen"))
     val uiState by viewModel.uiState.collectAsState()
 
     DialogGameScreen(

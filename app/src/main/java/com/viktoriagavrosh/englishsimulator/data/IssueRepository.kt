@@ -1,9 +1,9 @@
 package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
-import com.viktoriagavrosh.englishsimulator.model.Issue
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
-import com.viktoriagavrosh.englishsimulator.utils.toIssue
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -16,17 +16,17 @@ interface IssueRepository {
     /**
      * Retrieve all items from given data source
      *
-     * @return flow of [RequestResult] with list [Issue]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    fun getAllIssue(): Flow<RequestResult<List<Issue>>>
+    fun getAllItems(): Flow<RequestResult<List<UiItem>>>
 
     /**
      * Retrieve all items from given data source by theme
      *
      * @param theme theme of items
-     * @return flow of [RequestResult] with list [Issue]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    fun getAllIssueByTheme(theme: String): Flow<RequestResult<List<Issue>>>
+    fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<UiItem>>>
 
     /**
      * Retrieve all themes from given data source
@@ -43,20 +43,20 @@ interface IssueRepository {
  */
 internal class LocalIssueRepository(
     private val database: AppDatabase
-) : IssueRepository {
+) : IssueRepository, GameRepository {
 
     /**
-     * Retrieve all [Issue] from database
+     * Retrieve all [UiItem] from database
      *
-     * @return flow of [RequestResult] with list [Issue]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    override fun getAllIssue(): Flow<RequestResult<List<Issue>>> {
+    override fun getAllItems(): Flow<RequestResult<List<UiItem>>> {
         return try {
             database.issueDao().getAllIssues()
                 .map { list ->
-                    list.map { it.toIssue() }
+                    list.map { it.toUiItem() }
                 }
-                .map<List<Issue>, RequestResult<List<Issue>>> { RequestResult.Success(it) }
+                .map<List<UiItem>, RequestResult<List<UiItem>>> { RequestResult.Success(it) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))
@@ -65,19 +65,19 @@ internal class LocalIssueRepository(
     }
 
     /**
-     * Retrieve all [Issue] from database by theme
+     * Retrieve all [UiItem] from database by theme
      *
      * @param theme theme of issues
-     * @return flow of [RequestResult] with list [Issue]
+     * @return flow of [RequestResult] with list [UiItem]
      */
-    override fun getAllIssueByTheme(theme: String): Flow<RequestResult<List<Issue>>> {
+    override fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<UiItem>>> {
         return try {
             database.issueDao()
                 .getAllIssuesByTheme(theme = theme)
                 .map { list ->
-                    list.map { it.toIssue() }
+                    list.map { it.toUiItem() }
                 }
-                .map<List<Issue>, RequestResult<List<Issue>>> { RequestResult.Success(it) }
+                .map<List<UiItem>, RequestResult<List<UiItem>>> { RequestResult.Success(it) }
         } catch (e: Exception) {
             flow {
                 emit(RequestResult.Error(e))

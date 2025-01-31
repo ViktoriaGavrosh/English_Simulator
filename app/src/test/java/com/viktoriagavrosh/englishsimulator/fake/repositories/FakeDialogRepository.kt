@@ -10,7 +10,7 @@ class FakeDialogRepository(
     private val requestResult: RequestResult<List<Dialog>>
 ) : DialogRepository {
 
-    override fun getAllDialogs(): Flow<RequestResult<List<Dialog>>> {
+    override fun getAllItems(): Flow<RequestResult<List<Dialog>>> {
         return flow {
             emit(requestResult)
         }

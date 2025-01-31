@@ -7,7 +7,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toSen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toSentence
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +19,7 @@ class TranslateGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeSentences = FakeSource.fakeSentencesDb.map { it.toSentence() }
+    private val fakeSentences = FakeSource.fakeSentencesDb.map { it.toUiItem() }
 
     @Test
     fun translateGameViewModel_initUiState_initGameQuestion() {

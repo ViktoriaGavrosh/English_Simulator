@@ -6,7 +6,7 @@ import com.viktoriagavrosh.englishsimulator.model.Issue
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toIssue
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -18,7 +18,7 @@ class IssueMenuViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeIssues = FakeSource.fakeIssuesDb.map { it.toIssue() }
+    private val fakeIssues = FakeSource.fakeIssuesDb.map { it.toUiItem() }
 
     @Test
     fun issueMenuViewModel_initUiState_initListTheme() {

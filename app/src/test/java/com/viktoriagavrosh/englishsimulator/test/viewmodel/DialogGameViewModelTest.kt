@@ -7,7 +7,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameViewMod
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toDialog
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toDialog
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +19,7 @@ class DialogGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeDialogs = FakeSource.fakeDialogsDb.map { it.toDialog() }
+    private val fakeDialogs = FakeSource.fakeDialogsDb.map { it.toUiItem() }
 
     @Test
     fun dialogGameViewModel_initUiState_initGameQuestion() {

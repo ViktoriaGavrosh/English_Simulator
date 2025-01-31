@@ -1,11 +1,10 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.issue
+package com.viktoriagavrosh.englishsimulator.ui.features.screens.game
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.viktoriagavrosh.englishsimulator.data.IssueRepository
+import com.viktoriagavrosh.englishsimulator.data.GameRepository
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toGameQuestion
-import com.viktoriagavrosh.englishsimulator.ui.features.translate.UiState
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,12 +16,14 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel to retrieve and update item from repository data source
  *
- * @param issueRepository instance of [IssueRepository]
+ * @param repository instance of [GameRepository]
  * @param theme describes what action will be shown by Ui
+ * @param isToEnglish describes what action will be shown by Ui
  */
-class IssueGameViewModel(
-    private val issueRepository: IssueRepository,
-    private val theme: String,
+class GameViewModel(
+    private val repository: GameRepository,
+    private val theme: String = "",
+    private val isToEnglish: Boolean = false,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -48,13 +49,13 @@ class IssueGameViewModel(
     }
 
     /**
-     * Update [UiState] with data from [IssueRepository]
+     * Update [UiState] with data from [GameRepository]
      */
     private fun initUiState() {
         val requestResultFlow = if (theme.isNotEmpty()) {
-            issueRepository.getAllIssueByTheme(theme = theme)
+            repository.getAllItemsByTheme(theme = theme)
         } else {
-            issueRepository.getAllIssue()
+            repository.getAllItems()
         }
 
         viewModelScope.launch {
@@ -68,7 +69,7 @@ class IssueGameViewModel(
             } else {
                 gameQuestions = result.data
                     ?.map {
-                        it.toGameQuestion()
+                        it.toGameQuestion(isToEnglish)
                     }
                     ?: emptyList()
                 if (gameQuestions.isNotEmpty()) {
@@ -96,3 +97,16 @@ class IssueGameViewModel(
         }
     }
 }
+
+/**
+ * Holds GameScreen state
+ *
+ * @param gameQuestion instance [GameQuestion]
+ * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
+ * @param score quest score
+ */
+internal data class UiState(
+    val gameQuestion: GameQuestion = GameQuestion(),
+    val isError: Boolean = false,
+    val score: Int = 0,
+)

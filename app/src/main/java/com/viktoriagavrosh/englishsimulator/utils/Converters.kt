@@ -1,78 +1,83 @@
 package com.viktoriagavrosh.englishsimulator.utils
 
-import com.viktoriagavrosh.englishsimulator.model.Dialog
 import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.Issue
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.Sentence
+import com.viktoriagavrosh.englishsimulator.model.QuizName
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.model.WordDb
 
 /**
- * Converts [SentenceDb] instance to [Sentence] instance for repository
+ * Converts [SentenceDb] instance to [UiItem] instance for repository
  *
- * @return [Sentence] instance
+ * @return [UiItem] instance
  */
-internal fun SentenceDb.toSentence(): Sentence {
-    return Sentence(
+internal fun SentenceDb.toUiItem(): UiItem {
+    return UiItem(
         id = id,
-        ruText = ruText,
-        enText = enText,
+        questionText = enText,
+        answerText = ruText,
+        quizName = QuizName.Translate
     )
 }
 
 /**
- * Converts [IssueDb] instance to [Issue] instance for repository
+ * Converts [IssueDb] instance to [UiItem] instance for repository
  *
- * @return [Issue] instance
+ * @return [UiItem] instance
  */
-internal fun IssueDb.toIssue(): Issue {
-    return Issue(
+internal fun IssueDb.toUiItem(): UiItem {
+    return UiItem(
         id = id,
-        englishQuestion = englishQuestion,
-        russianQuestion = russianQuestion,
+        questionText = englishQuestion,
+        answerText = russianQuestion,
         theme = theme,
+        quizName = QuizName.Issue
     )
 }
 
 /**
- * Converts [DialogDb] instance to [Dialog] instance for repository
+ * Converts [DialogDb] instance to [UiItem] instance for repository
  *
- * @return [Dialog] instance
+ * @return [UiItem] instance
  */
-internal fun DialogDb.toDialog(): Dialog {
-    return Dialog(
+internal fun DialogDb.toUiItem(): UiItem {
+    return UiItem(
         id = id,
-        question = question,
-        shortAnswer = shortAnswer,
+        questionText = question,
+        answerText = shortAnswer,
+        quizName = QuizName.Dialog
     )
 }
 
 /**
- * Converts [WordDb] instance to [Word] instance for repository
+ * Converts [WordDb] instance to [UiItem] instance for repository
  *
- * @return [Word] instance
+ * @return [UiItem] instance
  */
-internal fun WordDb.toWord(): Word {
-    return Word(
+internal fun WordDb.toUiItem(): UiItem {
+    return UiItem(
         id = id,
-        englishWord = englishWord,
-        russianWord = russianWord,
+        questionText = englishWord,
+        answerText = russianWord,
         theme = theme,
+        quizName = QuizName.Word
     )
 }
 
 /**
- * Converts [Word] instance to [WordDb] instance for repository
+ * Converts [UiItem] instance to [WordDb] instance for repository
  *
  * @return [WordDb] instance
  */
-internal fun Word.toWordDb(): WordDb {
+internal fun UiItem.toWordDb(): WordDb {
+    if (this.quizName != QuizName.Word) {
+        throw ClassCastException("You can't convert this type to WordDb")
+    }
     return WordDb(
         id = id,
-        englishWord = englishWord,
-        russianWord = russianWord,
+        englishWord = questionText,
+        russianWord = answerText,
         theme = theme,
     )
 }

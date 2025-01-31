@@ -7,7 +7,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toIssue
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toIssue
+import com.viktoriagavrosh.englishsimulator.utils.toUiItem
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +19,7 @@ class IssueGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeIssues = FakeSource.fakeIssuesDb.map { it.toIssue() }
+    private val fakeIssues = FakeSource.fakeIssuesDb.map { it.toUiItem() }
 
     @Test
     fun issueGameViewModel_initUiState_initGameQuestion() {
