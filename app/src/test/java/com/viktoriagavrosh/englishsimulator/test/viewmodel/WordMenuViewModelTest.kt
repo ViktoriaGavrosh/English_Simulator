@@ -2,7 +2,7 @@ package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeWordRepository
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
@@ -59,7 +59,7 @@ class WordMenuViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Word>>,
+        requestResult: RequestResult<List<UiItem>>,
     ): WordMenuViewModel {
         return WordMenuViewModel(
             repository = FakeWordRepository(requestResult),
