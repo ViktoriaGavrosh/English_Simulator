@@ -3,7 +3,7 @@ package com.viktoriagavrosh.englishsimulator.test.repository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toUiItem
@@ -112,7 +112,7 @@ class WordRepositoryTest {
             val id = FakeSource.fakeWordsDb[2].id
             val expected = FakeSource.fakeWordsDb.first { it.id == id }.toUiItem()
             val actual = repository.getWordById(id)
-                .first().data ?: Word()
+                .first().data ?: UiItem()
 
             assertEquals(
                 expected,
@@ -146,10 +146,10 @@ class WordRepositoryTest {
     fun wordRepository_insertWord_newWordInsert() {
         runTest {
             val id = 125
-            val expected = Word(id = id)
+            val expected = UiItem(id = id)
             repository.insertWord(expected)
             val actual = repository.getWordById(id)
-                .first().data ?: Word()
+                .first().data ?: UiItem()
             repository.deleteWord(expected)
             assertEquals(
                 expected,
@@ -165,7 +165,7 @@ class WordRepositoryTest {
             val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText).toUiItem()
             repository.updateWord(expected)
             val actual = repository.getWordById(expected.id)
-                .first().data ?: Word()
+                .first().data ?: UiItem()
             assertEquals(
                 expected,
                 actual
@@ -177,10 +177,10 @@ class WordRepositoryTest {
     fun wordRepository_deleteWord_newWordDeleted() {
         runTest {
             val id = 125
-            val expected = Word(id = id)
+            val expected = UiItem(id = id)
             repository.insertWord(expected)
             val actual = repository.getWordById(id)
-                .first().data ?: Word()
+                .first().data ?: UiItem()
             assertEquals(
                 expected,
                 actual

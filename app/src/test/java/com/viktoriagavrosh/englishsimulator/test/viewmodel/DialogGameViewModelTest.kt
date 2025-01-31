@@ -2,9 +2,9 @@ package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeDialogRepository
-import com.viktoriagavrosh.englishsimulator.model.Dialog
-import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toDialog
+import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toUiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toUiItem
@@ -28,7 +28,7 @@ class DialogGameViewModelTest {
                 requestResult = RequestResult.Success(fakeDialogs),
             )
             val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toDialog() in fakeDialogs)
+            assert(actualGameQuestion.toUiItem() in fakeDialogs)
         }
     }
 
@@ -77,10 +77,10 @@ class DialogGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Dialog>>,
-    ): DialogGameViewModel {
-        return DialogGameViewModel(
-            dialogRepository = FakeDialogRepository(requestResult),
+        requestResult: RequestResult<List<UiItem>>,
+    ): GameViewModel {
+        return GameViewModel(
+            repository = FakeDialogRepository(requestResult),
         )
     }
 }

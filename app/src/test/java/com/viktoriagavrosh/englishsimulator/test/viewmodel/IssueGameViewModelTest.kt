@@ -2,9 +2,9 @@ package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeIssueRepository
-import com.viktoriagavrosh.englishsimulator.model.Issue
-import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toIssue
+import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toUiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toUiItem
@@ -30,7 +30,7 @@ class IssueGameViewModelTest {
                 theme = theme,
             )
             val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toIssue(theme) in fakeIssues)
+            assert(actualGameQuestion.toUiItem(theme) in fakeIssues)
         }
     }
 
@@ -79,11 +79,11 @@ class IssueGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Issue>>,
+        requestResult: RequestResult<List<UiItem>>,
         theme: String = FakeSource.fakeIssuesDb[0].theme,
-    ): IssueGameViewModel {
-        return IssueGameViewModel(
-            issueRepository = FakeIssueRepository(requestResult),
+    ): GameViewModel {
+        return GameViewModel(
+            repository = FakeIssueRepository(requestResult),
             theme = theme,
         )
     }

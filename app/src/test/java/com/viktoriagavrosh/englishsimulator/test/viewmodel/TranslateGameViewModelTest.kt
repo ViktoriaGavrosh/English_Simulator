@@ -2,9 +2,9 @@ package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeTranslateRepository
-import com.viktoriagavrosh.englishsimulator.model.Sentence
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toSentence
-import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameViewModel
+import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toUiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toUiItem
@@ -30,7 +30,7 @@ class TranslateGameViewModelTest {
                 isToEnglish = isToEnglish,
             )
             val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toSentence(isToEnglish) in fakeSentences)
+            assert(actualGameQuestion.toUiItem(isToEnglish = isToEnglish) in fakeSentences)
         }
     }
 
@@ -79,11 +79,11 @@ class TranslateGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Sentence>>,
+        requestResult: RequestResult<List<UiItem>>,
         isToEnglish: Boolean = true,
-    ): TranslateGameViewModel {
-        return TranslateGameViewModel(
-            translateRepository = FakeTranslateRepository(requestResult),
+    ): GameViewModel {
+        return GameViewModel(
+            repository = FakeTranslateRepository(requestResult),
             isToEnglish = isToEnglish,
         )
     }

@@ -2,9 +2,9 @@ package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeWordRepository
-import com.viktoriagavrosh.englishsimulator.model.Word
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toWord
-import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameViewModel
+import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toUiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toUiItem
@@ -14,7 +14,7 @@ import org.junit.Assert.assertNotEquals
 import org.junit.Rule
 import org.junit.Test
 
-class GameViewModelTest {
+class WordGameViewModelTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
@@ -32,7 +32,7 @@ class GameViewModelTest {
                 isToEnglish = isToEnglish
             )
             val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toWord(theme, isToEnglish) in fakeWords)
+            assert(actualGameQuestion.toUiItem(theme, isToEnglish) in fakeWords)
         }
     }
 
@@ -81,11 +81,11 @@ class GameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Word>>,
+        requestResult: RequestResult<List<UiItem>>,
         theme: String = FakeSource.fakeWordsDb[0].theme,
         isToEnglish: Boolean = true,
-    ): WordGameViewModel {
-        return WordGameViewModel(
+    ): GameViewModel {
+        return GameViewModel(
             repository = FakeWordRepository(requestResult),
             theme = theme,
             isToEnglish = isToEnglish,

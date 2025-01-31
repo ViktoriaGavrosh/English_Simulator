@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.fake.repositories
 
+import com.viktoriagavrosh.englishsimulator.data.GameRepository
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
 import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 class FakeWordRepository(
     private var requestResult: RequestResult<List<UiItem>>
-) : WordRepository {
+) : WordRepository, GameRepository {
     override fun getAllItems(): Flow<RequestResult<List<UiItem>>> {
         return flow { emit(requestResult) }
     }
