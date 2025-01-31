@@ -3,6 +3,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.word
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
+import com.viktoriagavrosh.englishsimulator.model.QuizName
 import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -112,7 +113,7 @@ class WordUpdateViewModel(
                 }
             } else {
                 _uiState.update {
-                    it.copy(word = UiItem())
+                    it.copy(word = UiItem(quizName = QuizName.Word))
                 }
             }
         }
@@ -145,6 +146,6 @@ class WordUpdateViewModel(
  * @param isWordValid if true, new word can be saved
  */
 data class UpdateUiState(
-    val word: UiItem = UiItem(),
+    val word: UiItem = UiItem(quizName = QuizName.Word),
     val isWordValid: Boolean = false,
 )
