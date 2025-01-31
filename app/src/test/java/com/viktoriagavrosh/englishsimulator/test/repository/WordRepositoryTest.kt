@@ -3,6 +3,7 @@ package com.viktoriagavrosh.englishsimulator.test.repository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
+import com.viktoriagavrosh.englishsimulator.model.QuizName
 import com.viktoriagavrosh.englishsimulator.model.UiItem
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
@@ -146,7 +147,7 @@ class WordRepositoryTest {
     fun wordRepository_insertWord_newWordInsert() {
         runTest {
             val id = 125
-            val expected = UiItem(id = id)
+            val expected = UiItem(id = id, quizName = QuizName.Word)
             repository.insertWord(expected)
             val actual = repository.getWordById(id)
                 .first().data ?: UiItem()
@@ -177,7 +178,7 @@ class WordRepositoryTest {
     fun wordRepository_deleteWord_newWordDeleted() {
         runTest {
             val id = 125
-            val expected = UiItem(id = id)
+            val expected = UiItem(id = id, quizName = QuizName.Word)
             repository.insertWord(expected)
             val actual = repository.getWordById(id)
                 .first().data ?: UiItem()
