@@ -56,7 +56,6 @@ class DialogGameViewModelTest {
 
     @Test
     fun dialogGameViewModel_updateUiState_gameQuestionUpdated() {
-        // sometimes failed because updateUiState() contains random()
         runTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeDialogs)

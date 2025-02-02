@@ -58,7 +58,6 @@ class IssueGameViewModelTest {
 
     @Test
     fun issueGameViewModel_updateUiState_gameQuestionUpdated() {
-        // sometimes failed because updateUiState() contains random()
         runTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeIssues)

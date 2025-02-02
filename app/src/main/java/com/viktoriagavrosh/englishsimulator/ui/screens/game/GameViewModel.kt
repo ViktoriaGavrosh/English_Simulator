@@ -29,6 +29,7 @@ class GameViewModel(
 
     private val _uiState = MutableStateFlow(UiState())
     private lateinit var gameQuestions: List<GameQuestionUi>
+    private var currentQuestionIndex = 0
 
     init {
         initUiState()
@@ -41,18 +42,26 @@ class GameViewModel(
      * Update gameQuestion and score value of [UiState]
      */
     internal fun updateUiState() {
-        _uiState.update {
-            it.copy(
-                gameQuestion = gameQuestions.random(),
-            )
+        viewModelScope.launch {
+            if (currentQuestionIndex == gameQuestions.lastIndex) {
+                currentQuestionIndex = 0
+            } else {
+                currentQuestionIndex++
+            }
+            _uiState.update {
+                it.copy(
+                    gameQuestion = gameQuestions[currentQuestionIndex],
+                )
+            }
+            increaseScore()
         }
-        increaseScore()
     }
 
     /**
      * Update [UiState] with data from [GameRepository]
      */
     private fun initUiState() {
+        currentQuestionIndex = 0
         val requestResultFlow = if (theme.isNotEmpty()) {
             useCase.getAllItemsByTheme(theme = theme)
         } else {
@@ -72,11 +81,12 @@ class GameViewModel(
                     ?.map {
                         it.toGameQuestionUi(isToEnglish)
                     }
+                    ?.shuffled()
                     ?: emptyList()
                 if (gameQuestions.isNotEmpty()) {
                     _uiState.update {
                         it.copy(
-                            gameQuestion = gameQuestions.random(),
+                            gameQuestion = gameQuestions[0],
                         )
                     }
                 }

@@ -56,7 +56,7 @@ class WordGameViewModelTest {
     }
 
     @Test
-    fun wordGameViewModel_updateUiState_gameQuestionUpdated() { // sometimes failed because updateUiState() contains random()
+    fun wordGameViewModel_updateUiState_gameQuestionUpdated() {
         runTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeWords)
