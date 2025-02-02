@@ -7,10 +7,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.di.ISSUE_SCREEN
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -31,7 +32,7 @@ fun IssueGameScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: GameViewModel = koinViewModel(qualifier = named("IssueScreen")) {
+    val viewModel: GameViewModel = koinViewModel(qualifier = named(ISSUE_SCREEN)) {
         parametersOf(theme)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -60,7 +61,7 @@ fun IssueGameScreen(
  */
 @Composable
 internal fun IssueGameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
@@ -92,7 +93,7 @@ private fun VerticalIssueGameScreenPreview() {
     EnglishSimulatorTheme {
         IssueGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question Question Question Question Question Question " +
                             "Question Question Question Question Question Question Question " +
                             "Question Question Question Question  Question  Question  Question",
@@ -120,7 +121,7 @@ private fun HorizontalIssueGameScreenPreview() {
     EnglishSimulatorTheme {
         IssueGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question",
                     translate = "Translate",
                 )
@@ -140,7 +141,7 @@ private fun HorizontalIssueGameScreenPreview() {
 private fun ErrorVerticalIssueGameScreenPreview() {
     EnglishSimulatorTheme {
         IssueGameScreen(
-            gameQuestionProvider = { GameQuestion() },
+            gameQuestionProvider = { GameQuestionUi() },
             scoreProvider = { 5 },
             isVerticalScreen = true,
             isErrorProvider = { true },
@@ -162,7 +163,7 @@ private fun ErrorVerticalIssueGameScreenPreview() {
 private fun ErrorHorizontalIssueGameScreenPreview() {
     EnglishSimulatorTheme {
         IssueGameScreen(
-            gameQuestionProvider = { GameQuestion() },
+            gameQuestionProvider = { GameQuestionUi() },
             scoreProvider = { 5 },
             isVerticalScreen = false,
             isErrorProvider = { true },

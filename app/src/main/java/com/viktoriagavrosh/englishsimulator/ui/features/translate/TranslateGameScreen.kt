@@ -7,11 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.di.TRANSLATE_SCREEN
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -32,7 +33,7 @@ internal fun TranslateGameScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: GameViewModel = koinViewModel(qualifier = named("TranslateScreen")) {
+    val viewModel: GameViewModel = koinViewModel(qualifier = named(TRANSLATE_SCREEN)) {
         parametersOf(quest == Quest.RuToEn)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -61,7 +62,7 @@ internal fun TranslateGameScreen(
  */
 @Composable
 internal fun TranslateGameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
@@ -93,7 +94,7 @@ private fun VerticalTranslateGameScreenPreview() {
     EnglishSimulatorTheme {
         TranslateGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question Question Question Question Question Question " +
                             "Question Question Question Question Question Question Question " +
                             "Question Question Question Question",
@@ -121,7 +122,7 @@ private fun HorizontalTranslateGameScreenPreview() {
     EnglishSimulatorTheme {
         TranslateGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question",
                     translate = "Translate",
                 )
@@ -141,7 +142,7 @@ private fun HorizontalTranslateGameScreenPreview() {
 private fun ErrorVerticalTranslateGameScreenPreview() {
     EnglishSimulatorTheme {
         TranslateGameScreen(
-            gameQuestionProvider = { GameQuestion() },
+            gameQuestionProvider = { GameQuestionUi() },
             scoreProvider = { 5 },
             isVerticalScreen = true,
             isErrorProvider = { true },
@@ -163,7 +164,7 @@ private fun ErrorVerticalTranslateGameScreenPreview() {
 private fun ErrorHorizontalTranslateGameScreenPreview() {
     EnglishSimulatorTheme {
         TranslateGameScreen(
-            gameQuestionProvider = { GameQuestion() },
+            gameQuestionProvider = { GameQuestionUi() },
             scoreProvider = { 5 },
             isVerticalScreen = false,
             isErrorProvider = { true },

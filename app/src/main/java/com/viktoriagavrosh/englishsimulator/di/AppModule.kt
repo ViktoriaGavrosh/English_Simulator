@@ -2,8 +2,10 @@ package com.viktoriagavrosh.englishsimulator.di
 
 import com.viktoriagavrosh.englishsimulator.data.DialogRepository
 import com.viktoriagavrosh.englishsimulator.data.GameRepository
+import com.viktoriagavrosh.englishsimulator.data.GetQuestionsUseCase
 import com.viktoriagavrosh.englishsimulator.data.IssueRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalDialogRepository
+import com.viktoriagavrosh.englishsimulator.data.LocalGetQuestionsUseCase
 import com.viktoriagavrosh.englishsimulator.data.LocalIssueRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalTranslateRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
@@ -12,12 +14,25 @@ import com.viktoriagavrosh.englishsimulator.data.WordRepository
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+
+const val TRANSLATE_REPOSITORY = "TranslateRepository"
+const val ISSUE_REPOSITORY = "IssueRepository"
+const val DIALOG_REPOSITORY = "DialogRepository"
+const val WORD_REPOSITORY = "WordRepository"
+const val TRANSLATE_USE_CASE = "TranslateUseCase"
+const val ISSUE_USE_CASE = "IssueUseCase"
+const val DIALOG_USE_CASE = "DialogUseCase"
+const val WORD_USE_CASE = "WordUseCase"
+const val TRANSLATE_SCREEN = "TranslateScreen"
+const val ISSUE_SCREEN = "IssueScreen"
+const val DIALOG_SCREEN = "DialogScreen"
+const val WORD_SCREEN = "WordScreen"
 
 /**
  * module for DI (Koin)
@@ -28,31 +43,33 @@ val appModule = module {
     single<IssueRepository> { LocalIssueRepository(get()) }
     single<DialogRepository> { LocalDialogRepository(get()) }
     single<WordRepository> { LocalWordRepository(get()) }
-    single<GameRepository>(named("TranslateRepository")) { LocalTranslateRepository(get()) }
-    single<GameRepository>(named("IssueRepository")) { LocalIssueRepository(get()) }
-    single<GameRepository>(named("DialogRepository")) { LocalDialogRepository(get()) }
-    single<GameRepository>(named("WordRepository")) { LocalWordRepository(get()) }
-    viewModel(named("TranslateScreen")) {
-        GameViewModel(
-            repository = get(qualifier = named("TranslateRepository")),
-            isToEnglish = get()
-        )
+    single<GameRepository>(named(TRANSLATE_REPOSITORY)) { LocalTranslateRepository(get()) }
+    single<GameRepository>(named(ISSUE_REPOSITORY)) { LocalIssueRepository(get()) }
+    single<GameRepository>(named(DIALOG_REPOSITORY)) { LocalDialogRepository(get()) }
+    single<GameRepository>(named(WORD_REPOSITORY)) { LocalWordRepository(get()) }
+    single<GetQuestionsUseCase>(named(TRANSLATE_USE_CASE)) {
+        LocalGetQuestionsUseCase(get(named(TRANSLATE_REPOSITORY)))
     }
-    viewModel(named("IssueScreen")) {
-        GameViewModel(
-            repository = get(named("IssueRepository")),
-            theme = get(),
-        )
+    single<GetQuestionsUseCase>(named(ISSUE_USE_CASE)) {
+        LocalGetQuestionsUseCase(get(named(ISSUE_REPOSITORY)))
     }
-    viewModel(named("DialogScreen")) {
-        GameViewModel(repository = get(named("DialogRepository")))
+    single<GetQuestionsUseCase>(named(DIALOG_USE_CASE)) {
+        LocalGetQuestionsUseCase(get(named(DIALOG_REPOSITORY)))
     }
-    viewModel(named("WordScreen")) {
-        GameViewModel(
-            repository = get(named("WordRepository")),
-            theme = get(),
-            isToEnglish = get()
-        )
+    single<GetQuestionsUseCase>(named(WORD_USE_CASE)) {
+        LocalGetQuestionsUseCase(get(named(WORD_REPOSITORY)))
+    }
+    viewModel(named(TRANSLATE_SCREEN)) {
+        GameViewModel(useCase = get(qualifier = named(TRANSLATE_USE_CASE)), isToEnglish = get())
+    }
+    viewModel(named(ISSUE_SCREEN)) {
+        GameViewModel(useCase = get(named(ISSUE_USE_CASE)), theme = get())
+    }
+    viewModel(named(DIALOG_SCREEN)) {
+        GameViewModel(useCase = get(named(DIALOG_USE_CASE)))
+    }
+    viewModel(named(WORD_SCREEN)) {
+        GameViewModel(useCase = get(named(WORD_USE_CASE)), theme = get(), isToEnglish = get())
     }
     viewModel { IssueMenuViewModel(get()) }
     viewModel { WordMenuViewModel(get()) }

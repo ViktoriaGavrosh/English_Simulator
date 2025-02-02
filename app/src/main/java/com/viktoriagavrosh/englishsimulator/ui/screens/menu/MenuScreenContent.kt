@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.menu
+package com.viktoriagavrosh.englishsimulator.ui.screens.menu
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +17,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements.HorizontalContent
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements.SelectionDropdownMenu
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements.VerticalContent
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements.HorizontalContent
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements.SelectionDropdownMenu
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements.VerticalContent
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**

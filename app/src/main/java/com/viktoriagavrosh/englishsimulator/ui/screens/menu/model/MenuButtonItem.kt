@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model
+package com.viktoriagavrosh.englishsimulator.ui.screens.menu.model
 
 /**
  * Model represents a single item for ui (MenuScreen)

@@ -1,11 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
 import com.viktoriagavrosh.englishsimulator.model.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
 import com.viktoriagavrosh.englishsimulator.model.WordDb
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 
 internal object FakeSource {
     val fakeSentencesDb = List(5) {
@@ -51,7 +51,7 @@ internal object FakeSource {
     }
 
     val fakeGameQuestion = List(5) {
-        GameQuestion(
+        GameQuestionUi(
             id = it,
             question = "question $it",
             translate = "translate $it",

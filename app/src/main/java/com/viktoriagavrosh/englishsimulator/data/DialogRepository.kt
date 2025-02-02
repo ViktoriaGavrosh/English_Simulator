@@ -1,12 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
-import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.model.Question
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
-import com.viktoriagavrosh.englishsimulator.utils.toUiItem
+import com.viktoriagavrosh.englishsimulator.utils.getRequestResultFlow
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 /**
  * provide data for ui from data source
@@ -16,9 +15,9 @@ interface DialogRepository {
     /**
      * Retrieve all items from given data source
      *
-     * @return flow of [RequestResult] with list [UiItem]
+     * @return flow of [RequestResult] with list [Question.Dialog]
      */
-    fun getAllItems(): Flow<RequestResult<List<UiItem>>>
+    fun getAllDialogs(): Flow<RequestResult<List<Question.Dialog>>>
 }
 
 /**
@@ -31,26 +30,15 @@ internal class LocalDialogRepository(
 ) : DialogRepository, GameRepository {
 
     /**
-     * Retrieve all [UiItem] from database
+     * Retrieve all [Question.Dialog] from database
      *
-     * @return flow of [RequestResult] with list [UiItem]
+     * @return flow of [RequestResult] with list [Question.Dialog]
      */
-    override fun getAllItems(): Flow<RequestResult<List<UiItem>>> {
-        return try {
-            database.dialogDao().getAllDialogs()
-                .map { list ->
-                    list.map { it.toUiItem() }
-                }
-                .map<List<UiItem>, RequestResult<List<UiItem>>> { RequestResult.Success(it) }
-        } catch (e: Exception) {
-            flow {
-                emit(RequestResult.Error(e))
-            }
-        }
-    }
-
-    override fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<UiItem>>> {
-        return getAllItems()     // because Dialog doesn't have theme field
+    override fun getAllDialogs(): Flow<RequestResult<List<Question.Dialog>>> {
+        return getRequestResultFlow(
+            getFlow = database.dialogDao()::getAllDialogs,
+            mapper = { it.toQuestion() as Question.Dialog }
+        )
     }
 }
 

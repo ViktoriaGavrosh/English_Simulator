@@ -1,13 +1,12 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
+import com.viktoriagavrosh.englishsimulator.fake.FakeGetQuestionsUseCase
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeWordRepository
-import com.viktoriagavrosh.englishsimulator.model.UiItem
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toUiItem
+import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toUiItem
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +18,7 @@ class WordGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeWords = FakeSource.fakeWordsDb.map { it.toUiItem() }
+    private val fakeWords = FakeSource.fakeWordsDb.map { it.toQuestion() }
 
     @Test
     fun wordGameViewModel_initUiState_initGameQuestion() {
@@ -32,7 +31,7 @@ class WordGameViewModelTest {
                 isToEnglish = isToEnglish
             )
             val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toUiItem(theme, isToEnglish) in fakeWords)
+            assert(actualGameQuestion.toQuestion(theme, isToEnglish) in fakeWords)
         }
     }
 
@@ -81,12 +80,12 @@ class WordGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<UiItem>>,
+        requestResult: RequestResult<List<Question>>,
         theme: String = FakeSource.fakeWordsDb[0].theme,
         isToEnglish: Boolean = true,
     ): GameViewModel {
         return GameViewModel(
-            repository = FakeWordRepository(requestResult),
+            useCase = FakeGetQuestionsUseCase(requestResult),
             theme = theme,
             isToEnglish = isToEnglish,
         )

@@ -3,8 +3,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.word
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
-import com.viktoriagavrosh.englishsimulator.model.QuizName
-import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.model.Question
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,7 +36,7 @@ class WordUpdateViewModel(
      */
     fun updateEnglishText(text: String) {
         viewModelScope.launch {
-            val newWord = uiState.first().word.copy(
+            val newWord = (uiState.first().word as Question.Word).copy(
                 questionText = text
             )
             updateState(newWord)
@@ -51,7 +50,7 @@ class WordUpdateViewModel(
      */
     fun updateRussianText(text: String) {
         viewModelScope.launch {
-            val newWord = uiState.first().word.copy(
+            val newWord = (uiState.first().word as Question.Word).copy(
                 answerText = text
             )
             updateState(newWord)
@@ -65,7 +64,7 @@ class WordUpdateViewModel(
      */
     fun updateTheme(text: String) {
         viewModelScope.launch {
-            val newWord = uiState.first().word.copy(
+            val newWord = (uiState.first().word as Question.Word).copy(
                 theme = text
             )
             updateState(newWord)
@@ -78,7 +77,7 @@ class WordUpdateViewModel(
      */
     fun saveWord() {
         viewModelScope.launch {
-            val newWord = uiState.first().word
+            val newWord = uiState.first().word as Question.Word
             if (newWord.id == 0) {
                 repository.insertWord(word = newWord)
             } else {
@@ -93,7 +92,7 @@ class WordUpdateViewModel(
      */
     fun deleteWord() {
         viewModelScope.launch {
-            val newWord = uiState.first().word
+            val newWord = uiState.first().word as Question.Word
             repository.deleteWord(word = newWord)
         }
     }
@@ -113,13 +112,13 @@ class WordUpdateViewModel(
                 }
             } else {
                 _uiState.update {
-                    it.copy(word = UiItem(quizName = QuizName.Word))
+                    it.copy(word = Question.Word())
                 }
             }
         }
     }
 
-    private fun updateState(word: UiItem) {
+    private fun updateState(word: Question.Word) {
         val isWordValid = validateWord(word)
         viewModelScope.launch {
             _uiState.update {
@@ -132,7 +131,7 @@ class WordUpdateViewModel(
     }
 
 
-    private fun validateWord(word: UiItem): Boolean {
+    private fun validateWord(word: Question.Word): Boolean {
         return word.questionText.isNotEmpty()
                 && word.answerText.isNotEmpty()
                 && word.theme.isNotEmpty()
@@ -142,10 +141,10 @@ class WordUpdateViewModel(
 /**
  * holds [WordUpdateScreen] state
  *
- * @param word instance [UiItem]
+ * @param word instance [Question]
  * @param isWordValid if true, new word can be saved
  */
 data class UpdateUiState(
-    val word: UiItem = UiItem(quizName = QuizName.Word),
+    val word: Question = Question.Word(),
     val isWordValid: Boolean = false,
 )

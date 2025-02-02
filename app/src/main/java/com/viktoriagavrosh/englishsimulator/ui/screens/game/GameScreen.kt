@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.game
+package com.viktoriagavrosh.englishsimulator.ui.screens.game
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -25,11 +25,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.IconRow
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.NextButton
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ScoreBox
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.TextBox
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.IconRow
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.NextButton
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ScoreBox
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.TextBox
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
@@ -46,7 +46,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  */
 @Composable
 internal fun GameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
@@ -106,7 +106,7 @@ internal fun GameScreen(
  */
 @Composable
 private fun ColumnTranslate(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -152,7 +152,7 @@ private fun ColumnTranslate(
  */
 @Composable
 private fun RowTranslate(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -218,7 +218,7 @@ private fun VerticalTranslateScreenPreview() {
     EnglishSimulatorTheme {
         GameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Ru Text",
                     translate = "En Text"
                 )
@@ -244,7 +244,7 @@ private fun HorizontalTranslateScreenPreview() {
     EnglishSimulatorTheme {
         GameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Ru Text",
                     translate = "En Text"
                 )
@@ -265,7 +265,7 @@ private fun EditVerticalTranslateScreenPreview() {
     EnglishSimulatorTheme {
         GameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Ru Text",
                     translate = "En Text"
                 )

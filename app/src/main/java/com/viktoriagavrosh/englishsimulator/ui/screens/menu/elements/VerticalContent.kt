@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements
+package com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 
 /**
  * Composable to display buttons (vertical screen orientation)

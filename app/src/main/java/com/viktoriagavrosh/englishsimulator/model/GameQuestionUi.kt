@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model
+package com.viktoriagavrosh.englishsimulator.model
 
 /**
  * Model represents a single item for ui (GameScreen)
@@ -7,7 +7,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model
  * @param question text in English
  * @param translate text in Russian
  */
-data class GameQuestion(
+data class GameQuestionUi(
     val id: Int = 0,
     val question: String = "",
     val translate: String = "",

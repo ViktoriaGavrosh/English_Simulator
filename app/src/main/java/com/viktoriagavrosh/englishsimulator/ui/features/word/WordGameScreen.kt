@@ -7,11 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.di.WORD_SCREEN
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -37,7 +38,7 @@ fun WordGameScreen(
     modifier: Modifier = Modifier,
 ) {
     val isToEnglish = quest == Quest.RuToEn
-    val viewModel: GameViewModel = koinViewModel(named("WordScreen")) {
+    val viewModel: GameViewModel = koinViewModel(named(WORD_SCREEN)) {
         parametersOf(theme, isToEnglish)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -68,7 +69,7 @@ fun WordGameScreen(
  */
 @Composable
 internal fun WordGameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
@@ -103,7 +104,7 @@ private fun VerticalWordGameScreenPreview() {
     EnglishSimulatorTheme {
         WordGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question Question Question Question Question Question " +
                             "Question Question Question Question Question Question Question " +
                             "Question Question Question Question",
@@ -132,7 +133,7 @@ private fun HorizontalWordGameScreenPreview() {
     EnglishSimulatorTheme {
         WordGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question",
                     translate = "Translate",
                 )
@@ -153,7 +154,7 @@ private fun HorizontalWordGameScreenPreview() {
 private fun ErrorVerticalWordGameScreenPreview() {
     EnglishSimulatorTheme {
         WordGameScreen(
-            gameQuestionProvider = { GameQuestion() },
+            gameQuestionProvider = { GameQuestionUi() },
             scoreProvider = { 5 },
             isVerticalScreen = true,
             isErrorProvider = { true },
@@ -176,7 +177,7 @@ private fun ErrorVerticalWordGameScreenPreview() {
 private fun ErrorHorizontalWordGameScreenPreview() {
     EnglishSimulatorTheme {
         WordGameScreen(
-            gameQuestionProvider = { GameQuestion() },
+            gameQuestionProvider = { GameQuestionUi() },
             scoreProvider = { 5 },
             isVerticalScreen = false,
             isErrorProvider = { true },

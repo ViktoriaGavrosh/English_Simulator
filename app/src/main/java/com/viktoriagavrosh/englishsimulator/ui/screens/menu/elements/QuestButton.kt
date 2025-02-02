@@ -1,16 +1,14 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.elements
+package com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -18,34 +16,35 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 
 /**
- * Composable to display card for menu
+ * Composable to display button with text
  *
- * @param onClick callback that is executed when card is clicked
+ * @param onClick callback that is executed when button is clicked
  * @param text the text to be displayed
  * @param modifier the modifier to be applied to this layout node
+ * @param isLargeText if true - button has large text on it
  */
 @Composable
-internal fun QuestCard(
+internal fun QuestButton(
     onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
+    isLargeText: Boolean = true,
 ) {
-    ElevatedCard(
+    Button(
         onClick = onClick,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),
-        modifier = modifier,
+        modifier = modifier.sizeIn(minHeight = dimensionResource(R.dimen.button_min_height))
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
             lineHeight = 20.sp,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.titleMedium,
+            style = if (isLargeText) {
+                MaterialTheme.typography.titleMedium
+            } else {
+                MaterialTheme.typography.titleSmall
+            },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = dimensionResource(R.dimen.padding_double_medium))
+                .padding(vertical = dimensionResource(R.dimen.padding_small))
         )
     }
 }
@@ -53,11 +52,25 @@ internal fun QuestCard(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun QuestCardPreview() {
+private fun SmallQuestButtonPreview() {
     EnglishSimulatorTheme {
-        QuestCard(
+        QuestButton(
             onClick = {},
             text = "Text",
+            isLargeText = false,
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light")
+@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun LargeQuestButtonPreview() {
+    EnglishSimulatorTheme {
+        QuestButton(
+            onClick = {},
+            text = "Text on the button",
+            isLargeText = true,
         )
     }
 }

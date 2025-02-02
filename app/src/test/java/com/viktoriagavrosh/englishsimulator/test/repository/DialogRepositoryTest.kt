@@ -5,7 +5,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toUiItem
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -21,8 +21,8 @@ class DialogRepositoryTest {
     @Test
     fun dialogRepository_getAllDialogs_returnListDialogs() {
         runTest {
-            val expectedList = FakeSource.fakeDialogsDb.map { it.toUiItem() }
-            val actualList = repository.getAllItems()
+            val expectedList = FakeSource.fakeDialogsDb.map { it.toQuestion() }
+            val actualList = repository.getAllDialogs()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -35,7 +35,7 @@ class DialogRepositoryTest {
     @Test
     fun dialogRepository_getAllDialogs_returnRequestResultSuccess() {
         runTest {
-            val isSuccess = repository.getAllItems()
+            val isSuccess = repository.getAllDialogs()
                 .first() is RequestResult.Success
 
             assert(isSuccess)

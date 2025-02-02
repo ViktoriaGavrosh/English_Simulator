@@ -1,12 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.data
 
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
-import com.viktoriagavrosh.englishsimulator.model.UiItem
+import com.viktoriagavrosh.englishsimulator.model.Question
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
-import com.viktoriagavrosh.englishsimulator.utils.toUiItem
+import com.viktoriagavrosh.englishsimulator.utils.getRequestResultFlow
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 /**
  * provide data for ui from data source
@@ -16,9 +15,9 @@ interface TranslateRepository {
     /**
      * Retrieve all items from given data source
      *
-     * @return flow of [RequestResult] with list [UiItem]
+     * @return flow of [RequestResult] with list [Question.Sentence]
      */
-    fun getAllItems(): Flow<RequestResult<List<UiItem>>>
+    fun getAllSentences(): Flow<RequestResult<List<Question.Sentence>>>
 }
 
 /**
@@ -31,25 +30,14 @@ internal class LocalTranslateRepository(
 ) : TranslateRepository, GameRepository {
 
     /**
-     * Retrieve all [UiItem] from database
+     * Retrieve all [Question.Sentence] from database
      *
-     * @return flow of [RequestResult] with list [UiItem]
+     * @return flow of [RequestResult] with list [Question.Sentence]
      */
-    override fun getAllItems(): Flow<RequestResult<List<UiItem>>> {
-        return try {
-            database.sentenceDao().getAllSentences()
-                .map { list ->
-                    list.map { it.toUiItem() }
-                }
-                .map<List<UiItem>, RequestResult<List<UiItem>>> { RequestResult.Success(it) }
-        } catch (e: Exception) {
-            flow {
-                emit(RequestResult.Error(e))
-            }
-        }
-    }
-
-    override fun getAllItemsByTheme(theme: String): Flow<RequestResult<List<UiItem>>> {
-        return getAllItems()     // because Sentence doesn't have theme field
+    override fun getAllSentences(): Flow<RequestResult<List<Question.Sentence>>> {
+        return getRequestResultFlow(
+            getFlow = database.sentenceDao()::getAllSentences,
+            mapper = { it.toQuestion() as Question.Sentence }
+        )
     }
 }

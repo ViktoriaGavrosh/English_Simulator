@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements
+package com.viktoriagavrosh.englishsimulator.ui.screens.game.elements
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

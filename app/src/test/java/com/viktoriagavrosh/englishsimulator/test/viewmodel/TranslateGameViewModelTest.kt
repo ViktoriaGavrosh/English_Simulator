@@ -1,13 +1,13 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
+import com.viktoriagavrosh.englishsimulator.fake.FakeGetQuestionsUseCase
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeTranslateRepository
-import com.viktoriagavrosh.englishsimulator.model.UiItem
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toUiItem
+import com.viktoriagavrosh.englishsimulator.model.ModelName
+import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toUiItem
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +19,7 @@ class TranslateGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeSentences = FakeSource.fakeSentencesDb.map { it.toUiItem() }
+    private val fakeSentences = FakeSource.fakeSentencesDb.map { it.toQuestion() }
 
     @Test
     fun translateGameViewModel_initUiState_initGameQuestion() {
@@ -29,8 +29,10 @@ class TranslateGameViewModelTest {
                 requestResult = RequestResult.Success(fakeSentences),
                 isToEnglish = isToEnglish,
             )
-            val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toUiItem(isToEnglish = isToEnglish) in fakeSentences)
+            val actualGameQuestion = viewModel.uiState.first()
+                .gameQuestion
+                .toQuestion(isToEnglish = isToEnglish, modelName = ModelName.Sentence)
+            assert(actualGameQuestion in fakeSentences)
         }
     }
 
@@ -79,11 +81,11 @@ class TranslateGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<UiItem>>,
+        requestResult: RequestResult<List<Question>>,
         isToEnglish: Boolean = true,
     ): GameViewModel {
         return GameViewModel(
-            repository = FakeTranslateRepository(requestResult),
+            useCase = FakeGetQuestionsUseCase(requestResult),
             isToEnglish = isToEnglish,
         )
     }
