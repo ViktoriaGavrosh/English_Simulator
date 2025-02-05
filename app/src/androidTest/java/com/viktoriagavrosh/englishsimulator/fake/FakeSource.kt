@@ -4,6 +4,7 @@ import com.viktoriagavrosh.englishsimulator.model.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.model.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.StatisticDb
 import com.viktoriagavrosh.englishsimulator.model.WordDb
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 
@@ -43,6 +44,18 @@ internal object FakeSource {
             englishWord = "english word $i",
             russianWord = "russian word $i",
             theme = if (i % 2 == 0) "Theme 1" else "Theme 2",
+        )
+    }
+
+    val fakeStatisticDb = List(5) {
+        val i = it + 1
+        StatisticDb(
+            id = i,
+            date = "14-0$i-2024",
+            translateScore = i,
+            issueScore = i,
+            dialogScore = i,
+            wordScore = i,
         )
     }
 
