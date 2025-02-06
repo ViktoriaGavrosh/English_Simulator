@@ -1,5 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.viktoriagavrosh.englishsimulator.data.DialogRepository
 import com.viktoriagavrosh.englishsimulator.data.GameRepository
 import com.viktoriagavrosh.englishsimulator.data.GetQuestionsUseCase
@@ -13,6 +15,7 @@ import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
+import com.viktoriagavrosh.englishsimulator.data.datastore.getDataStore
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateViewModel
@@ -39,6 +42,7 @@ const val WORD_SCREEN = "WordScreen"
  */
 val appModule = module {
     single<AppDatabase> { getDatabase(get()) }
+    single<DataStore<Preferences>> { getDataStore(get()) }
     single<TranslateRepository> { LocalTranslateRepository(get()) }
     single<IssueRepository> { LocalIssueRepository(get()) }
     single<DialogRepository> { LocalDialogRepository(get()) }
