@@ -1,7 +1,9 @@
 package com.viktoriagavrosh.englishsimulator
 
 import android.app.Application
-import com.viktoriagavrosh.englishsimulator.di.appModule
+import com.viktoriagavrosh.englishsimulator.di.dbModule
+import com.viktoriagavrosh.englishsimulator.di.repositoriesModule
+import com.viktoriagavrosh.englishsimulator.di.viewModelsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +14,7 @@ class SimulatorApplication : Application() {
 
         startKoin {
             androidContext(this@SimulatorApplication)
-            modules(appModule)
+            modules(dbModule, repositoriesModule, viewModelsModule)
         }
     }
 }

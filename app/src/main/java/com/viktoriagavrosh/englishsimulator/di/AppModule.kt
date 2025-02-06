@@ -40,9 +40,13 @@ const val WORD_SCREEN = "WordScreen"
 /**
  * module for DI (Koin)
  */
-val appModule = module {
+val dbModule = module {
     single<AppDatabase> { getDatabase(get()) }
     single<DataStore<Preferences>> { getDataStore(get()) }
+}
+
+
+val repositoriesModule = module {
     single<TranslateRepository> { LocalTranslateRepository(get()) }
     single<IssueRepository> { LocalIssueRepository(get()) }
     single<DialogRepository> { LocalDialogRepository(get()) }
@@ -63,6 +67,9 @@ val appModule = module {
     single<GetQuestionsUseCase>(named(WORD_USE_CASE)) {
         LocalGetQuestionsUseCase(get(named(WORD_REPOSITORY)))
     }
+}
+
+val viewModelsModule = module {
     viewModel(named(TRANSLATE_SCREEN)) {
         GameViewModel(useCase = get(qualifier = named(TRANSLATE_USE_CASE)), isToEnglish = get())
     }
