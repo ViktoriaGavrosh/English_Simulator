@@ -45,12 +45,12 @@ val dbModule = module {
     single<DataStore<Preferences>> { getDataStore(get()) }
 }
 
-
 val repositoriesModule = module {
     single<TranslateRepository> { LocalTranslateRepository(get()) }
     single<IssueRepository> { LocalIssueRepository(get()) }
     single<DialogRepository> { LocalDialogRepository(get()) }
     single<WordRepository> { LocalWordRepository(get()) }
+
     single<GameRepository>(named(TRANSLATE_REPOSITORY)) { LocalTranslateRepository(get()) }
     single<GameRepository>(named(ISSUE_REPOSITORY)) { LocalIssueRepository(get()) }
     single<GameRepository>(named(DIALOG_REPOSITORY)) { LocalDialogRepository(get()) }
