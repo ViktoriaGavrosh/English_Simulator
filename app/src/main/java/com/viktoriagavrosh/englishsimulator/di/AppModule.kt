@@ -11,7 +11,9 @@ import com.viktoriagavrosh.englishsimulator.data.LocalGetQuestionsUseCase
 import com.viktoriagavrosh.englishsimulator.data.LocalIssueRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalTranslateRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
+import com.viktoriagavrosh.englishsimulator.data.PreferencesRepository
 import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
+import com.viktoriagavrosh.englishsimulator.data.UserPreferencesRepository
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
@@ -38,19 +40,22 @@ const val DIALOG_SCREEN = "DialogScreen"
 const val WORD_SCREEN = "WordScreen"
 
 /**
- * module for DI (Koin)
+ * module with data sources for DI (Koin)
  */
 val dbModule = module {
     single<AppDatabase> { getDatabase(get()) }
     single<DataStore<Preferences>> { getDataStore(get()) }
 }
 
+/**
+ * module with all repositories for DI (Koin)
+ */
 val repositoriesModule = module {
     single<TranslateRepository> { LocalTranslateRepository(get()) }
     single<IssueRepository> { LocalIssueRepository(get()) }
     single<DialogRepository> { LocalDialogRepository(get()) }
     single<WordRepository> { LocalWordRepository(get()) }
-
+    single<PreferencesRepository> { UserPreferencesRepository(get()) }
     single<GameRepository>(named(TRANSLATE_REPOSITORY)) { LocalTranslateRepository(get()) }
     single<GameRepository>(named(ISSUE_REPOSITORY)) { LocalIssueRepository(get()) }
     single<GameRepository>(named(DIALOG_REPOSITORY)) { LocalDialogRepository(get()) }
@@ -69,6 +74,9 @@ val repositoriesModule = module {
     }
 }
 
+/**
+ * module with all viewModels for DI (Koin)
+ */
 val viewModelsModule = module {
     viewModel(named(TRANSLATE_SCREEN)) {
         GameViewModel(useCase = get(qualifier = named(TRANSLATE_USE_CASE)), isToEnglish = get())
