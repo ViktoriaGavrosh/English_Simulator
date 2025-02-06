@@ -1,12 +1,12 @@
 package com.viktoriagavrosh.englishsimulator.utils
 
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.ModelName
 import com.viktoriagavrosh.englishsimulator.model.Question
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 
 /**
  * Converts [SentenceDb] instance to [Question] instance

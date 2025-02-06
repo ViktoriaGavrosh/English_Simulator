@@ -6,10 +6,10 @@ import com.viktoriagavrosh.englishsimulator.data.database.IssueDao
 import com.viktoriagavrosh.englishsimulator.data.database.SentenceDao
 import com.viktoriagavrosh.englishsimulator.data.database.StatisticDao
 import com.viktoriagavrosh.englishsimulator.data.database.WordDao
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.model
+package com.viktoriagavrosh.englishsimulator.model.dbmodel
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

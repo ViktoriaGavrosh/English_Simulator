@@ -1,9 +1,9 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 
 
 internal object FakeSource {

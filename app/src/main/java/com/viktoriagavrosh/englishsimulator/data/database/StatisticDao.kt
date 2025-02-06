@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.viktoriagavrosh.englishsimulator.model.StatisticDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
 import kotlinx.coroutines.flow.Flow
 
 /**

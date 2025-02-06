@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.viktoriagavrosh.englishsimulator.data.database.AppRoomDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.StatisticDao
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.model.StatisticDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
