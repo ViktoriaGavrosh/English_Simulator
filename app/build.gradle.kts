@@ -89,6 +89,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material3.window.size)
 
+    implementation(libs.datastore.preferences)
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 
