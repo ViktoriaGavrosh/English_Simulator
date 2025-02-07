@@ -7,8 +7,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.test.core.app.ApplicationProvider
-import com.viktoriagavrosh.englishsimulator.data.PreferencesRepository
-import com.viktoriagavrosh.englishsimulator.data.UserPreferencesRepository
+import com.viktoriagavrosh.englishsimulator.data.datastore.PreferencesManager
+import com.viktoriagavrosh.englishsimulator.data.datastore.UserPreferencesManager
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -18,10 +18,10 @@ import org.junit.Test
 
 private const val TEST_DATASTORE_NAME: String = "test_datastore"
 
-class UserPreferencesRepositoryTest {
+class UserPreferencesManagerTest {
 
     private lateinit var dataStore: DataStore<Preferences>
-    private lateinit var repository: PreferencesRepository
+    private lateinit var manager: PreferencesManager
 
     @Before
     fun createDataStore() {
@@ -29,29 +29,29 @@ class UserPreferencesRepositoryTest {
         dataStore = PreferenceDataStoreFactory.create(
             produceFile = { testContext.preferencesDataStoreFile(TEST_DATASTORE_NAME) }
         )
-        repository = UserPreferencesRepository(dataStore = dataStore)
+        manager = UserPreferencesManager(dataStore = dataStore)
     }
 
     @Test
-    fun preferencesRepository_getDate_returnString() = runBlocking {
+    fun preferencesManager_getDate_returnString() = runBlocking {
         val expectedDate = "05-12-2023"
         addPreferencesToDataStore(date = expectedDate)
-        val actualDate = repository.getDate().first()
+        val actualDate = manager.getDate().first()
         assertEquals(expectedDate, actualDate)
     }
 
     @Test
-    fun preferencesRepository_updateDate_dateUpdated() = runBlocking {
+    fun preferencesManager_updateDate_dateUpdated() = runBlocking {
         addPreferencesToDataStore()
-        val oldDate = repository.getDate().first()
-        repository.updateDate("22-22-2222")
-        val newDate = repository.getDate().first()
+        val oldDate = manager.getDate().first()
+        manager.updateDate("22-22-2222")
+        val newDate = manager.getDate().first()
         assertNotEquals(oldDate, newDate)
     }
 
     private suspend fun addPreferencesToDataStore(date: String = "11-11-1111") {
         dataStore.edit { preferences ->
-            preferences[(repository as UserPreferencesRepository).DATE_KEY] = date
+            preferences[(manager as UserPreferencesManager).DATE_KEY] = date
         }
     }
 

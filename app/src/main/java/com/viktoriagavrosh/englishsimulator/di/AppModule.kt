@@ -9,18 +9,21 @@ import com.viktoriagavrosh.englishsimulator.data.IssueRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalDialogRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalGetQuestionsUseCase
 import com.viktoriagavrosh.englishsimulator.data.LocalIssueRepository
+import com.viktoriagavrosh.englishsimulator.data.LocalStatisticRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalTranslateRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
-import com.viktoriagavrosh.englishsimulator.data.PreferencesRepository
+import com.viktoriagavrosh.englishsimulator.data.StatisticRepository
 import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
-import com.viktoriagavrosh.englishsimulator.data.UserPreferencesRepository
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
+import com.viktoriagavrosh.englishsimulator.data.datastore.PreferencesManager
+import com.viktoriagavrosh.englishsimulator.data.datastore.UserPreferencesManager
 import com.viktoriagavrosh.englishsimulator.data.datastore.getDataStore
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateViewModel
+import com.viktoriagavrosh.englishsimulator.ui.navigation.StatisticViewModel
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -55,7 +58,9 @@ val repositoriesModule = module {
     single<IssueRepository> { LocalIssueRepository(get()) }
     single<DialogRepository> { LocalDialogRepository(get()) }
     single<WordRepository> { LocalWordRepository(get()) }
-    single<PreferencesRepository> { UserPreferencesRepository(get()) }
+    single<PreferencesManager> { UserPreferencesManager(get()) }
+    single<StatisticRepository> { LocalStatisticRepository(get()) }
+
     single<GameRepository>(named(TRANSLATE_REPOSITORY)) { LocalTranslateRepository(get()) }
     single<GameRepository>(named(ISSUE_REPOSITORY)) { LocalIssueRepository(get()) }
     single<GameRepository>(named(DIALOG_REPOSITORY)) { LocalDialogRepository(get()) }
@@ -93,4 +98,5 @@ val viewModelsModule = module {
     viewModel { IssueMenuViewModel(get()) }
     viewModel { WordMenuViewModel(get()) }
     viewModel { WordUpdateViewModel(get(), get()) }
+    viewModel { StatisticViewModel(get(), get()) }
 }

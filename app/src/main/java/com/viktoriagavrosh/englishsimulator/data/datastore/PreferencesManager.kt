@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.data
+package com.viktoriagavrosh.englishsimulator.data.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 /**
  * provide data from data source
  */
-interface PreferencesRepository {
+interface PreferencesManager {
 
     /**
      * Retrieve item from given data source
@@ -34,9 +34,9 @@ interface PreferencesRepository {
  *
  * @param dataStore instance of DataStore<Preferences>
  */
-class UserPreferencesRepository(
+class UserPreferencesManager(
     private val dataStore: DataStore<Preferences>
-) : PreferencesRepository {
+) : PreferencesManager {
 
     val DATE_KEY = stringPreferencesKey("date_key")
 
