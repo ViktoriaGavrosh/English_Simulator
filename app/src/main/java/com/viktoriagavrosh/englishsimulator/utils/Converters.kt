@@ -1,10 +1,10 @@
 package com.viktoriagavrosh.englishsimulator.utils
 
-import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
-import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.ModelName
 import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 

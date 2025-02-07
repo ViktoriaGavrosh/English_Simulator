@@ -19,7 +19,7 @@ internal class FakeDb : AppDatabase {
     override fun dialogDao(): DialogDao = FakeDialogDao()
     override fun wordDao(): WordDao = FakeWordDao
     override fun statisticDao(): StatisticDao {
-        TODO("Not yet implemented")   // TODO fix it later
+        TODO("Not yet implemented")
     }
 }
 

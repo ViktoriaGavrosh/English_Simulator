@@ -38,6 +38,8 @@ class UserPreferencesRepository(
     private val dataStore: DataStore<Preferences>
 ) : PreferencesRepository {
 
+    val DATE_KEY = stringPreferencesKey("date_key")
+
     /**
      * Retrieve date from DataStore
      *
@@ -60,9 +62,5 @@ class UserPreferencesRepository(
         dataStore.edit { preferences ->
             preferences[DATE_KEY] = date
         }
-    }
-
-    companion object {
-        val DATE_KEY = stringPreferencesKey("date_key")
     }
 }

@@ -1,7 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
-import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
