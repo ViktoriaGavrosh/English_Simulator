@@ -24,7 +24,7 @@ interface StatisticDao {
     fun getStatisticByDate(date: String): Flow<List<StatisticDb>>
 
     /**
-     * Return all rows from statistic table by theme
+     * Return all rows from statistic table by month
      *
      * @param month from date
      * @return flow of list [StatisticDb]

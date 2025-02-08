@@ -3,9 +3,11 @@ package com.viktoriagavrosh.englishsimulator.utils
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.model.ModelName
 import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.model.Statistic
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 
 /**
@@ -73,6 +75,38 @@ internal fun Question.Word.toWordDb(): WordDb {
         englishWord = questionText,
         russianWord = answerText,
         theme = theme,
+    )
+}
+
+/**
+ * Converts [StatisticDb] instance to [Statistic] instance for repository
+ *
+ * @return [Statistic] instance
+ */
+internal fun StatisticDb.toStatistic(): Statistic {
+    return Statistic(
+        id = id,
+        date = date,
+        translateScore = translateScore,
+        issueScore = issueScore,
+        dialogScore = dialogScore,
+        wordScore = wordScore
+    )
+}
+
+/**
+ * Converts [Statistic] instance to [StatisticDb] instance for database
+ *
+ * @return [StatisticDb] instance
+ */
+internal fun Statistic.toStatisticDb(): StatisticDb {
+    return StatisticDb(
+        id = id,
+        date = date,
+        translateScore = translateScore,
+        issueScore = issueScore,
+        dialogScore = dialogScore,
+        wordScore = wordScore
     )
 }
 

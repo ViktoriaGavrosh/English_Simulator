@@ -9,6 +9,7 @@ import com.viktoriagavrosh.englishsimulator.data.database.WordDao
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -18,9 +19,7 @@ internal class FakeDb : AppDatabase {
     override fun issueDao(): IssueDao = FakeIssueDao()
     override fun dialogDao(): DialogDao = FakeDialogDao()
     override fun wordDao(): WordDao = FakeWordDao
-    override fun statisticDao(): StatisticDao {
-        TODO("Not yet implemented")
-    }
+    override fun statisticDao(): StatisticDao = FakeStatisticDao
 }
 
 private class FakeSentenceDao : SentenceDao {
@@ -117,5 +116,41 @@ private object FakeWordDao : WordDao {
         val oldWord = words.first { it.id == wordDb.id }
         val index = words.indexOf(oldWord)
         words[index] = wordDb
+    }
+}
+
+private object FakeStatisticDao : StatisticDao {
+
+    val statistics = FakeSource.fakeStatisticsDb.toMutableList()
+
+    override suspend fun update(statisticDb: StatisticDb) {
+        val oldItem = statistics.first { it.id == statisticDb.id }
+        val index = statistics.indexOf(oldItem)
+        statistics[index] = statisticDb
+    }
+
+    override suspend fun insert(statisticDb: StatisticDb) {
+        statistics.add(statisticDb)
+    }
+
+    override fun getStatisticByDate(date: String): Flow<List<StatisticDb>> {
+        val result = statistics.filter { it.date == date }
+        if (result.isEmpty()) throw IllegalArgumentException()
+        return flow { emit(result) }
+    }
+
+    override fun getAllStatisticsByMonth(month: String): Flow<List<StatisticDb>> {
+        val result = statistics.filter { it.date.substring(3, 5) == month }
+        if (result.isEmpty()) throw IllegalArgumentException()
+        return flow { emit(result) }
+    }
+
+    override fun getAllMonths(): Flow<List<String>> {
+        val months = statistics.map { it.date.substring(3, 5) }.distinct()
+        return flow { emit(months) }
+    }
+
+    override suspend fun deleteAllStatisticsByMonth(month: String) {
+        statistics.removeAll { it.date.substring(3, 5) == month }
     }
 }

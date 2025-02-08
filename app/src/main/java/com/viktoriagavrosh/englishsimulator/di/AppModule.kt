@@ -59,7 +59,7 @@ val repositoriesModule = module {
     single<DialogRepository> { LocalDialogRepository(get()) }
     single<WordRepository> { LocalWordRepository(get()) }
     single<PreferencesManager> { UserPreferencesManager(get()) }
-    single<StatisticRepository> { LocalStatisticRepository(get()) }
+    single<StatisticRepository> { LocalStatisticRepository(get(), get()) }
 
     single<GameRepository>(named(TRANSLATE_REPOSITORY)) { LocalTranslateRepository(get()) }
     single<GameRepository>(named(ISSUE_REPOSITORY)) { LocalIssueRepository(get()) }
