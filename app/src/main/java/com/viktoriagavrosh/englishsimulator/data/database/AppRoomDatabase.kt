@@ -26,7 +26,7 @@ interface AppDatabase {
  */
 @Database(
     entities = [SentenceDb::class, IssueDb::class, DialogDb::class, WordDb::class, StatisticDb::class],
-    version = 4,
+    version = 5,
     exportSchema = false,
 )
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
