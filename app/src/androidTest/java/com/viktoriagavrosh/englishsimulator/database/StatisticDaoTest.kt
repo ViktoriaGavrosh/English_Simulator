@@ -132,6 +132,50 @@ class StatisticDaoTest {
         assertEquals(expectedList, actualList)
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun statisticDao_updateTranslateScore_updateItem() = runBlocking {
+        addListItemsToDb()
+        val newScore = 123
+        val expected = FakeSource.fakeStatisticDb[2].copy(translateScore = newScore)
+        statisticDao.updateTranslateScore(date = expected.date, score = newScore)
+        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun statisticDao_updateIssueScore_updateItem() = runBlocking {
+        addListItemsToDb()
+        val newScore = 234
+        val expected = FakeSource.fakeStatisticDb[2].copy(issueScore = newScore)
+        statisticDao.updateIssueScore(date = expected.date, score = newScore)
+        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun statisticDao_updateDialogScore_updateItem() = runBlocking {
+        addListItemsToDb()
+        val newScore = 345
+        val expected = FakeSource.fakeStatisticDb[2].copy(dialogScore = newScore)
+        statisticDao.updateDialogScore(date = expected.date, score = newScore)
+        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun statisticDao_updateWordScore_updateItem() = runBlocking {
+        addListItemsToDb()
+        val newScore = 567
+        val expected = FakeSource.fakeStatisticDb[2].copy(wordScore = newScore)
+        statisticDao.updateWordScore(date = expected.date, score = newScore)
+        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        assertEquals(expected, actual)
+    }
+
     private suspend fun addItemToDb() {
         statisticDao.insert(FakeSource.fakeStatisticDb[0])
     }

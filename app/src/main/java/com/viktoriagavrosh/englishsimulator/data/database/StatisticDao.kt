@@ -29,7 +29,7 @@ interface StatisticDao {
      * @param month from date
      * @return flow of list [StatisticDb]
      */
-    @Query("SELECT * FROM statistic WHERE date LIKE (SELECT '%-'||:month||'-%')")   //TODO '%-:month-%'"
+    @Query("SELECT * FROM statistic WHERE date LIKE (SELECT '%-'||:month||'-%')")
     fun getAllStatisticsByMonth(month: String): Flow<List<StatisticDb>>
 
     /**
@@ -39,6 +39,42 @@ interface StatisticDao {
      */
     @Query("SELECT DISTINCT SUBSTR(date, 4, 2) FROM statistic")
     fun getAllMonths(): Flow<List<String>>
+
+    /**
+     * Update translate_score field of item in statistic table
+     *
+     * @param date
+     * @param score new value
+     */
+    @Query("UPDATE statistic SET translate_score = :score WHERE date = :date")
+    suspend fun updateTranslateScore(date: String, score: Int)
+
+    /**
+     * Update issue_score field of item in statistic table
+     *
+     * @param date
+     * @param score new value
+     */
+    @Query("UPDATE statistic SET issue_score = :score WHERE date = :date")
+    suspend fun updateIssueScore(date: String, score: Int)
+
+    /**
+     * Update dialog_score field of item in statistic table
+     *
+     * @param date
+     * @param score new value
+     */
+    @Query("UPDATE statistic SET dialog_score = :score WHERE date = :date")
+    suspend fun updateDialogScore(date: String, score: Int)
+
+    /**
+     * Update word_score field of item in statistic table
+     *
+     * @param date
+     * @param score new value
+     */
+    @Query("UPDATE statistic SET word_score = :score WHERE date = :date")
+    suspend fun updateWordScore(date: String, score: Int)
 
     /**
      * Delete all items from statistic table by month

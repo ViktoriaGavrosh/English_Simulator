@@ -27,6 +27,7 @@ import org.koin.core.qualifier.named
 fun DialogGameScreen(
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
+    onDialogScoreUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: GameViewModel = koinViewModel(named(DIALOG_SCREEN))
@@ -38,7 +39,10 @@ fun DialogGameScreen(
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
         onNextButtonClick = viewModel::updateUiState,
-        onBackClick = onBackClick,
+        onBackClick = {
+            onDialogScoreUpdate(uiState.score)
+            onBackClick()
+        },
         modifier = modifier,
     )
 }

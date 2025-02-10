@@ -23,7 +23,7 @@ import com.viktoriagavrosh.englishsimulator.data.datastore.getDataStore
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateViewModel
-import com.viktoriagavrosh.englishsimulator.ui.navigation.StatisticViewModel
+import com.viktoriagavrosh.englishsimulator.ui.navigation.UpdateStatisticViewModel
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -98,5 +98,5 @@ val viewModelsModule = module {
     viewModel { IssueMenuViewModel(get()) }
     viewModel { WordMenuViewModel(get()) }
     viewModel { WordUpdateViewModel(get(), get()) }
-    viewModel { StatisticViewModel(get(), get()) }
+    viewModel { UpdateStatisticViewModel(get(), get()) }
 }

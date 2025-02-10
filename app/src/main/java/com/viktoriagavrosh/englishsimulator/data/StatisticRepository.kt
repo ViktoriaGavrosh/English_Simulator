@@ -31,6 +31,38 @@ interface StatisticRepository {
     suspend fun updateDate(date: String)
 
     /**
+     * Update translate_score field of Statistic in data source
+     *
+     * @param date
+     * @param score new value
+     */
+    suspend fun updateTranslateScore(date: String, score: Int)
+
+    /**
+     * Update issue_score field of Statistic in data source
+     *
+     * @param date
+     * @param score new value
+     */
+    suspend fun updateIssueScore(date: String, score: Int)
+
+    /**
+     * Update dialog_score field of Statistic in data source
+     *
+     * @param date
+     * @param score new value
+     */
+    suspend fun updateDialogScore(date: String, score: Int)
+
+    /**
+     * Update word_score field of Statistic in data source
+     *
+     * @param date
+     * @param score new value
+     */
+    suspend fun updateWordScore(date: String, score: Int)
+
+    /**
      * Return item from data source by date
      *
      * @param date
@@ -107,6 +139,46 @@ class LocalStatisticRepository(
      */
     override suspend fun updateDate(date: String) {
         preferencesManager.updateDate(date)
+    }
+
+    /**
+     * Update translate_score field of Statistic in database
+     *
+     * @param date
+     * @param score new value
+     */
+    override suspend fun updateTranslateScore(date: String, score: Int) {
+        database.statisticDao().updateTranslateScore(date,score)
+    }
+
+    /**
+     * Update issue_score field of Statistic in database
+     *
+     * @param date
+     * @param score new value
+     */
+    override suspend fun updateIssueScore(date: String, score: Int) {
+        database.statisticDao().updateIssueScore(date,score)
+    }
+
+    /**
+     * Update dialog_score field of Statistic in database
+     *
+     * @param date
+     * @param score new value
+     */
+    override suspend fun updateDialogScore(date: String, score: Int) {
+        database.statisticDao().updateDialogScore(date,score)
+    }
+
+    /**
+     * Update word_score field of Statistic in database
+     *
+     * @param date
+     * @param score new value
+     */
+    override suspend fun updateWordScore(date: String, score: Int) {
+        database.statisticDao().updateWordScore(date,score)
     }
 
     /**

@@ -19,17 +19,56 @@ import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuS
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordUpdateScreen
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * Composable with navigation between app screens
  *
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param modifier the modifier to be applied to the layout
+ */
+@Composable
+internal fun AppNavigation(
+    isVerticalScreen: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    val date = SimpleDateFormat("dd-MM-yyyy", Locale.UK).format(Date())
+    val viewModel: UpdateStatisticViewModel = koinViewModel {
+        parametersOf(date)
+    }
+
+    AppNavigation(
+        isVerticalScreen = isVerticalScreen,
+        onTranslateScoreUpdate = viewModel::updateTranslateScore,
+        onIssueScoreUpdate = viewModel::updateIssueScore,
+        onDialogScoreUpdate = viewModel::updateDialogScore,
+        onWordScoreUpdate = viewModel::updateWordScore,
+        modifier = modifier,
+    )
+}
+
+/**
+ * Composable with navigation between app screens
+ *
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onTranslateScoreUpdate callback that is executed when score is updated
+ * @param onIssueScoreUpdate callback that is executed when score is updated
+ * @param onDialogScoreUpdate callback that is executed when score is updated
+ * @param onWordScoreUpdate callback that is executed when score is updated
+ * @param modifier the modifier to be applied to the layout
  * @param navController the navController for this host
  */
 @Composable
 internal fun AppNavigation(
     isVerticalScreen: Boolean,
+    onTranslateScoreUpdate: (Int) -> Unit,
+    onIssueScoreUpdate: (Int) -> Unit,
+    onDialogScoreUpdate: (Int) -> Unit,
+    onWordScoreUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -84,6 +123,7 @@ internal fun AppNavigation(
                 isVerticalScreen = isVerticalScreen,
                 quest = quest,
                 onBackClick = { navController.navigateUp() },
+                onTranslateScoreUpdate = onTranslateScoreUpdate,
                 modifier = modifier.testTag(stringResource(R.string.translate_game_screen)),
             )
         }
@@ -93,6 +133,7 @@ internal fun AppNavigation(
                 isVerticalScreen = isVerticalScreen,
                 theme = theme,
                 onBackClick = { navController.navigateUp() },
+                onIssueScoreUpdate = onIssueScoreUpdate,
                 modifier = modifier.testTag(stringResource(R.string.issue_game_screen)),
             )
         }
@@ -100,6 +141,7 @@ internal fun AppNavigation(
             DialogGameScreen(
                 isVerticalScreen = isVerticalScreen,
                 onBackClick = { navController.navigateUp() },
+                onDialogScoreUpdate = onDialogScoreUpdate,
                 modifier = modifier.testTag(stringResource(R.string.dialog_game_screen)),
             )
         }
@@ -135,6 +177,7 @@ internal fun AppNavigation(
                     )
                 },
                 onBackClick = { navController.navigateUp() },
+                onWordScoreUpdate = onWordScoreUpdate,
                 modifier = modifier.testTag(stringResource(R.string.word_game_screen)),
             )
         }

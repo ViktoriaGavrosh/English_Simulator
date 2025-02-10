@@ -150,6 +150,34 @@ private object FakeStatisticDao : StatisticDao {
         return flow { emit(months) }
     }
 
+    override suspend fun updateTranslateScore(date: String, score: Int) {
+        val oldItem = statistics.first { it.date == date }
+        val index = statistics.indexOf(oldItem)
+        val newItem = oldItem.copy(translateScore = score)
+        statistics[index] = newItem
+    }
+
+    override suspend fun updateIssueScore(date: String, score: Int) {
+        val oldItem = statistics.first { it.date == date }
+        val index = statistics.indexOf(oldItem)
+        val newItem = oldItem.copy(issueScore = score)
+        statistics[index] = newItem
+    }
+
+    override suspend fun updateDialogScore(date: String, score: Int) {
+        val oldItem = statistics.first { it.date == date }
+        val index = statistics.indexOf(oldItem)
+        val newItem = oldItem.copy(dialogScore = score)
+        statistics[index] = newItem
+    }
+
+    override suspend fun updateWordScore(date: String, score: Int) {
+        val oldItem = statistics.first { it.date == date }
+        val index = statistics.indexOf(oldItem)
+        val newItem = oldItem.copy(wordScore = score)
+        statistics[index] = newItem
+    }
+
     override suspend fun deleteAllStatisticsByMonth(month: String) {
         statistics.removeAll { it.date.substring(3, 5) == month }
     }
