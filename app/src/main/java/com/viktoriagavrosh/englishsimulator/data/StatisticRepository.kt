@@ -3,6 +3,8 @@ package com.viktoriagavrosh.englishsimulator.data
 import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.datastore.PreferencesManager
 import com.viktoriagavrosh.englishsimulator.model.Statistic
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.Month
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.getMonthByNumber
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.getRequestResultFlow
 import com.viktoriagavrosh.englishsimulator.utils.toStatistic
@@ -34,33 +36,29 @@ interface StatisticRepository {
      * Update translate_score field of Statistic in data source
      *
      * @param date
-     * @param score new value
      */
-    suspend fun updateTranslateScore(date: String, score: Int)
+    suspend fun updateTranslateScore(date: String)
 
     /**
      * Update issue_score field of Statistic in data source
      *
      * @param date
-     * @param score new value
      */
-    suspend fun updateIssueScore(date: String, score: Int)
+    suspend fun updateIssueScore(date: String)
 
     /**
      * Update dialog_score field of Statistic in data source
      *
      * @param date
-     * @param score new value
      */
-    suspend fun updateDialogScore(date: String, score: Int)
+    suspend fun updateDialogScore(date: String)
 
     /**
      * Update word_score field of Statistic in data source
      *
      * @param date
-     * @param score new value
      */
-    suspend fun updateWordScore(date: String, score: Int)
+    suspend fun updateWordScore(date: String)
 
     /**
      * Return item from data source by date
@@ -76,21 +74,21 @@ interface StatisticRepository {
      * @param month from date
      * @return flow of [RequestResult] list [Statistic]
      */
-    fun getAllStatisticsByMonth(month: String): Flow<RequestResult<List<Statistic>>>
+    fun getAllStatisticsByMonth(month: Month): Flow<RequestResult<List<Statistic>>>
 
     /**
      * Return all month from data source
      *
-     * @return flow of [RequestResult] list [String]
+     * @return flow of [RequestResult] list [Month]
      */
-    fun getAllMonths(): Flow<RequestResult<List<String>>>
+    fun getAllMonths(): Flow<RequestResult<List<Month>>>
 
     /**
      * Delete all items from data source by month
      *
-     * @param month from data
+     * @param monthNumber from data
      */
-    suspend fun deleteAllStatisticsByMonth(month: String)
+    suspend fun deleteAllStatisticsByMonth(monthNumber: String)
 
     /**
      * will insert element into the data source
@@ -145,40 +143,36 @@ class LocalStatisticRepository(
      * Update translate_score field of Statistic in database
      *
      * @param date
-     * @param score new value
      */
-    override suspend fun updateTranslateScore(date: String, score: Int) {
-        database.statisticDao().updateTranslateScore(date,score)
+    override suspend fun updateTranslateScore(date: String) {
+        database.statisticDao().updateTranslateScore(date)
     }
 
     /**
      * Update issue_score field of Statistic in database
      *
      * @param date
-     * @param score new value
      */
-    override suspend fun updateIssueScore(date: String, score: Int) {
-        database.statisticDao().updateIssueScore(date,score)
+    override suspend fun updateIssueScore(date: String) {
+        database.statisticDao().updateIssueScore(date)
     }
 
     /**
      * Update dialog_score field of Statistic in database
      *
      * @param date
-     * @param score new value
      */
-    override suspend fun updateDialogScore(date: String, score: Int) {
-        database.statisticDao().updateDialogScore(date,score)
+    override suspend fun updateDialogScore(date: String) {
+        database.statisticDao().updateDialogScore(date)
     }
 
     /**
      * Update word_score field of Statistic in database
      *
      * @param date
-     * @param score new value
      */
-    override suspend fun updateWordScore(date: String, score: Int) {
-        database.statisticDao().updateWordScore(date,score)
+    override suspend fun updateWordScore(date: String) {
+        database.statisticDao().updateWordScore(date)
     }
 
     /**
@@ -200,9 +194,11 @@ class LocalStatisticRepository(
      * @param month from date
      * @return flow of [RequestResult] of list [Statistic]
      */
-    override fun getAllStatisticsByMonth(month: String): Flow<RequestResult<List<Statistic>>> {
+    override fun getAllStatisticsByMonth(month: Month): Flow<RequestResult<List<Statistic>>> {
+        val monthOrdinal = month.ordinal.toString()
+        val monthNum = if (monthOrdinal.length < 2) "0$monthOrdinal" else monthOrdinal
         return getRequestResultFlow(
-            getFlow = { database.statisticDao().getAllStatisticsByMonth(month) },
+            getFlow = { database.statisticDao().getAllStatisticsByMonth(monthNum) },
             mapper = { it.toStatistic() }
         )
     }
@@ -212,20 +208,20 @@ class LocalStatisticRepository(
      *
      * @return flow of [RequestResult] of list months
      */
-    override fun getAllMonths(): Flow<RequestResult<List<String>>> {
+    override fun getAllMonths(): Flow<RequestResult<List<Month>>> {
         return getRequestResultFlow(
             getFlow = database.statisticDao()::getAllMonths,
-            mapper = { it }
+            mapper = { getMonthByNumber(it.toInt()) }
         )
     }
 
     /**
      * Delete all [Statistic]'s from database by month
      *
-     * @param month from data
+     * @param monthNumber from data
      */
-    override suspend fun deleteAllStatisticsByMonth(month: String) {
-        database.statisticDao().deleteAllStatisticsByMonth(month)
+    override suspend fun deleteAllStatisticsByMonth(monthNumber: String) {
+        database.statisticDao().deleteAllStatisticsByMonth(monthNumber)
     }
 
     /**

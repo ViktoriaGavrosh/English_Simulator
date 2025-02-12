@@ -73,4 +73,10 @@ sealed class NavigationDestination {
      */
     @Serializable
     data class WordUpdate(val wordId: Int = 0) : NavigationDestination()
+
+    /**
+     * Describes navigation destination of StatisticScreen
+     */
+    @Serializable
+    data object Statistic : NavigationDestination()
 }

@@ -107,10 +107,10 @@ class FakeUpdateStatisticRepository(
         return flow { emit(months) }
     }
 
-    override suspend fun deleteAllStatisticsByMonth(month: String) {
+    override suspend fun deleteAllStatisticsByMonth(monthNumber: String) {
         val newResult = requestResult.map { list ->
             val newList = list.toMutableList()
-            newList.removeAll { it.date.substring(3, 5) == month }
+            newList.removeAll { it.date.substring(3, 5) == monthNumber }
             newList.toList()
         }
         requestResult = newResult

@@ -35,7 +35,7 @@ fun WordGameScreen(
     theme: String,
     onEditButtonClick: (Int) -> Unit,
     onBackClick: () -> Unit,
-    onWordScoreUpdate: (Int) -> Unit,
+    onWordScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val isToEnglish = quest == Quest.RuToEn
@@ -50,11 +50,11 @@ fun WordGameScreen(
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
         onEditButtonClick = { onEditButtonClick(uiState.gameQuestion.id) },
-        onBackClick = {
-            onWordScoreUpdate(uiState.score)
-            onBackClick()
+        onNextButtonClick = {
+            onWordScoreUpdate()
+            viewModel.updateUiState()
         },
-        onNextButtonClick = viewModel::updateUiState,
+        onBackClick = onBackClick,
         modifier = modifier,
     )
 }

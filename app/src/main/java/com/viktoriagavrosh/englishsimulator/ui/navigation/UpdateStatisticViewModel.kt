@@ -24,56 +24,40 @@ class UpdateStatisticViewModel(
     /**
      * Update score of quest "Translate sentences" in data source
      *
-     *  @param score new value
      */
-    fun updateTranslateScore(score: Int) {
+    fun updateTranslateScore() {
         viewModelScope.launch {
-            val oldScore = repository.getStatisticByDate(date).first()
-                .data?.firstOrNull()?.translateScore ?: 0
-            val newScore = oldScore + score
-                repository.updateTranslateScore(date = date, score = newScore)
+            repository.updateTranslateScore(date = date)
         }
     }
 
     /**
      * Update score of quest "Tell about yourself" in data source
      *
-     *  @param score new value
      */
-    fun updateIssueScore(score: Int) {
+    fun updateIssueScore() {
         viewModelScope.launch {
-            val oldScore = repository.getStatisticByDate(date).first()
-                .data?.firstOrNull()?.issueScore ?: 0
-            val newScore = oldScore + score
-            repository.updateIssueScore(date = date, score = newScore)
+            repository.updateIssueScore(date = date)
         }
     }
 
     /**
      * Update score of quest "Short dialogs" in data source
      *
-     *  @param score new value
      */
-    fun updateDialogScore(score: Int) {
+    fun updateDialogScore() {
         viewModelScope.launch {
-            val oldScore = repository.getStatisticByDate(date).first()
-                .data?.firstOrNull()?.dialogScore ?: 0
-            val newScore = oldScore + score
-            repository.updateDialogScore(date = date, score = newScore)
+            repository.updateDialogScore(date = date)
         }
     }
 
     /**
      * Update score of quest "FlashCards" in data source
      *
-     * @param score new value
      */
-    fun updateWordScore(score: Int) {
+    fun updateWordScore() {
         viewModelScope.launch {
-            val oldScore = repository.getStatisticByDate(date).first()
-                .data?.firstOrNull()?.wordScore ?: 0
-            val newScore = oldScore + score
-            repository.updateWordScore(date = date, score = newScore)
+            repository.updateWordScore(date = date)
         }
     }
 
@@ -85,7 +69,7 @@ class UpdateStatisticViewModel(
         viewModelScope.launch {
             val isNewDate = repository.getStatisticByDate(date)
                 .first().data?.isEmpty() ?: true
-            if(isNewDate) {
+            if (isNewDate) {
                 repository.insertStatistic(Statistic(date = date))
             }
             if (date.substring(0, 2) == "01") {

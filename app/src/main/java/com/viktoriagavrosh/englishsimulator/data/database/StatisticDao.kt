@@ -44,37 +44,33 @@ interface StatisticDao {
      * Update translate_score field of item in statistic table
      *
      * @param date
-     * @param score new value
      */
-    @Query("UPDATE statistic SET translate_score = :score WHERE date = :date")
-    suspend fun updateTranslateScore(date: String, score: Int)
+    @Query("UPDATE statistic SET translate_score = translate_score + 1 WHERE date = :date")
+    suspend fun updateTranslateScore(date: String)
 
     /**
      * Update issue_score field of item in statistic table
      *
      * @param date
-     * @param score new value
      */
-    @Query("UPDATE statistic SET issue_score = :score WHERE date = :date")
-    suspend fun updateIssueScore(date: String, score: Int)
+    @Query("UPDATE statistic SET issue_score = issue_score + 1 WHERE date = :date")
+    suspend fun updateIssueScore(date: String)
 
     /**
      * Update dialog_score field of item in statistic table
      *
      * @param date
-     * @param score new value
      */
-    @Query("UPDATE statistic SET dialog_score = :score WHERE date = :date")
-    suspend fun updateDialogScore(date: String, score: Int)
+    @Query("UPDATE statistic SET dialog_score = dialog_score + 1 WHERE date = :date")
+    suspend fun updateDialogScore(date: String)
 
     /**
      * Update word_score field of item in statistic table
      *
      * @param date
-     * @param score new value
      */
-    @Query("UPDATE statistic SET word_score = :score WHERE date = :date")
-    suspend fun updateWordScore(date: String, score: Int)
+    @Query("UPDATE statistic SET word_score = word_score + 1 WHERE date = :date")
+    suspend fun updateWordScore(date: String)
 
     /**
      * Delete all items from statistic table by month

@@ -19,6 +19,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param onIssueButtonClick callback that is executed when issue button is clicked
  * @param onDialogButtonClick callback that is executed when dialog button is clicked
  * @param onWordButtonClick callback that is executed when word button is clicked
+ * @param onStatisticButtonClick callback that is executed when statistic button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -28,6 +29,7 @@ fun StartMenuScreen(
     onIssueButtonClick: () -> Unit,
     onDialogButtonClick: () -> Unit,
     onWordButtonClick: () -> Unit,
+    onStatisticButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonItems = listOf(
@@ -46,6 +48,10 @@ fun StartMenuScreen(
         MenuButtonItem(
             title = stringResource(R.string.word_button_title),
             onClick = onWordButtonClick,
+        ),
+        MenuButtonItem(
+            title = stringResource(R.string.statistic_button_title),
+            onClick = onStatisticButtonClick,
         )
     )
 
@@ -75,6 +81,7 @@ private fun VerticalStartMenuScreenPreview() {
             onIssueButtonClick = {},
             onDialogButtonClick = {},
             onWordButtonClick = {},
+            onStatisticButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -96,6 +103,7 @@ private fun HorizontalMenuScreenContentPreview() {
             onIssueButtonClick = {},
             onDialogButtonClick = {},
             onWordButtonClick = {},
+            onStatisticButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

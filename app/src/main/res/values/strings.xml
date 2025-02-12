@@ -18,6 +18,7 @@
     <string name="issue_button_title">Расскажи о себе</string>
     <string name="dialog_button_title">Короткие диалоги</string>
     <string name="word_button_title">Флешкарты</string>
+    <string name="statistic_button_title">Статистика</string>
     <string name="all_themes">All</string>
 
     <string name="back">Back</string>
@@ -50,6 +51,7 @@
     <string name="issue_game_screen">issue game screen</string>
     <string name="dialog_game_screen">dialog game screen</string>
     <string name="word_game_screen">word game screen</string>
+    <string name="statistic_screen">statistic screen</string>
 
     <string name="vertical_menu_content_tag">Vertical menu content</string>
     <string name="horizontal_menu_content_tag">Horizontal menu content</string>

@@ -31,7 +31,7 @@ internal fun TranslateGameScreen(
     isVerticalScreen: Boolean,
     quest: Quest,
     onBackClick: () -> Unit,
-    onTranslateScoreUpdate: (Int) -> Unit,
+    onTranslateScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: GameViewModel = koinViewModel(qualifier = named(TRANSLATE_SCREEN)) {
@@ -44,11 +44,11 @@ internal fun TranslateGameScreen(
         scoreProvider = { uiState.score },
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
-        onBackClick = {
-            onTranslateScoreUpdate(uiState.score)
-            onBackClick()
+        onNextButtonClick = {
+            onTranslateScoreUpdate()
+            viewModel.updateUiState()
         },
-        onNextButtonClick = viewModel::updateUiState,
+        onBackClick = onBackClick,
         modifier = modifier,
     )
 }

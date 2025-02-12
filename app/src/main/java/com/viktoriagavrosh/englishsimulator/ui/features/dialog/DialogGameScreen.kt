@@ -1,18 +1,18 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.dialog
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.viktoriagavrosh.englishsimulator.di.DIALOG_SCREEN
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.qualifier.named
 
@@ -27,22 +27,22 @@ import org.koin.core.qualifier.named
 fun DialogGameScreen(
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
-    onDialogScoreUpdate: (Int) -> Unit,
+    onDialogScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: GameViewModel = koinViewModel(named(DIALOG_SCREEN))
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     DialogGameScreen(
         gameQuestionProvider = { uiState.gameQuestion },
         scoreProvider = { uiState.score },
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
-        onNextButtonClick = viewModel::updateUiState,
-        onBackClick = {
-            onDialogScoreUpdate(uiState.score)
-            onBackClick()
+        onNextButtonClick = {
+            onDialogScoreUpdate()
+            viewModel.updateUiState()
         },
+        onBackClick = onBackClick,
         modifier = modifier,
     )
 }
@@ -85,8 +85,7 @@ internal fun DialogGameScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun VerticalDialogGameScreenPreview() {
     EnglishSimulatorTheme {
@@ -108,13 +107,7 @@ private fun VerticalDialogGameScreenPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
 private fun HorizontalDialogGameScreenPreview() {
     EnglishSimulatorTheme {
@@ -134,8 +127,7 @@ private fun HorizontalDialogGameScreenPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun ErrorVerticalDialogGameScreenPreview() {
     EnglishSimulatorTheme {
@@ -151,13 +143,7 @@ private fun ErrorVerticalDialogGameScreenPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
 private fun ErrorHorizontalDialogGameScreenPreview() {
     EnglishSimulatorTheme {

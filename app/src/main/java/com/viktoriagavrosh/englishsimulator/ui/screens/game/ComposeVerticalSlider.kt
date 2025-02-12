@@ -1,6 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,10 +36,10 @@ fun ComposeVerticalSlider(
             .width(40.dp),
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (score > 53) {
+            containerColor = if (score > 5) {
                 MaterialTheme.colorScheme.primary
             } else {
-                MaterialTheme.colorScheme.primaryContainer
+                MaterialTheme.colorScheme.onPrimary
             }
         ),
         border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.secondary)
@@ -55,12 +56,13 @@ fun ComposeVerticalSlider(
 }
 
 @Composable
-fun SlidersRow(
-    scores: Map<String, Int>,
+fun ScoresRow(
+    scores: Map<Int, Int>,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
-        modifier = modifier,
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.primaryContainer),
         verticalAlignment = Alignment.Bottom,
     ) {
         items(
@@ -92,7 +94,7 @@ fun SlidersRow(
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = it,
+                    text = it.toString(),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodySmall
                 )
@@ -105,13 +107,13 @@ fun SlidersRow(
 @Preview
 fun ComposeVerticalSliderPreview() {
     EnglishSimulatorTheme {
-        SlidersRow(
+        ScoresRow(
             scores = mapOf(
-                "12" to 46,
-                "13" to 58,
-                "14" to 31,
-                "15" to 64,
-                "16" to 10
+                12 to 46,
+                13 to 58,
+                14 to 31,
+                15 to 64,
+                16 to 10
             )
         )
     }

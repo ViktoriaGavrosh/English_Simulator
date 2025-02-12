@@ -14,6 +14,7 @@ import com.viktoriagavrosh.englishsimulator.ui.features.StartMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.translate.TranslateMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameScreen
@@ -65,10 +66,10 @@ internal fun AppNavigation(
 @Composable
 internal fun AppNavigation(
     isVerticalScreen: Boolean,
-    onTranslateScoreUpdate: (Int) -> Unit,
-    onIssueScoreUpdate: (Int) -> Unit,
-    onDialogScoreUpdate: (Int) -> Unit,
-    onWordScoreUpdate: (Int) -> Unit,
+    onTranslateScoreUpdate: () -> Unit,
+    onIssueScoreUpdate: () -> Unit,
+    onDialogScoreUpdate: () -> Unit,
+    onWordScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -90,6 +91,9 @@ internal fun AppNavigation(
                 },
                 onWordButtonClick = {
                     navController.navigate(NavigationDestination.WordMenu)
+                },
+                onStatisticButtonClick = {
+                    navController.navigate(NavigationDestination.Statistic)
                 },
                 modifier = modifier.testTag(stringResource(R.string.start_menu_screen)),
             )
@@ -187,6 +191,12 @@ internal fun AppNavigation(
                 onBackClick = { navController.navigateUp() },
                 modifier = Modifier.testTag(stringResource(R.string.issue_game_screen)),
                 wordId = wordId,
+            )
+        }
+        composable<NavigationDestination.Statistic> {
+            StatisticScreen(
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.statistic_screen)),
             )
         }
     }

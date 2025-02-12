@@ -26,7 +26,7 @@ interface AppDatabase {
  */
 @Database(
     entities = [SentenceDb::class, IssueDb::class, DialogDb::class, WordDb::class, StatisticDb::class],
-    version = 5,
+    version = 7,
     exportSchema = false,
 )
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
@@ -55,3 +55,5 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
 
     return appRoomDatabase
 }
+
+

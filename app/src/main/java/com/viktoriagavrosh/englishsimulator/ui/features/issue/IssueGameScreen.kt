@@ -30,7 +30,7 @@ fun IssueGameScreen(
     isVerticalScreen: Boolean,
     theme: String,
     onBackClick: () -> Unit,
-    onIssueScoreUpdate: (Int) -> Unit,
+    onIssueScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel: GameViewModel = koinViewModel(qualifier = named(ISSUE_SCREEN)) {
@@ -43,11 +43,11 @@ fun IssueGameScreen(
         scoreProvider = { uiState.score },
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
-        onNextButtonClick = viewModel::updateUiState,
-        onBackClick = {
-            onIssueScoreUpdate(uiState.score)
-            onBackClick()
+        onNextButtonClick = {
+            onIssueScoreUpdate()
+            viewModel.updateUiState()
         },
+        onBackClick = onBackClick,
         modifier = modifier,
     )
 }
