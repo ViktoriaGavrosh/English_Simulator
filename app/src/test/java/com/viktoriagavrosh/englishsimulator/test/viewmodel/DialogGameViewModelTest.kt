@@ -82,7 +82,7 @@ class DialogGameViewModelTest {
         requestResult: RequestResult<List<Question>>,
     ): GameViewModel {
         return GameViewModel(
-            useCase = FakeGetQuestionsUseCase(requestResult),
+            questionManager = FakeGetQuestionsUseCase(requestResult),
         )
     }
 }

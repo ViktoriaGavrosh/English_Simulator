@@ -1,6 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
-import com.viktoriagavrosh.englishsimulator.data.GetQuestionsUseCase
+import com.viktoriagavrosh.englishsimulator.data.QuestionManager
 import com.viktoriagavrosh.englishsimulator.model.Question
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.map
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 
 class FakeGetQuestionsUseCase(
     private val requestResult: RequestResult<List<Question>>
-) : GetQuestionsUseCase {
+) : QuestionManager {
     override fun getAllItems(): Flow<RequestResult<List<Question>>> {
         return flow { emit(requestResult) }
     }

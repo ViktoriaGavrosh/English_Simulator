@@ -85,7 +85,7 @@ class WordGameViewModelTest {
         isToEnglish: Boolean = true,
     ): GameViewModel {
         return GameViewModel(
-            useCase = FakeGetQuestionsUseCase(requestResult),
+            questionManager = FakeGetQuestionsUseCase(requestResult),
             theme = theme,
             isToEnglish = isToEnglish,
         )

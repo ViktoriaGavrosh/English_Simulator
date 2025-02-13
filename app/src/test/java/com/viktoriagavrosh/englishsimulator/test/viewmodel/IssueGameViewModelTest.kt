@@ -85,7 +85,7 @@ class IssueGameViewModelTest {
         theme: String = FakeSource.fakeIssuesDb[0].theme,
     ): GameViewModel {
         return GameViewModel(
-            useCase = FakeGetQuestionsUseCase(requestResult),
+            questionManager = FakeGetQuestionsUseCase(requestResult),
             theme = theme,
         )
     }

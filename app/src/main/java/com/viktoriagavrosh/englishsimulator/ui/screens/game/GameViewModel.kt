@@ -2,8 +2,7 @@ package com.viktoriagavrosh.englishsimulator.ui.screens.game
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.viktoriagavrosh.englishsimulator.data.GameRepository
-import com.viktoriagavrosh.englishsimulator.data.GetQuestionsUseCase
+import com.viktoriagavrosh.englishsimulator.data.QuestionManager
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.toGameQuestionUi
@@ -17,12 +16,12 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel to retrieve and update item from repository data source
  *
- * @param useCase instance of [GameRepository]
+ * @param questionManager instance of [QuestionManager]
  * @param theme describes what action will be shown by Ui
  * @param isToEnglish describes what action will be shown by Ui
  */
 class GameViewModel(
-    private val useCase: GetQuestionsUseCase,
+    private val questionManager: QuestionManager,
     private val theme: String = "",
     private val isToEnglish: Boolean = false,
 ) : ViewModel() {
@@ -58,14 +57,14 @@ class GameViewModel(
     }
 
     /**
-     * Update [UiState] with data from [GameRepository]
+     * Update [UiState] with data from [QuestionManager]
      */
     private fun initUiState() {
         currentQuestionIndex = 0
         val requestResultFlow = if (theme.isNotEmpty()) {
-            useCase.getAllItemsByTheme(theme = theme)
+            questionManager.getAllItemsByTheme(theme = theme)
         } else {
-            useCase.getAllItems()
+            questionManager.getAllItems()
         }
 
         viewModelScope.launch {

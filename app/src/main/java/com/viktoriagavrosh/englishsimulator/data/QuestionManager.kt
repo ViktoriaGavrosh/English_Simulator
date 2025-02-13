@@ -5,9 +5,9 @@ import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.Flow
 
 /**
- * UseCase to retrieve items from data source
+ * Manager to retrieve items from repositories
  */
-interface GetQuestionsUseCase {
+interface QuestionManager {
 
     /**
      * Retrieve all items from given source
@@ -26,13 +26,13 @@ interface GetQuestionsUseCase {
 }
 
 /**
- * UseCase to retrieve items from repository data source
+ * Manager to retrieve items from repositories
  *
  * @param repository instance of [GameRepository]
  */
-class LocalGetQuestionsUseCase(
+class LocalQuestionManager(
     private val repository: GameRepository,
-) : GetQuestionsUseCase {
+) : QuestionManager {
     /**
      * Retrieve all [Question] from repository
      *

@@ -85,7 +85,7 @@ class TranslateGameViewModelTest {
         isToEnglish: Boolean = true,
     ): GameViewModel {
         return GameViewModel(
-            useCase = FakeGetQuestionsUseCase(requestResult),
+            questionManager = FakeGetQuestionsUseCase(requestResult),
             isToEnglish = isToEnglish,
         )
     }

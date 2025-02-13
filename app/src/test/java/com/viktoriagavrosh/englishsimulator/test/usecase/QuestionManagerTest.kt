@@ -1,8 +1,8 @@
 package com.viktoriagavrosh.englishsimulator.test.usecase
 
 import com.viktoriagavrosh.englishsimulator.data.GameRepository
-import com.viktoriagavrosh.englishsimulator.data.GetQuestionsUseCase
-import com.viktoriagavrosh.englishsimulator.data.LocalGetQuestionsUseCase
+import com.viktoriagavrosh.englishsimulator.data.QuestionManager
+import com.viktoriagavrosh.englishsimulator.data.LocalQuestionManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeDialogRepository
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeIssueRepository
@@ -18,13 +18,13 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class GetQuestionsUseCaseTest {
+class QuestionManagerTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private fun initUseCase(repository: GameRepository): GetQuestionsUseCase {
-        return LocalGetQuestionsUseCase(
+    private fun initUseCase(repository: GameRepository): QuestionManager {
+        return LocalQuestionManager(
             repository = repository,
         )
     }
