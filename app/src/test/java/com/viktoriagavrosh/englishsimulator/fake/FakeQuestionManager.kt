@@ -7,7 +7,7 @@ import com.viktoriagavrosh.englishsimulator.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeGetQuestionsUseCase(
+class FakeQuestionManager(
     private val requestResult: RequestResult<List<Question>>
 ) : QuestionManager {
     override fun getAllItems(): Flow<RequestResult<List<Question>>> {

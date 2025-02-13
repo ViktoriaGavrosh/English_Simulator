@@ -2,32 +2,34 @@ package com.viktoriagavrosh.englishsimulator.fake.repositories
 
 import com.viktoriagavrosh.englishsimulator.data.StatisticRepository
 import com.viktoriagavrosh.englishsimulator.model.Statistic
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.Month
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.getMonthByNumber
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeUpdateStatisticRepository(
+class FakeStatisticRepository(
     private var requestResult: RequestResult<List<Statistic>>
 ) : StatisticRepository {
 
-    override suspend fun updateWordScore(date: String, score: Int) {
+    override suspend fun updateWordScore(date: String) {
         val newResult = requestResult.map { list ->
-            val index = list.indexOf(list.first { it.date == date })
+            val index = list.indexOfFirst { it.date == date }
             val oldStatistic = list[index]
             val newList = list.toMutableList()
-            newList[index] = oldStatistic.copy(wordScore = score)
+            newList[index] = oldStatistic.copy(wordScore = oldStatistic.wordScore + 1)
                 newList
         }
         requestResult = newResult
     }
 
-    override suspend fun updateTranslateScore(date: String, score: Int) {
+    override suspend fun updateTranslateScore(date: String) {
         val newResult = requestResult.map { list ->
-            val index = list.indexOf(list.first { it.date == date })
+            val index = list.indexOfFirst { it.date == date }
             val oldStatistic = list[index]
             val newList = list.toMutableList()
-            newList[index] = oldStatistic.copy(translateScore = score)
+            newList[index] = oldStatistic.copy(translateScore = oldStatistic.translateScore + 1)
             newList
         }
         requestResult = newResult
@@ -43,23 +45,23 @@ class FakeUpdateStatisticRepository(
         requestResult = newResult
     }
 
-    override suspend fun updateIssueScore(date: String, score: Int) {
+    override suspend fun updateIssueScore(date: String) {
         val newResult = requestResult.map { list ->
-            val index = list.indexOf(list.first { it.date == date })
+            val index = list.indexOfFirst { it.date == date }
             val oldStatistic = list[index]
             val newList = list.toMutableList()
-            newList[index] = oldStatistic.copy(issueScore = score)
+            newList[index] = oldStatistic.copy(issueScore = oldStatistic.issueScore + 1)
             newList
         }
         requestResult = newResult
     }
 
-    override suspend fun updateDialogScore(date: String, score: Int) {
+    override suspend fun updateDialogScore(date: String) {
         val newResult = requestResult.map { list ->
-            val index = list.indexOf(list.first { it.date == date })
+            val index = list.indexOfFirst { it.date == date }
             val oldStatistic = list[index]
             val newList = list.toMutableList()
-            newList[index] = oldStatistic.copy(dialogScore = score)
+            newList[index] = oldStatistic.copy(dialogScore = oldStatistic.dialogScore + 1)
             newList
         }
         requestResult = newResult
@@ -93,16 +95,18 @@ class FakeUpdateStatisticRepository(
         }
     }
 
-    override fun getAllStatisticsByMonth(month: String): Flow<RequestResult<List<Statistic>>> {
+    override fun getAllStatisticsByMonth(month: Month): Flow<RequestResult<List<Statistic>>> {
         val wordsResult = requestResult.map { list ->
-            list.filter { it.date.substring(3, 5) == month }
+            list.filter { it.date.substring(3, 5).toInt() == month.ordinal }
         }
         return flow { emit(wordsResult) }
     }
 
-    override fun getAllMonths(): Flow<RequestResult<List<String>>> {
+    override fun getAllMonths(): Flow<RequestResult<List<Month>>> {
         val months = requestResult.map { list ->
-            list.map { it.date.substring(3, 5) }.distinct()
+            list.map { it.date.substring(3, 5) }
+                .distinct()
+                .map { getMonthByNumber(it.toInt()) }
         }
         return flow { emit(months) }
     }

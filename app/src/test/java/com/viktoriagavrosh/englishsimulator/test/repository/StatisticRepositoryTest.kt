@@ -5,6 +5,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakePreferencesManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.model.Statistic
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.getMonthByNumber
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toStatistic
@@ -83,9 +84,10 @@ class StatisticRepositoryTest {
     @Test
     fun statisticRepository_getAllStatisticsByMonth_returnListStatistic() {
         runTest {
-            val month = FakeSource.fakeStatisticsDb[2].date.substring(3, 5)
+            val monthNum = FakeSource.fakeStatisticsDb[2].date.substring(3, 5)
+            val month = getMonthByNumber(monthNum.toInt())
             val expectedList = FakeSource.fakeStatisticsDb
-                .filter { it.date.substring(3, 5) == month }
+                .filter { it.date.substring(3, 5) == monthNum }
                 .map { it.toStatistic() }
             val actualList = repository.getAllStatisticsByMonth(month)
                 .first().data ?: emptyList()
@@ -96,21 +98,11 @@ class StatisticRepositoryTest {
     @Test
     fun statisticRepository_getAllStatisticsByMonth_returnRequestResultSuccess() {
         runTest {
-            val month = FakeSource.fakeStatisticsDb[1].date.substring(3, 5)
+            val month = getMonthByNumber(FakeSource.fakeStatisticsDb[1].date.substring(3, 5).toInt())
             val isSuccess = repository.getAllStatisticsByMonth(month)
                 .first() is RequestResult.Success
             assert(isSuccess)
         }
-    }
-
-    @Test
-    fun statisticRepository_getAllStatisticsByMonth_returnRequestResultError() {
-        runTest {
-            val isError = repository.getAllStatisticsByMonth("99")
-                .first() is RequestResult.Error
-            assert(isError)
-        }
-
     }
 
     @Test
@@ -119,6 +111,7 @@ class StatisticRepositoryTest {
             val expectedList = FakeSource.fakeStatisticsDb
                 .map { it.date.substring(3, 5) }
                 .distinct()
+                .map { getMonthByNumber(it.toInt()) }
             val actualList = repository.getAllMonths()
                 .first().data ?: emptyList()
             assertEquals(expectedList, actualList)
@@ -182,68 +175,52 @@ class StatisticRepositoryTest {
     @Test
     fun statisticRepository_updateTranslateScore_newStatisticUpdated() {
         runTest {
-            val newScore = 5
-            val expected = FakeSource.fakeStatisticsDb[0].copy(translateScore = newScore)
-                .toStatistic()
-            repository.updateTranslateScore(date = expected.date, score = newScore)
-            val actual = repository.getStatisticByDate(expected.date)
-                .first().data?.first() ?: Statistic()
-            repository.updateStatistic(FakeSource.fakeStatisticsDb[0].toStatistic())  // because FakeDb is object
-            assertEquals(
-                expected,
-                actual
-            )
+            val statistic = FakeSource.fakeStatisticsDb[0]
+            val expectedScore = statistic.translateScore + 1
+            repository.updateTranslateScore(date = statistic.date)
+            val actualScore = repository.getStatisticByDate(statistic.date)
+                .first().data?.first()?.translateScore ?: 0
+            repository.updateStatistic(statistic.toStatistic())  // because FakeDb is object
+            assertEquals(expectedScore, actualScore)
         }
     }
 
     @Test
     fun statisticRepository_updateIssueScore_newStatisticUpdated() {
         runTest {
-            val newScore = 7
-            val expected = FakeSource.fakeStatisticsDb[1].copy(issueScore = newScore)
-                .toStatistic()
-            repository.updateIssueScore(date = expected.date, score = newScore)
-            val actual = repository.getStatisticByDate(expected.date)
-                .first().data?.first() ?: Statistic()
-            repository.updateStatistic(FakeSource.fakeStatisticsDb[1].toStatistic())  // because FakeDb is object
-            assertEquals(
-                expected,
-                actual
-            )
+            val statistic = FakeSource.fakeStatisticsDb[1]
+            val expectedScore = statistic.issueScore + 1
+            repository.updateIssueScore(date = statistic.date)
+            val actualScore = repository.getStatisticByDate(statistic.date)
+                .first().data?.first()?.issueScore ?: 0
+            repository.updateStatistic(statistic.toStatistic())  // because FakeDb is object
+            assertEquals(expectedScore, actualScore)
         }
     }
 
     @Test
     fun statisticRepository_updateDialogScore_newStatisticUpdated() {
         runTest {
-            val newScore = 9
-            val expected = FakeSource.fakeStatisticsDb[0].copy(dialogScore = newScore)
-                .toStatistic()
-            repository.updateDialogScore(date = expected.date, score = newScore)
-            val actual = repository.getStatisticByDate(expected.date)
-                .first().data?.first() ?: Statistic()
-            repository.updateStatistic(FakeSource.fakeStatisticsDb[0].toStatistic())  // because FakeDb is object
-            assertEquals(
-                expected,
-                actual
-            )
+            val statistic = FakeSource.fakeStatisticsDb[2]
+            val expectedScore = statistic.dialogScore + 1
+            repository.updateDialogScore(date = statistic.date)
+            val actualScore = repository.getStatisticByDate(statistic.date)
+                .first().data?.first()?.dialogScore ?: 0
+            repository.updateStatistic(statistic.toStatistic())  // because FakeDb is object
+            assertEquals(expectedScore, actualScore)
         }
     }
 
     @Test
     fun statisticRepository_updateWordScore_newStatisticUpdated() {
         runTest {
-            val newScore = 5
-            val expected = FakeSource.fakeStatisticsDb[0].copy(wordScore = newScore)
-                .toStatistic()
-            repository.updateWordScore(date = expected.date, score = newScore)
-            val actual = repository.getStatisticByDate(expected.date)
-                .first().data?.first() ?: Statistic()
-            repository.updateStatistic(FakeSource.fakeStatisticsDb[0].toStatistic())  // because FakeDb is object
-            assertEquals(
-                expected,
-                actual
-            )
+            val statistic = FakeSource.fakeStatisticsDb[3]
+            val expectedScore = statistic.wordScore + 1
+            repository.updateWordScore(date = statistic.date)
+            val actualScore = repository.getStatisticByDate(statistic.date)
+                .first().data?.first()?.wordScore ?: 0
+            repository.updateStatistic(statistic.toStatistic())  // because FakeDb is object
+            assertEquals(expectedScore, actualScore)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.test.usecase
+package com.viktoriagavrosh.englishsimulator.test.managers
 
 import com.viktoriagavrosh.englishsimulator.data.GameRepository
 import com.viktoriagavrosh.englishsimulator.data.QuestionManager
@@ -23,20 +23,20 @@ class QuestionManagerTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private fun initUseCase(repository: GameRepository): QuestionManager {
+    private fun initManager(repository: GameRepository): QuestionManager {
         return LocalQuestionManager(
             repository = repository,
         )
     }
 
     @Test
-    fun getQuestionsUseCase_getAllItems_returnListQuestionsFromTranslateRepository() {
+    fun questionManager_getAllItems_returnListQuestionsFromTranslateRepository() {
         runTest {
             val expectedList =
                 FakeSource.fakeSentencesDb.map { it.toQuestion() as Question.Sentence }
             val repository = FakeTranslateRepository(RequestResult.Success(expectedList))
-            val useCase = initUseCase(repository)
-            val actualList = useCase.getAllItems()
+            val manager = initManager(repository)
+            val actualList = manager.getAllItems()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -47,12 +47,12 @@ class QuestionManagerTest {
     }
 
     @Test
-    fun getQuestionsUseCase_getAllItems_returnListQuestionsFromIssueRepository() {
+    fun questionManager_getAllItems_returnListQuestionsFromIssueRepository() {
         runTest {
             val expectedList = FakeSource.fakeIssuesDb.map { it.toQuestion() as Question.Issue }
             val repository = FakeIssueRepository(RequestResult.Success(expectedList))
-            val useCase = initUseCase(repository)
-            val actualList = useCase.getAllItems()
+            val manager = initManager(repository)
+            val actualList = manager.getAllItems()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -63,12 +63,12 @@ class QuestionManagerTest {
     }
 
     @Test
-    fun getQuestionsUseCase_getAllItems_returnListQuestionsFromDialogRepository() {
+    fun questionManager_getAllItems_returnListQuestionsFromDialogRepository() {
         runTest {
             val expectedList = FakeSource.fakeDialogsDb.map { it.toQuestion() as Question.Dialog }
             val repository = FakeDialogRepository(RequestResult.Success(expectedList))
-            val useCase = initUseCase(repository)
-            val actualList = useCase.getAllItems()
+            val manager = initManager(repository)
+            val actualList = manager.getAllItems()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -79,12 +79,12 @@ class QuestionManagerTest {
     }
 
     @Test
-    fun getQuestionsUseCase_getAllItems_returnListQuestionsFromWordRepository() {
+    fun questionManager_getAllItems_returnListQuestionsFromWordRepository() {
         runTest {
             val expectedList = FakeSource.fakeWordsDb.map { it.toQuestion() as Question.Word }
             val repository = FakeWordRepository(RequestResult.Success(expectedList))
-            val useCase = initUseCase(repository)
-            val actualList = useCase.getAllItems()
+            val manager = initManager(repository)
+            val actualList = manager.getAllItems()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -95,14 +95,14 @@ class QuestionManagerTest {
     }
 
     @Test
-    fun getQuestionsUseCase_getAllItemsByTheme_returnListQuestionsFromIssueRepository() {
+    fun questionManager_getAllItemsByTheme_returnListQuestionsFromIssueRepository() {
         runTest {
             val theme = FakeSource.fakeIssuesDb[2].theme
             val result = FakeSource.fakeIssuesDb.map { it.toQuestion() as Question.Issue }
             val repository = FakeIssueRepository(RequestResult.Success(result))
-            val useCase = initUseCase(repository)
+            val manager = initManager(repository)
             val expectedList = result.filter { it.theme == theme }
-            val actualList = useCase.getAllItemsByTheme(theme = theme)
+            val actualList = manager.getAllItemsByTheme(theme = theme)
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -113,14 +113,14 @@ class QuestionManagerTest {
     }
 
     @Test
-    fun getQuestionsUseCase_getAllItemsByTheme_returnListQuestionsFromWordRepository() {
+    fun questionManager_getAllItemsByTheme_returnListQuestionsFromWordRepository() {
         runTest {
             val theme = FakeSource.fakeWordsDb[2].theme
             val result = FakeSource.fakeWordsDb.map { it.toQuestion() as Question.Word }
             val repository = FakeWordRepository(RequestResult.Success(result))
-            val useCase = initUseCase(repository)
+            val manager = initManager(repository)
             val expectedList = result.filter { it.theme == theme }
-            val actualList = useCase.getAllItemsByTheme(theme = theme)
+            val actualList = manager.getAllItemsByTheme(theme = theme)
                 .first().data ?: emptyList()
 
             assertEquals(

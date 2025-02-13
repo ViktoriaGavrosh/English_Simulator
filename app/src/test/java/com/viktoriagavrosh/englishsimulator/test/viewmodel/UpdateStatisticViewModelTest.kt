@@ -1,7 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeUpdateStatisticRepository
+import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeStatisticRepository
 import com.viktoriagavrosh.englishsimulator.model.Statistic
 import com.viktoriagavrosh.englishsimulator.ui.navigation.UpdateStatisticViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
@@ -67,18 +67,15 @@ class UpdateStatisticViewModelTest {
     @Test
     fun statisticViewModel_updateTranslateScore_statisticUpdated() {
         runTest {
-            val newScore = 23
-            val date = "00-00-0001"
-            val startScore = 14
-            val newFakeStatistics = fakeStatistics.toMutableList()
-            newFakeStatistics.add(Statistic(date = date, translateScore = startScore))
-            val expectedScore = startScore + newScore
+            val statistic = fakeStatistics[3]
+            val score = statistic.translateScore
+            val expectedScore = score + 1
             val viewModel = initViewModel(
-                requestResult = RequestResult.Success(newFakeStatistics),
-                date = date
+                requestResult = RequestResult.Success(fakeStatistics),
+                date = statistic.date
             )
-            viewModel.updateTranslateScore(newScore)
-            val actualScore = viewModel.getStatisticByDate(date).translateScore
+            viewModel.updateTranslateScore()
+            val actualScore = viewModel.getStatisticByDate(statistic.date).translateScore
             assertEquals(expectedScore, actualScore)
         }
     }
@@ -86,18 +83,15 @@ class UpdateStatisticViewModelTest {
     @Test
     fun statisticViewModel_updateIssueScore_statisticUpdated() {
         runTest {
-            val newScore = 23
-            val date = "00-00-0001"
-            val startScore = 14
-            val newFakeStatistics = fakeStatistics.toMutableList()
-            newFakeStatistics.add(Statistic(date = date, issueScore = startScore))
-            val expectedScore = startScore + newScore
+            val statistic = fakeStatistics[0]
+            val score = statistic.issueScore
+            val expectedScore = score + 1
             val viewModel = initViewModel(
-                requestResult = RequestResult.Success(newFakeStatistics),
-                date = date
+                requestResult = RequestResult.Success(fakeStatistics),
+                date = statistic.date
             )
-            viewModel.updateIssueScore(newScore)
-            val actualScore = viewModel.getStatisticByDate(date).issueScore
+            viewModel.updateIssueScore()
+            val actualScore = viewModel.getStatisticByDate(statistic.date).issueScore
             assertEquals(expectedScore, actualScore)
         }
     }
@@ -105,18 +99,15 @@ class UpdateStatisticViewModelTest {
     @Test
     fun statisticViewModel_updateDialogScore_statisticUpdated() {
         runTest {
-            val newScore = 23
-            val date = "00-00-0001"
-            val startScore = 14
-            val newFakeStatistics = fakeStatistics.toMutableList()
-            newFakeStatistics.add(Statistic(date = date, dialogScore = startScore))
-            val expectedScore = startScore + newScore
+            val statistic = fakeStatistics[2]
+            val score = statistic.dialogScore
+            val expectedScore = score + 1
             val viewModel = initViewModel(
-                requestResult = RequestResult.Success(newFakeStatistics),
-                date = date
+                requestResult = RequestResult.Success(fakeStatistics),
+                date = statistic.date
             )
-            viewModel.updateDialogScore(newScore)
-            val actualScore = viewModel.getStatisticByDate(date).dialogScore
+            viewModel.updateDialogScore()
+            val actualScore = viewModel.getStatisticByDate(statistic.date).dialogScore
             assertEquals(expectedScore, actualScore)
         }
     }
@@ -124,18 +115,15 @@ class UpdateStatisticViewModelTest {
     @Test
     fun statisticViewModel_updateWordScore_statisticUpdated() {
         runTest {
-            val newScore = 23
-            val date = "00-00-0001"
-            val startScore = 14
-            val newFakeStatistics = fakeStatistics.toMutableList()
-            newFakeStatistics.add(Statistic(date = date, wordScore = startScore))
-            val expectedScore = startScore + newScore
+            val statistic = fakeStatistics[1]
+            val score = statistic.wordScore
+            val expectedScore = score + 1
             val viewModel = initViewModel(
-                requestResult = RequestResult.Success(newFakeStatistics),
-                date = date
+                requestResult = RequestResult.Success(fakeStatistics),
+                date = statistic.date
             )
-            viewModel.updateWordScore(newScore)
-            val actualScore = viewModel.getStatisticByDate(date).wordScore
+            viewModel.updateWordScore()
+            val actualScore = viewModel.getStatisticByDate(statistic.date).wordScore
             assertEquals(expectedScore, actualScore)
         }
     }
@@ -145,8 +133,9 @@ class UpdateStatisticViewModelTest {
         date: String = "00-00-0000"
     ): UpdateStatisticViewModel {
         return UpdateStatisticViewModel(
-            repository = FakeUpdateStatisticRepository(requestResult),
+            repository = FakeStatisticRepository(requestResult),
             date = date
         )
     }
+
 }

@@ -1,6 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
-import com.viktoriagavrosh.englishsimulator.fake.FakeGetQuestionsUseCase
+import com.viktoriagavrosh.englishsimulator.fake.FakeQuestionManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.model.ModelName
 import com.viktoriagavrosh.englishsimulator.model.Question
@@ -85,7 +85,7 @@ class TranslateGameViewModelTest {
         isToEnglish: Boolean = true,
     ): GameViewModel {
         return GameViewModel(
-            questionManager = FakeGetQuestionsUseCase(requestResult),
+            questionManager = FakeQuestionManager(requestResult),
             isToEnglish = isToEnglish,
         )
     }

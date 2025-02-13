@@ -33,8 +33,7 @@ class StatisticViewModel(
 
     fun updateUiState(monthIndex: Int) {
         viewModelScope.launch {
-            val month1 = uiState.first()
-            val month = month1.months[monthIndex]
+            val month = uiState.first().months[monthIndex]
             when (val requestResult = repository.getAllStatisticsByMonth(month).first()) {
                 is RequestResult.Success -> {
                     val list = requestResult.data
@@ -89,10 +88,10 @@ class StatisticViewModel(
     }
 
     private fun updateStatistics(statistics: List<Statistic>) {
-        val translateScores = prepareScores(statistics) { it.translateScore }
-        val issueScores = prepareScores(statistics) { it.issueScore }
-        val dialogScores = prepareScores(statistics) { it.dialogScore }
-        val wordScores = prepareScores(statistics) { it.wordScore }
+        val translateScores = statistics.toMapScores { it.translateScore }
+        val issueScores = statistics.toMapScores { it.issueScore }
+        val dialogScores = statistics.toMapScores { it.dialogScore }
+        val wordScores = statistics.toMapScores { it.wordScore }
         _uiState.update { state ->
             state.copy(
                 translateScores = translateScores,
@@ -101,16 +100,6 @@ class StatisticViewModel(
                 wordScores = wordScores,
             )
         }
-    }
-
-    private fun prepareScores(
-        statistics: List<Statistic>, mapper: (Statistic) -> Int
-    ): Map<Int, Int> {
-        val mapResult = (1..31).associateWith { 0 }.toMutableMap()
-        for (i in statistics) {
-            mapResult[i.date.substring(0, 2).toInt()] = mapper(i)
-        }
-        return mapResult
     }
 }
 
@@ -132,3 +121,11 @@ internal data class StatisticUiState(
     val wordScores: Map<Int, Int> = emptyMap(),
     val isError: Boolean = false,
 )
+
+fun List<Statistic>.toMapScores(mapper: (Statistic) -> Int): Map<Int, Int> {
+    val mapResult = (1..31).associateWith { 0 }.toMutableMap()
+    for (i in this) {
+        mapResult[i.date.substring(0, 2).toInt()] = mapper(i)
+    }
+    return mapResult
+}

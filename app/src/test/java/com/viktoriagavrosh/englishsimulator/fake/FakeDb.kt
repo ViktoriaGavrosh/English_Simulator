@@ -150,32 +150,28 @@ private object FakeStatisticDao : StatisticDao {
         return flow { emit(months) }
     }
 
-    override suspend fun updateTranslateScore(date: String, score: Int) {
-        val oldItem = statistics.first { it.date == date }
-        val index = statistics.indexOf(oldItem)
-        val newItem = oldItem.copy(translateScore = score)
-        statistics[index] = newItem
+    override suspend fun updateTranslateScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].translateScore + 1
+        statistics[index] = statistics[index].copy(translateScore = newScore)
     }
 
-    override suspend fun updateIssueScore(date: String, score: Int) {
-        val oldItem = statistics.first { it.date == date }
-        val index = statistics.indexOf(oldItem)
-        val newItem = oldItem.copy(issueScore = score)
-        statistics[index] = newItem
+    override suspend fun updateIssueScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].issueScore + 1
+        statistics[index] = statistics[index].copy(issueScore = newScore)
     }
 
-    override suspend fun updateDialogScore(date: String, score: Int) {
-        val oldItem = statistics.first { it.date == date }
-        val index = statistics.indexOf(oldItem)
-        val newItem = oldItem.copy(dialogScore = score)
-        statistics[index] = newItem
+    override suspend fun updateDialogScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].dialogScore + 1
+        statistics[index] = statistics[index].copy(dialogScore = newScore)
     }
 
-    override suspend fun updateWordScore(date: String, score: Int) {
-        val oldItem = statistics.first { it.date == date }
-        val index = statistics.indexOf(oldItem)
-        val newItem = oldItem.copy(wordScore = score)
-        statistics[index] = newItem
+    override suspend fun updateWordScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].wordScore + 1
+        statistics[index] = statistics[index].copy(wordScore = newScore)
     }
 
     override suspend fun deleteAllStatisticsByMonth(month: String) {
