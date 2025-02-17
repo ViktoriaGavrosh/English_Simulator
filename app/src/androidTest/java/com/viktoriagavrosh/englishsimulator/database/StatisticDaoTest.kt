@@ -136,10 +136,10 @@ class StatisticDaoTest {
     @Throws(Exception::class)
     fun statisticDao_updateTranslateScore_updateItem() = runBlocking {
         addListItemsToDb()
-        val newScore = 123
-        val expected = FakeSource.fakeStatisticDb[2].copy(translateScore = newScore)
-        statisticDao.updateTranslateScore(date = expected.date, score = newScore)
-        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        val statistic = FakeSource.fakeStatisticDb[2]
+        val expected = statistic.copy(translateScore = statistic.translateScore + 1)
+        statisticDao.updateTranslateScore(date = statistic.date)
+        val actual = statisticDao.getStatisticByDate(statistic.date).first().first()
         assertEquals(expected, actual)
     }
 
@@ -147,10 +147,10 @@ class StatisticDaoTest {
     @Throws(Exception::class)
     fun statisticDao_updateIssueScore_updateItem() = runBlocking {
         addListItemsToDb()
-        val newScore = 234
-        val expected = FakeSource.fakeStatisticDb[2].copy(issueScore = newScore)
-        statisticDao.updateIssueScore(date = expected.date, score = newScore)
-        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        val statistic = FakeSource.fakeStatisticDb[1]
+        val expected = statistic.copy(issueScore = statistic.issueScore + 1)
+        statisticDao.updateIssueScore(date = statistic.date)
+        val actual = statisticDao.getStatisticByDate(statistic.date).first().first()
         assertEquals(expected, actual)
     }
 
@@ -158,10 +158,10 @@ class StatisticDaoTest {
     @Throws(Exception::class)
     fun statisticDao_updateDialogScore_updateItem() = runBlocking {
         addListItemsToDb()
-        val newScore = 345
-        val expected = FakeSource.fakeStatisticDb[2].copy(dialogScore = newScore)
-        statisticDao.updateDialogScore(date = expected.date, score = newScore)
-        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        val statistic = FakeSource.fakeStatisticDb[0]
+        val expected = statistic.copy(dialogScore = statistic.dialogScore + 1)
+        statisticDao.updateDialogScore(date = statistic.date)
+        val actual = statisticDao.getStatisticByDate(statistic.date).first().first()
         assertEquals(expected, actual)
     }
 
@@ -169,10 +169,10 @@ class StatisticDaoTest {
     @Throws(Exception::class)
     fun statisticDao_updateWordScore_updateItem() = runBlocking {
         addListItemsToDb()
-        val newScore = 567
-        val expected = FakeSource.fakeStatisticDb[2].copy(wordScore = newScore)
-        statisticDao.updateWordScore(date = expected.date, score = newScore)
-        val actual = statisticDao.getStatisticByDate(expected.date).first().first()
+        val statistic = FakeSource.fakeStatisticDb[4]
+        val expected = statistic.copy(wordScore = statistic.wordScore + 1)
+        statisticDao.updateWordScore(date = statistic.date)
+        val actual = statisticDao.getStatisticByDate(statistic.date).first().first()
         assertEquals(expected, actual)
     }
 

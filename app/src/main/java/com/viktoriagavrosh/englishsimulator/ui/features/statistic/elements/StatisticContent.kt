@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
@@ -15,7 +16,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
@@ -42,7 +45,7 @@ internal fun StatisticContent(
 ) {
     Log.e("123", "StatisticContent")      // TODO log
 
-    val tabs = listOf("Last month", "This month")
+    val tabs = listOf(stringResource(R.string.last_month), stringResource(R.string.this_month))
     var selectedTabIndex by remember { mutableIntStateOf(1) }
     Column(
         modifier = modifier
@@ -58,6 +61,8 @@ internal fun StatisticContent(
                         selectedTabIndex = index
                         onTabClick(index)
                     },
+                    modifier = Modifier.heightIn(min = dimensionResource(R.dimen.button_min_height))
+                        .testTag(month)
                 ) {
                     Text(
                         text = month,

@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -44,13 +45,14 @@ internal fun StatisticColumn(
     )
 
     LazyColumn(
-        modifier = modifier,
+        modifier = modifier.testTag(stringResource(R.string.statistic_column_tag)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_medium))
     ) {
         items(quests) {quest ->
             QuestStatistic(
                 title = stringResource(quest.first) ,
                 scoresProvider = quest.second,
+                modifier = Modifier.testTag(stringResource( quest.first))
             )
         }
     }
@@ -71,7 +73,8 @@ fun QuestStatistic(
         )
         ScoresRow(
             scores = scoresProvider(),
-            modifier = Modifier.heightIn(200.dp)
+            modifier = Modifier
+                .heightIn(200.dp)
                 .padding(top = dimensionResource(R.dimen.padding_medium))
         )
     }

@@ -89,6 +89,7 @@ class HorizontalStartMenuScreenTest {
                     onIssueButtonClick = {},
                     onDialogButtonClick = {},
                     onWordButtonClick = {},
+                    onStatisticButtonClick = {},
                     modifier = Modifier.fillMaxSize(),
                 )
             }
