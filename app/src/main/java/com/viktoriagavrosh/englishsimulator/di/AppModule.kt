@@ -4,14 +4,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.viktoriagavrosh.englishsimulator.data.DialogRepository
 import com.viktoriagavrosh.englishsimulator.data.GameRepository
-import com.viktoriagavrosh.englishsimulator.data.QuestionManager
 import com.viktoriagavrosh.englishsimulator.data.IssueRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalDialogRepository
-import com.viktoriagavrosh.englishsimulator.data.LocalQuestionManager
 import com.viktoriagavrosh.englishsimulator.data.LocalIssueRepository
+import com.viktoriagavrosh.englishsimulator.data.LocalQuestionManager
 import com.viktoriagavrosh.englishsimulator.data.LocalStatisticRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalTranslateRepository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
+import com.viktoriagavrosh.englishsimulator.data.QuestionManager
 import com.viktoriagavrosh.englishsimulator.data.StatisticRepository
 import com.viktoriagavrosh.englishsimulator.data.TranslateRepository
 import com.viktoriagavrosh.englishsimulator.data.WordRepository
@@ -86,7 +86,8 @@ val repositoriesModule = module {
 val viewModelsModule = module {
     viewModel(named(TRANSLATE_SCREEN)) {
         GameViewModel(
-            questionManager = get(qualifier = named(TRANSLATE_QUESTION_MANAGER)), isToEnglish = get()
+            questionManager = get(qualifier = named(TRANSLATE_QUESTION_MANAGER)),
+            isToEnglish = get()
         )
     }
     viewModel(named(ISSUE_SCREEN)) {

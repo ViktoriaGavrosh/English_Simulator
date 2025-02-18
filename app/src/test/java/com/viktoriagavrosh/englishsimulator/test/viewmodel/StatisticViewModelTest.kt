@@ -25,8 +25,9 @@ class StatisticViewModelTest {
     @Test
     fun statisticViewModel_initUiState_initMonths() {
         runTest {
-            val expectedList = listOf(fakeStatistics[fakeStatistics.lastIndex - 1], fakeStatistics.last())
-                .map { getMonthByNumber(it.date.substring(3, 5).toInt()) }
+            val expectedList =
+                listOf(fakeStatistics[fakeStatistics.lastIndex - 1], fakeStatistics.last())
+                    .map { getMonthByNumber(it.date.substring(3, 5).toInt()) }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
@@ -111,7 +112,7 @@ class StatisticViewModelTest {
             val newMonthNum = fakeStatistics[fakeStatistics.lastIndex - 1].date
                 .substring(3, 5).toInt()
             val expectedTranslateMap = fakeStatistics
-                .filter { it.date.substring(3, 5).toInt() ==  newMonthNum}
+                .filter { it.date.substring(3, 5).toInt() == newMonthNum }
                 .toMapScores { it.translateScore }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)

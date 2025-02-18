@@ -61,5 +61,7 @@
     <string name="save_button_tag">save button</string>
     <string name="cancel_button_tag">cancel button</string>
     <string name="statistic_column_tag">Statistic column</string>
+    <string name="one_day_on_scores_row_tag">One day on scores row</string>
+    <string name="day_horizontal_divider_tag">Day horizontal divider</string>
 
 </resources>

@@ -61,7 +61,8 @@ internal fun StatisticContent(
                         selectedTabIndex = index
                         onTabClick(index)
                     },
-                    modifier = Modifier.heightIn(min = dimensionResource(R.dimen.button_min_height))
+                    modifier = Modifier
+                        .heightIn(min = dimensionResource(R.dimen.button_min_height))
                         .testTag(month)
                 ) {
                     Text(

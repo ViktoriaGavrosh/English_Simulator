@@ -19,7 +19,7 @@ class FakeStatisticRepository(
             val oldStatistic = list[index]
             val newList = list.toMutableList()
             newList[index] = oldStatistic.copy(wordScore = oldStatistic.wordScore + 1)
-                newList
+            newList
         }
         requestResult = newResult
     }

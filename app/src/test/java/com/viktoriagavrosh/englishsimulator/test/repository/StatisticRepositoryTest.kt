@@ -29,7 +29,7 @@ class StatisticRepositoryTest {
             val expectedDate = "09-09-9090"
             repository.updateDate(expectedDate)
             val actualDate = repository.getDate().first().data
-            assertEquals(expectedDate,actualDate)
+            assertEquals(expectedDate, actualDate)
         }
     }
 
@@ -47,7 +47,7 @@ class StatisticRepositoryTest {
             val oldDate = repository.getDate().first().data
             repository.updateDate("12-03-2024")
             val actualDate = repository.getDate().first().data
-            assertNotEquals(oldDate,actualDate)
+            assertNotEquals(oldDate, actualDate)
         }
     }
 
@@ -98,7 +98,8 @@ class StatisticRepositoryTest {
     @Test
     fun statisticRepository_getAllStatisticsByMonth_returnRequestResultSuccess() {
         runTest {
-            val month = getMonthByNumber(FakeSource.fakeStatisticsDb[1].date.substring(3, 5).toInt())
+            val month =
+                getMonthByNumber(FakeSource.fakeStatisticsDb[1].date.substring(3, 5).toInt())
             val isSuccess = repository.getAllStatisticsByMonth(month)
                 .first() is RequestResult.Success
             assert(isSuccess)
@@ -147,7 +148,12 @@ class StatisticRepositoryTest {
             repository.insertStatistic(expected)
             val actual = repository.getStatisticByDate(newDate)
                 .first().data?.first() ?: Statistic()
-            repository.deleteAllStatisticsByMonth(newDate.substring(3, 5))   // because FakeDb is object
+            repository.deleteAllStatisticsByMonth(
+                newDate.substring(
+                    3,
+                    5
+                )
+            )   // because FakeDb is object
             assertEquals(
                 expected,
                 actual

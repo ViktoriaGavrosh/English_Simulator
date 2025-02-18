@@ -27,7 +27,6 @@ class StatisticScreenTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-
     @Test
     fun statisticScreen_lastMonthIsDisplayed() {
         setScreen()
@@ -126,34 +125,34 @@ class StatisticScreenTest {
     }
 
     @Test
-    fun statisticScreen_translateSliderIsDisplayed() {
+    fun statisticScreen_translateScoresRowIsDisplayed() {
         setScreen()
         composeTestRule.onNodeWithTagById(R.string.translate_button_title)
-            .assertExists("No translate slider")
+            .assertExists("No translate scores row")
             .assertIsDisplayed()
     }
 
     @Test
-    fun statisticScreen_issueSliderIsDisplayed() {
+    fun statisticScreen_issueScoresRowIsDisplayed() {
         setScreen()
         composeTestRule.onNodeWithTagById(R.string.issue_button_title)
-            .assertExists("No issue slider")
+            .assertExists("No issue scores row")
             .assertIsDisplayed()
     }
 
     @Test
-    fun statisticScreen_dialogSliderIsDisplayed() {
+    fun statisticScreen_dialogScoresRowIsDisplayed() {
         setScreen()
         composeTestRule.onNodeWithTagById(R.string.dialog_button_title)
-            .assertExists("No dialog slider")
+            .assertExists("No dialog scores row")
             .assertIsDisplayed()
     }
 
     @Test
-    fun statisticScreen_wordSliderIsDisplayed() {
+    fun statisticScreen_wordScoresRowIsDisplayed() {
         setScreen()
         composeTestRule.onNodeWithTagById(R.string.word_button_title)
-            .assertExists("No word slider")
+            .assertExists("No word scores row")
             .assertIsDisplayed()
     }
 

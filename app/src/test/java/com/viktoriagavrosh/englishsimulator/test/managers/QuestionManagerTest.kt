@@ -1,8 +1,8 @@
 package com.viktoriagavrosh.englishsimulator.test.managers
 
 import com.viktoriagavrosh.englishsimulator.data.GameRepository
-import com.viktoriagavrosh.englishsimulator.data.QuestionManager
 import com.viktoriagavrosh.englishsimulator.data.LocalQuestionManager
+import com.viktoriagavrosh.englishsimulator.data.QuestionManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeDialogRepository
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeIssueRepository

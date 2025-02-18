@@ -3,7 +3,7 @@ package com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,7 +16,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.screens.game.ScoresRow
 
 /**
  * Composable to display statistics
@@ -48,18 +47,18 @@ internal fun StatisticColumn(
         modifier = modifier.testTag(stringResource(R.string.statistic_column_tag)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_medium))
     ) {
-        items(quests) {quest ->
+        items(quests) { quest ->
             QuestStatistic(
-                title = stringResource(quest.first) ,
+                title = stringResource(quest.first),
                 scoresProvider = quest.second,
-                modifier = Modifier.testTag(stringResource( quest.first))
+                modifier = Modifier.testTag(stringResource(quest.first))
             )
         }
     }
 }
 
 @Composable
-fun QuestStatistic(
+private fun QuestStatistic(
     title: String,
     scoresProvider: () -> Map<Int, Int>,
     modifier: Modifier = Modifier
@@ -74,7 +73,7 @@ fun QuestStatistic(
         ScoresRow(
             scores = scoresProvider(),
             modifier = Modifier
-                .heightIn(200.dp)
+                .height(210.dp)
                 .padding(top = dimensionResource(R.dimen.padding_medium))
         )
     }
