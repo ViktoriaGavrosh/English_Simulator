@@ -47,15 +47,12 @@ class StatisticDaoTest {
     @Throws(Exception::class)
     fun statisticDao_deleteAllStatisticsByMonth_deleteItems() = runBlocking {
         addListItemsToDb()
-        val expected = FakeSource.fakeStatisticDb[0]
-        statisticDao.deleteAllStatisticsByMonth(expected.date.substring(3, 5))
-        val isExist = try {
-            statisticDao.getStatisticByDate(expected.date).first().first()
-            true
-        } catch (e: NoSuchElementException) {
-            false
-        }
-        assert(!isExist)
+        val lastMonth = FakeSource.fakeStatisticDb[0].date.substring(3)
+        val thisMonth = FakeSource.fakeStatisticDb[1].date.substring(3)
+        statisticDao.deleteAllStatisticsByMonth(thisMonth, lastMonth)
+        val deletedMonth = FakeSource.fakeStatisticDb[2].date.substring(3, 5)
+        val actualList = statisticDao.getAllStatisticsByMonth(deletedMonth).first()
+        assertEquals(emptyList<StatisticDb>(), actualList)
     }
 
     @Test

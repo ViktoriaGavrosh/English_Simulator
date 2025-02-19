@@ -75,10 +75,11 @@ interface StatisticDao {
     /**
      * Delete all items from statistic table by month
      *
-     * @param month from data
+     * @param thisMonth from date
+     * @param lastMonth from date
      */
-    @Query("DELETE FROM statistic WHERE date LIKE (SELECT '%-'||:month||'-%')")
-    suspend fun deleteAllStatisticsByMonth(month: String)
+    @Query("DELETE FROM statistic WHERE date NOT LIKE (SELECT '%-'||:thisMonth) AND date NOT LIKE (SELECT '%-'||:lastMonth)")
+    suspend fun deleteAllStatisticsByMonth(thisMonth: String, lastMonth: String)
 
     /**
      * will insert element into the database (statistic table)

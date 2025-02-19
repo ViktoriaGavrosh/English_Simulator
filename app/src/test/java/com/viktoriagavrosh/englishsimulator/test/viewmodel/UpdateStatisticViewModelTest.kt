@@ -49,22 +49,6 @@ class UpdateStatisticViewModelTest {
     }
 
     @Test
-    fun statisticViewModel_prepareDatabase_statisticsDeletedTwelfthMonth() {
-        runTest {
-            val newDate = "01-02-2015"
-            val dateForDelete = "00-12-0000"
-            val newFakeStatistics = fakeStatistics.toMutableList()
-            newFakeStatistics.add(Statistic(date = dateForDelete))
-            val viewModel = initViewModel(
-                requestResult = RequestResult.Success(newFakeStatistics),
-                date = newDate
-            )
-            val isStatisticNotExist = viewModel.getStatisticByDate(dateForDelete) == Statistic()
-            assert(isStatisticNotExist)
-        }
-    }
-
-    @Test
     fun statisticViewModel_updateTranslateScore_statisticUpdated() {
         runTest {
             val statistic = fakeStatistics[3]

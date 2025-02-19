@@ -80,14 +80,20 @@ class UpdateStatisticViewModel(
 
     private fun cleanDatabase() {
         viewModelScope.launch {
-            var monthForCleaning = date.substring(3, 5).toInt()
-            repeat(2) {
-                val month = monthForCleaning - 1
-                monthForCleaning = if (month <= 0) 12 else month
-            }
-            val monthString = monthForCleaning.toString()
-            val monthResult = if (monthString.length == 1) "0$monthString" else monthString
-            repository.deleteAllStatisticsByMonth(monthResult)
+            val thisMonth = date.substring(3)
+            val lastMonth = getLastMonth(thisMonth)
+            repository.deleteAllStatisticsByMonth(thisMonth, lastMonth)
         }
+    }
+
+    private fun getLastMonth(month: String): String {
+        val (monthNum, year) = month.split("-")
+        var lastMonth = if (monthNum.toInt() - 1 <= 0) {
+            12.toString()
+        } else {
+            (monthNum.toInt() - 1).toString()
+        }
+        if (lastMonth.length == 1) lastMonth = "0$lastMonth"
+        return "$lastMonth-$year"
     }
 }

@@ -174,7 +174,10 @@ private object FakeStatisticDao : StatisticDao {
         statistics[index] = statistics[index].copy(wordScore = newScore)
     }
 
-    override suspend fun deleteAllStatisticsByMonth(month: String) {
-        statistics.removeAll { it.date.substring(3, 5) == month }
+    override suspend fun deleteAllStatisticsByMonth(thisMonth: String, lastMonth: String) {
+        statistics.removeAll {
+            val month = it.date.substring(3)
+            month != thisMonth && month != lastMonth
+        }
     }
 }

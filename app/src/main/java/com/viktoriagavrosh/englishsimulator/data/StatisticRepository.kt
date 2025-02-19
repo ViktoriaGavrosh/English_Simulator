@@ -86,9 +86,10 @@ interface StatisticRepository {
     /**
      * Delete all items from data source by month
      *
-     * @param monthNumber from data
+     * @param thisMonth from data
+     * @param lastMonth from data
      */
-    suspend fun deleteAllStatisticsByMonth(monthNumber: String)
+    suspend fun deleteAllStatisticsByMonth(thisMonth: String, lastMonth: String)
 
     /**
      * will insert element into the data source
@@ -218,10 +219,11 @@ class LocalStatisticRepository(
     /**
      * Delete all [Statistic]'s from database by month
      *
-     * @param monthNumber from data
+     * @param thisMonth from date
+     * @param lastMonth from date
      */
-    override suspend fun deleteAllStatisticsByMonth(monthNumber: String) {
-        database.statisticDao().deleteAllStatisticsByMonth(monthNumber)
+    override suspend fun deleteAllStatisticsByMonth(thisMonth: String, lastMonth: String) {
+        database.statisticDao().deleteAllStatisticsByMonth(thisMonth, lastMonth)
     }
 
     /**

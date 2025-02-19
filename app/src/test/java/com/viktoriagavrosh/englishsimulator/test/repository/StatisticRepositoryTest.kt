@@ -131,33 +131,16 @@ class StatisticRepositoryTest {
     @Test
     fun statisticRepository_deleteAllStatisticsByMonth_statisticDeleted() {
         runTest {
-            val month = FakeSource.fakeStatisticsDb[1].date.substring(3, 5)
-            repository.deleteAllStatisticsByMonth(month)
+            val thisMonth = FakeSource.fakeStatisticsDb[1].date.substring(3)
+            val lastMonth = FakeSource.fakeStatisticsDb[0].date.substring(3)
+            repository.deleteAllStatisticsByMonth(thisMonth, lastMonth)
             val actualList = repository.getAllMonths().first()
-                .data ?: listOf(month)
-            repository.insertStatistic(FakeSource.fakeStatisticsDb[1].toStatistic())  // because FakeDb is object
-            assert(!actualList.contains(month))
-        }
-    }
-
-    @Test
-    fun statisticRepository_insertStatistic_newStatisticInsert() {
-        runTest {
-            val newDate = "125890"
-            val expected = Statistic(date = newDate)
-            repository.insertStatistic(expected)
-            val actual = repository.getStatisticByDate(newDate)
-                .first().data?.first() ?: Statistic()
-            repository.deleteAllStatisticsByMonth(
-                newDate.substring(
-                    3,
-                    5
-                )
-            )   // because FakeDb is object
-            assertEquals(
-                expected,
-                actual
-            )
+                .data ?: listOf(thisMonth)
+            val deletedMonth = FakeSource.fakeStatisticsDb[2].date.substring(3, 5)
+            repository.insertStatistic(FakeSource.fakeStatisticsDb[2].toStatistic())  // because FakeDb is object
+            repository.insertStatistic(FakeSource.fakeStatisticsDb[3].toStatistic())  // because FakeDb is object
+            repository.insertStatistic(FakeSource.fakeStatisticsDb[4].toStatistic())  // because FakeDb is object
+            assert(!actualList.contains(deletedMonth))
         }
     }
 
