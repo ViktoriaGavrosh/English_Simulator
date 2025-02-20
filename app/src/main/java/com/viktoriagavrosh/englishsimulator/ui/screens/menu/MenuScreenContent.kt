@@ -1,6 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.menu
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,6 +47,8 @@ internal fun MenuScreenContent(
     onDropdownMenuValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
+    Log.e("123", "MenuScreenContext")      // TODO log
     Column(
         modifier = modifier
             .padding(horizontal = dimensionResource(R.dimen.padding_small)),

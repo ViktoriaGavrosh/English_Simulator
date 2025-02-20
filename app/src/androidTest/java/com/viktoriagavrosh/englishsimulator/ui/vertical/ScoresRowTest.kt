@@ -22,8 +22,8 @@ class ScoresRowTest {
 
     @Test
     fun scoresRow_dayIsDisplayed() {
-        val expectedDay = 7
-        setRow(scores = mapOf(expectedDay to 0))
+        val expectedDay = 1
+        setRow()
         composeTestRule.onNodeWithText(expectedDay.toString())
             .assertExists("No day on ScoresRow")
             .assertIsDisplayed()
@@ -32,7 +32,7 @@ class ScoresRowTest {
     @Test
     fun scoresRow_scoreIsDisplayed() {
         val expectedScore = 17
-        setRow(scores = mapOf(0 to expectedScore))
+        setRow(scores = listOf(expectedScore))
         composeTestRule.onNodeWithText(expectedScore.toString())
             .assertExists("No score on ScoresRow")
             .assertIsDisplayed()
@@ -41,7 +41,7 @@ class ScoresRowTest {
     @Test
     fun scoresRow_daySliderIsDisplayed() {
         val expectedScore = 38
-        setRow(scores = mapOf(1 to expectedScore))
+        setRow(scores = listOf(expectedScore))
         composeTestRule.onNodeWithTagById(R.string.one_day_on_scores_row_tag)
             .assertExists("No day slider on ScoresRow")
             .assertIsDisplayed()
@@ -50,7 +50,7 @@ class ScoresRowTest {
     @Test
     fun scoresRow_daySliderSizeIsValid() {
         val expectedScore = 58
-        setRow(scores = mapOf(1 to expectedScore))
+        setRow(scores = listOf(expectedScore))
         composeTestRule.onNodeWithTagById(R.string.one_day_on_scores_row_tag)
             .assertHeightIsAtLeast((expectedScore * 2).dp)
     }
@@ -58,14 +58,14 @@ class ScoresRowTest {
     @Test
     fun scoresRow_daySliderIsNotDisplayed() {
         val expectedScore = 0
-        setRow(scores = mapOf(1 to expectedScore))
+        setRow(scores = listOf(expectedScore))
         composeTestRule.onNodeWithTagById(R.string.one_day_on_scores_row_tag)
             .assertIsNotDisplayed()
     }
 
     @Test
     fun scoresRow_dividerIsDisplayed() {
-        setRow(scores = mapOf(1 to 1))
+        setRow(scores = listOf(5))
         composeTestRule.onNodeWithTagById(R.string.day_horizontal_divider_tag)
             .assertExists("No divider on ScoresRow")
             .assertIsDisplayed()
@@ -75,7 +75,7 @@ class ScoresRowTest {
     fun scoresRow_largeScore_daySliderSizeIsValid() {
         val score = 160
         val expectedHeight = 200
-        setRow(scores = mapOf(1 to score))
+        setRow(scores = listOf(score))
         composeTestRule.onNodeWithTagById(R.string.one_day_on_scores_row_tag)
             .assertHeightIsEqualTo(expectedHeight.dp)
     }
@@ -84,13 +84,13 @@ class ScoresRowTest {
     fun scoresRow_smallScore_daySliderSizeIsValid() {
         val score = -12
         val expectedHeight = 0
-        setRow(scores = mapOf(1 to score))
+        setRow(scores = listOf(score))
         composeTestRule.onNodeWithTagById(R.string.one_day_on_scores_row_tag)
             .assertHeightIsEqualTo(expectedHeight.dp)
     }
 
     private fun setRow(
-        scores: Map<Int, Int> = mapOf(1 to 24, 2 to 35, 3 to 46),
+        scores: List<Int> = listOf(24, 35, 46),
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {

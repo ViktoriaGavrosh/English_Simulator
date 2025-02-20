@@ -5,7 +5,7 @@ import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeStatisticRepos
 import com.viktoriagavrosh.englishsimulator.model.Statistic
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.getMonthByNumber
-import com.viktoriagavrosh.englishsimulator.ui.features.statistic.toMapScores
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.toListScores
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
 import com.viktoriagavrosh.englishsimulator.utils.toStatistic
@@ -31,7 +31,7 @@ class StatisticViewModelTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
-            val actualList = viewModel.uiState.first().months
+            val actualList = viewModel.months
             assertEquals(expectedList, actualList)
         }
     }
@@ -39,7 +39,7 @@ class StatisticViewModelTest {
     @Test
     fun statisticViewModel_initUiState_initTranslateScores() {
         runTest {
-            val expectedMap = fakeStatistics.toMapScores { it.translateScore }
+            val expectedMap = fakeStatistics.toListScores { it.translateScore }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
@@ -51,7 +51,7 @@ class StatisticViewModelTest {
     @Test
     fun statisticViewModel_initUiState_initIssueScores() {
         runTest {
-            val expectedMap = fakeStatistics.toMapScores { it.issueScore }
+            val expectedMap = fakeStatistics.toListScores { it.issueScore }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
@@ -63,7 +63,7 @@ class StatisticViewModelTest {
     @Test
     fun statisticViewModel_initUiState_initDialogScores() {
         runTest {
-            val expectedMap = fakeStatistics.toMapScores { it.dialogScore }
+            val expectedMap = fakeStatistics.toListScores { it.dialogScore }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
@@ -75,7 +75,7 @@ class StatisticViewModelTest {
     @Test
     fun statisticViewModel_initUiState_initWordScores() {
         runTest {
-            val expectedMap = fakeStatistics.toMapScores { it.wordScore }
+            val expectedMap = fakeStatistics.toListScores { it.wordScore }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
@@ -113,11 +113,11 @@ class StatisticViewModelTest {
                 .substring(3, 5).toInt()
             val expectedTranslateMap = fakeStatistics
                 .filter { it.date.substring(3, 5).toInt() == newMonthNum }
-                .toMapScores { it.translateScore }
+                .toListScores { it.translateScore }
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
-            val index = viewModel.uiState.first().months.indexOf(getMonthByNumber(newMonthNum))
+            val index = viewModel.months.indexOf(getMonthByNumber(newMonthNum))
             viewModel.updateUiState(index)
             val actualTranslateMap = viewModel.uiState.first().translateScores
             assertEquals(expectedTranslateMap, actualTranslateMap)
@@ -125,23 +125,24 @@ class StatisticViewModelTest {
     }
 
     @Test
-    fun listStatistic_toMapScores_returnMap() {
+    fun listStatistic_toListScores_returnList() {
         runTest {
-            val expectedMap = (1..31).associateWith { 0 }.toMutableMap()
+            val expected = MutableList(31) { 0 }
             for (i in fakeStatistics) {
-                expectedMap[i.date.substring(0, 2).toInt()] = i.translateScore
+                val day = i.date.take(2).toInt()
+                expected[day - 1] = i.translateScore
             }
-            val actualMap = fakeStatistics.toMapScores { it.translateScore }
-            assertEquals(expectedMap, actualMap)
+            val actual = fakeStatistics.toListScores { it.translateScore }
+            assertEquals(expected, actual)
         }
     }
 
     @Test
-    fun listStatistic_toMapScoresWithEmptyList_returnMap() {
+    fun listStatistic_toListScoresWithEmptyList_returnList() {
         runTest {
-            val expectedMap = (1..31).associateWith { 0 }.toMutableMap()
-            val actualMap = emptyList<Statistic>().toMapScores { it.translateScore }
-            assertEquals(expectedMap, actualMap)
+            val expected = MutableList(31) { 0 }
+            val actual = emptyList<Statistic>().toListScores { it.translateScore }
+            assertEquals(expected, actual)
         }
     }
 

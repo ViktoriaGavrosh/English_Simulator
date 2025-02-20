@@ -23,6 +23,7 @@ class StatisticViewModel(
     private val repository: StatisticRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(StatisticUiState())
+    var months: List<Month> = emptyList()
 
     init {
         initUiState()
@@ -33,11 +34,12 @@ class StatisticViewModel(
 
     fun updateUiState(monthIndex: Int) {
         viewModelScope.launch {
-            val month = uiState.first().months[monthIndex]
+            val month = months[monthIndex]
             when (val requestResult = repository.getAllStatisticsByMonth(month).first()) {
                 is RequestResult.Success -> {
                     val list = requestResult.data
                     updateStatistics(list)
+                    // Log.e("123", "VM updateUiState ${uiState.first()}")      // TODO log
                 }
 
                 is RequestResult.Error -> updateIsError()
@@ -54,18 +56,14 @@ class StatisticViewModel(
             if (!uiState.first().isError) {
                 updateUiState(1)
             }
+            //  Log.e("123", "VM initUiState ${uiState.first()}")      // TODO log
         }
     }
 
     private suspend fun initMonths() {
         when (val requestResult = repository.getAllMonths().first()) {
             is RequestResult.Success -> {
-                val months = prepareMonths(requestResult.data)
-                _uiState.update {
-                    it.copy(
-                        months = months
-                    )
-                }
+                months = prepareMonths(requestResult.data)
             }
 
             is RequestResult.Error -> updateIsError()
@@ -88,10 +86,10 @@ class StatisticViewModel(
     }
 
     private fun updateStatistics(statistics: List<Statistic>) {
-        val translateScores = statistics.toMapScores { it.translateScore }
-        val issueScores = statistics.toMapScores { it.issueScore }
-        val dialogScores = statistics.toMapScores { it.dialogScore }
-        val wordScores = statistics.toMapScores { it.wordScore }
+        val translateScores = statistics.toListScores { it.translateScore }
+        val issueScores = statistics.toListScores { it.issueScore }
+        val dialogScores = statistics.toListScores { it.dialogScore }
+        val wordScores = statistics.toListScores { it.wordScore }
         _uiState.update { state ->
             state.copy(
                 translateScores = translateScores,
@@ -106,7 +104,6 @@ class StatisticViewModel(
 /**
  * Holds StatisticScreen state
  *
- * @param months two last months
  * @param translateScores list scores of quest "Translate sentences"
  * @param issueScores list scores of quest "Tell about yourself"
  * @param dialogScores list scores of quest "Short dialogs"
@@ -114,18 +111,18 @@ class StatisticViewModel(
  * @param isError boolean parameter describes screen state. If true ErrorScreen will be shown.
  */
 internal data class StatisticUiState(
-    val months: List<Month> = emptyList(),
-    val translateScores: Map<Int, Int> = emptyMap(),
-    val issueScores: Map<Int, Int> = emptyMap(),
-    val dialogScores: Map<Int, Int> = emptyMap(),
-    val wordScores: Map<Int, Int> = emptyMap(),
+    val translateScores: List<Int> = emptyList(),
+    val issueScores: List<Int> = emptyList(),
+    val dialogScores: List<Int> = emptyList(),
+    val wordScores: List<Int> = emptyList(),
     val isError: Boolean = false,
 )
 
-fun List<Statistic>.toMapScores(mapper: (Statistic) -> Int): Map<Int, Int> {
-    val mapResult = (1..31).associateWith { 0 }.toMutableMap()
+fun List<Statistic>.toListScores(mapper: (Statistic) -> Int): List<Int> {
+    val listResult = MutableList(31) { 0 }
     for (i in this) {
-        mapResult[i.date.substring(0, 2).toInt()] = mapper(i)
+        val day = i.date.take(2).toInt()
+        listResult[day - 1] = mapper(i)
     }
-    return mapResult
+    return listResult
 }

@@ -1,6 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +56,8 @@ internal fun GameScreen(
     isEditButtonShow: Boolean = false,
     onEditButtonClick: () -> Unit = {},
 ) {
+
+    Log.e("123", "GameScreen")      // TODO log
     Box(
         modifier = modifier
             .background(MaterialTheme.colorScheme.primaryContainer),
@@ -114,6 +117,7 @@ private fun ColumnTranslate(
     var isAnswerOpen by remember { mutableStateOf(false) }
     val gameQuestion = gameQuestionProvider()
 
+    Log.e("123", "ColumnTranslate start")      // TODO log
     Column(
         modifier = modifier.padding(
             horizontal = dimensionResource(R.dimen.padding_extra_large)

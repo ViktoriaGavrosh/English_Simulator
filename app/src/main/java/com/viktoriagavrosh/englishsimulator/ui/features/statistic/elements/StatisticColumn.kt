@@ -28,10 +28,10 @@ import com.viktoriagavrosh.englishsimulator.R
  */
 @Composable
 internal fun StatisticColumn(
-    translateScoresProvider: () -> Map<Int, Int>,
-    issueScoresProvider: () -> Map<Int, Int>,
-    dialogScoresProvider: () -> Map<Int, Int>,
-    wordScoresProvider: () -> Map<Int, Int>,
+    translateScoresProvider: () -> List<Int>,
+    issueScoresProvider: () -> List<Int>,
+    dialogScoresProvider: () -> List<Int>,
+    wordScoresProvider: () -> List<Int>,
     modifier: Modifier = Modifier
 ) {
 
@@ -60,9 +60,10 @@ internal fun StatisticColumn(
 @Composable
 private fun QuestStatistic(
     title: String,
-    scoresProvider: () -> Map<Int, Int>,
+    scoresProvider: () -> List<Int>,
     modifier: Modifier = Modifier
 ) {
+    Log.e("123", "QuestStatistic")      // TODO log
     Column(
         modifier = modifier
     ) {

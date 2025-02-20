@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.issue
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.IssueRepository
@@ -20,5 +21,7 @@ class IssueMenuViewModel(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
         initialValue = RequestResult.Loading()
-    )
+    ).also {
+        Log.e("123", "VM")      // TODO log
+    }
 }

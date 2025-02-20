@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.model.Statistic
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.statistic.toMapScores
+import com.viktoriagavrosh.englishsimulator.ui.features.statistic.toListScores
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTagById
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTextById
@@ -163,10 +163,10 @@ class StatisticScreenTest {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
                 StatisticScreen(
-                    translateScoresProvider = { statistics.toMapScores { it.translateScore } },
-                    issueScoresProvider = { statistics.toMapScores { it.issueScore } },
-                    dialogScoresProvider = { statistics.toMapScores { it.dialogScore } },
-                    wordScoresProvider = { statistics.toMapScores { it.wordScore } },
+                    translateScoresProvider = { statistics.toListScores { it.translateScore } },
+                    issueScoresProvider = { statistics.toListScores { it.issueScore } },
+                    dialogScoresProvider = { statistics.toListScores { it.dialogScore } },
+                    wordScoresProvider = { statistics.toListScores { it.wordScore } },
                     isErrorProvider = { isError },
                     onTabClick = {},
                     onBackClick = {},

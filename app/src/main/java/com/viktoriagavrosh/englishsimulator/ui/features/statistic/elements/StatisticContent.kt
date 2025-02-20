@@ -36,10 +36,10 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  */
 @Composable
 internal fun StatisticContent(
-    translateScoresProvider: () -> Map<Int, Int>,
-    issueScoresProvider: () -> Map<Int, Int>,
-    dialogScoresProvider: () -> Map<Int, Int>,
-    wordScoresProvider: () -> Map<Int, Int>,
+    translateScoresProvider: () -> List<Int>,
+    issueScoresProvider: () -> List<Int>,
+    dialogScoresProvider: () -> List<Int>,
+    wordScoresProvider: () -> List<Int>,
     onTabClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -54,6 +54,7 @@ internal fun StatisticContent(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier.fillMaxWidth()
         ) {
+            Log.e("123", "TabRow")      // TODO log
             tabs.forEachIndexed { index, month ->
                 Tab(
                     selected = selectedTabIndex == index,
@@ -90,7 +91,7 @@ internal fun StatisticContent(
 @Preview
 @Composable
 private fun StatisticContentPreview() {
-    val scores = mapOf(1 to 5, 2 to 35, 5 to 32, 7 to 12, 9 to 35)
+    val scores = listOf(6, 34, 72, 12, 24)
     EnglishSimulatorTheme {
         StatisticContent(
             translateScoresProvider = { scores },

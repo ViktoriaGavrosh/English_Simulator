@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,7 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,21 +35,22 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  */
 @Composable
 fun ScoresRow(
-    scores: Map<Int, Int>,
+    scores: List<Int>,
     modifier: Modifier = Modifier,
 ) {
+    Log.e("123", "ScoresRow")      // TODO log
     LazyRow(
         modifier = modifier
             .background(MaterialTheme.colorScheme.primaryContainer),
         verticalAlignment = Alignment.Bottom,
     ) {
-        items(
-            scores.keys.toList(),
-            key = { it }
-        ) {
+        itemsIndexed(                                   // TODO fix
+            items = scores,
+            key = { index, _ -> index }
+        ) {index, item ->
             OneDayScore(
-                scores = scores,
-                dayIndex = it,
+                score = item,
+                day = index + 1
             )
         }
     }
@@ -56,15 +58,14 @@ fun ScoresRow(
 
 @Composable
 private fun OneDayScore(
-    scores: Map<Int, Int>,
-    dayIndex: Int,
+    score: Int,
+    day: Int,
     modifier: Modifier = Modifier,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        val score = scores[dayIndex] ?: 0
         if (score < 15) {
             Text(
                 text = score.toString(),
@@ -87,7 +88,7 @@ private fun OneDayScore(
             color = MaterialTheme.colorScheme.secondary
         )
         Text(
-            text = dayIndex.toString(),
+            text = day.toString(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodySmall
         )
@@ -136,13 +137,7 @@ private fun ComposeVerticalSlider(
 fun ComposeVerticalSliderPreview() {
     EnglishSimulatorTheme {
         ScoresRow(
-            scores = mapOf(
-                12 to 46,
-                13 to 58,
-                14 to 31,
-                15 to 64,
-                16 to 10
-            )
+            scores = listOf(24, 12, 15, 45, 23,42)
         )
     }
 }

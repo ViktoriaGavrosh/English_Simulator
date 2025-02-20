@@ -1,6 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.word
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,6 +38,7 @@ fun WordMenuScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val language by viewModel.selectedLanguage.collectAsStateWithLifecycle()
 
+    Log.e("123", "WordMenuScreen start")      // TODO log
     WordMenuScreen(
         screenStateProvider = { uiState },
         isVerticalScreen = isVerticalScreen,
@@ -74,6 +76,8 @@ internal fun WordMenuScreen(
     onAddButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
+    Log.e("123", "WordMenuScreen")      // TODO log
     when (val screenState = screenStateProvider()) {
         is RequestResult.Error -> {
             ErrorScreen(

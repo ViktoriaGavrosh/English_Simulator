@@ -1,6 +1,7 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.menu
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,6 +43,7 @@ internal fun MenuScreen(
     isAddButtonShow: Boolean = false,
     onAddButtonClick: () -> Unit = {},
 ) {
+    Log.e("123", "MenuScreen start")      // TODO log
     Box(
         modifier = modifier,
     ) {

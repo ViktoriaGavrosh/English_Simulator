@@ -22,10 +22,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun StatisticScreen(
     onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: StatisticViewModel = koinViewModel()
 ) {
-    val viewModel: StatisticViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    Log.e("123", "StatisticScreen start")      // TODO log
 
     StatisticScreen(
         translateScoresProvider = { uiState.translateScores },
@@ -53,17 +55,17 @@ fun StatisticScreen(
  */
 @Composable
 internal fun StatisticScreen(
-    translateScoresProvider: () -> Map<Int, Int>,
-    issueScoresProvider: () -> Map<Int, Int>,
-    dialogScoresProvider: () -> Map<Int, Int>,
-    wordScoresProvider: () -> Map<Int, Int>,
+    translateScoresProvider: () -> List<Int>,
+    issueScoresProvider: () -> List<Int>,
+    dialogScoresProvider: () -> List<Int>,
+    wordScoresProvider: () -> List<Int>,
     isErrorProvider: () -> Boolean,
     onTabClick: (Int) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Log.e("123", "StatisticScreen")      // TODO log
+
     if (isErrorProvider()) {
         ErrorScreen(
             onErrorButtonClick = onBackClick,
@@ -85,7 +87,7 @@ internal fun StatisticScreen(
 @HorizontalScreenPreview
 @Composable
 private fun VerticalStatisticScreenPreview() {
-    val scores = mapOf(1 to 5, 2 to 35, 5 to 32, 7 to 12)
+    val scores = listOf(32, 6, 34, 69, 43)
     EnglishSimulatorTheme {
         StatisticScreen(
             translateScoresProvider = { scores },
