@@ -15,7 +15,6 @@ import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
-import kotlinx.coroutines.flow.first
 import org.koin.androidx.compose.koinViewModel
 
 /**
