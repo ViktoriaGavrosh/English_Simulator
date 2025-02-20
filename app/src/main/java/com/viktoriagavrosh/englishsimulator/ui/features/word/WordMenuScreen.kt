@@ -1,12 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.word
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
@@ -14,7 +13,10 @@ import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.ErrorResultPreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -123,17 +125,14 @@ internal fun WordMenuScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalWordMenuScreenPreview() {
+private fun VerticalWordMenuScreenPreview(
+    @PreviewParameter(ErrorResultPreviewParameterProvider::class) result: RequestResult<List<String>>
+) {
     EnglishSimulatorTheme {
         WordMenuScreen(
-            screenStateProvider = {
-                RequestResult.Success(
-                    List(8) { "Theme $it" }
-                )
-            },
+            screenStateProvider = { result },
             isVerticalScreen = true,
             onButtonClick = {},
             onBackClick = {},
@@ -146,70 +145,19 @@ private fun VerticalWordMenuScreenPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
-private fun HorizontalWordMenuScreenPreview() {
+private fun HorizontalWordMenuScreenPreview(
+    @PreviewParameter(ErrorResultPreviewParameterProvider::class) result: RequestResult<List<String>>
+) {
     EnglishSimulatorTheme {
         WordMenuScreen(
-            screenStateProvider = {
-                RequestResult.Success(
-                    List(8) { "Theme $it" }
-                )
-            },
+            screenStateProvider = { result },
             isVerticalScreen = false,
             onButtonClick = {},
             onBackClick = {},
             dropdownMenuOptions = listOf("first", "second"),
             dropdownMenuSelectedOptionProvider = { "first" },
-            onDropdownMenuValueChange = {},
-            onAddButtonClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun ErrorVerticalWordMenuScreenPreview() {
-    EnglishSimulatorTheme {
-        WordMenuScreen(
-            screenStateProvider = { RequestResult.Error() },
-            isVerticalScreen = true,
-            onButtonClick = {},
-            onBackClick = {},
-            dropdownMenuOptions = emptyList(),
-            dropdownMenuSelectedOptionProvider = { "" },
-            onDropdownMenuValueChange = {},
-            onAddButtonClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun ErrorHorizontalWordMenuScreenPreview() {
-    EnglishSimulatorTheme {
-        WordMenuScreen(
-            screenStateProvider = { RequestResult.Error() },
-            isVerticalScreen = false,
-            onButtonClick = {},
-            onBackClick = {},
-            dropdownMenuOptions = emptyList(),
-            dropdownMenuSelectedOptionProvider = { "" },
             onDropdownMenuValueChange = {},
             onAddButtonClick = {},
             modifier = Modifier.fillMaxSize(),

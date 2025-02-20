@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.sp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
 
 /**
  * Composable to display button with text
@@ -52,25 +54,15 @@ internal fun QuestButton(
 @Preview(showBackground = true, name = "Light")
 @Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun SmallQuestButtonPreview() {
+private fun SmallQuestButtonPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isTrue: Boolean
+) {
     EnglishSimulatorTheme {
         QuestButton(
             onClick = {},
             text = "Text",
-            isLargeText = false,
+            isLargeText = isTrue,
         )
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun LargeQuestButtonPreview() {
-    EnglishSimulatorTheme {
-        QuestButton(
-            onClick = {},
-            text = "Text on the button",
-            isLargeText = true,
-        )
-    }
-}

@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game.elements
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -11,9 +10,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display button with icon
@@ -41,8 +40,7 @@ internal fun NextButton(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun NextButtonPreview() {
     EnglishSimulatorTheme {

@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
 
 /**
  * Composable to display content (horizontal screen orientation)
@@ -106,13 +105,7 @@ private fun CardGrid(
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
 private fun HorizontalContentPreview() {
     EnglishSimulatorTheme {

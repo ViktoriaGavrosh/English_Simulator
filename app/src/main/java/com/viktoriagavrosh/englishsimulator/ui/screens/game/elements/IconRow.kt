@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game.elements
 
-import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,9 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display back button on top of screen
@@ -63,8 +62,7 @@ internal fun IconRow(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun RightIconRowPreview() {
     EnglishSimulatorTheme {
@@ -76,8 +74,7 @@ private fun RightIconRowPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun LeftIconRowPreview() {
     EnglishSimulatorTheme {

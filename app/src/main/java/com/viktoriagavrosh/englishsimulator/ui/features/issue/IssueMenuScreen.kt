@@ -1,19 +1,21 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.issue
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.ErrorResultPreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 import org.koin.androidx.compose.koinViewModel
 
 /**
@@ -104,17 +106,14 @@ internal fun IssueMenuScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalIssueMenuScreenPreview() {
+private fun VerticalIssueMenuScreenPreview(
+    @PreviewParameter(ErrorResultPreviewParameterProvider::class) result: RequestResult<List<String>>
+) {
     EnglishSimulatorTheme {
         IssueMenuScreen(
-            screenStateProvider = {
-                RequestResult.Success(
-                    List(8) { "Theme $it" }
-                )
-            },
+            screenStateProvider = { result },
             isVerticalScreen = true,
             onButtonClick = {},
             onBackClick = {},
@@ -123,57 +122,14 @@ private fun VerticalIssueMenuScreenPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
-private fun HorizontalIssueMenuScreenPreview() {
+private fun HorizontalIssueMenuScreenPreview(
+    @PreviewParameter(ErrorResultPreviewParameterProvider::class) result: RequestResult<List<String>>
+) {
     EnglishSimulatorTheme {
         IssueMenuScreen(
-            screenStateProvider = {
-                RequestResult.Success(
-                    List(8) { "Theme $it" }
-                )
-            },
-            isVerticalScreen = false,
-            onButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun ErrorVerticalIssueMenuScreenPreview() {
-    EnglishSimulatorTheme {
-        IssueMenuScreen(
-            screenStateProvider = { RequestResult.Error() },
-            isVerticalScreen = true,
-            onButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun ErrorHorizontalIssueMenuScreenPreview() {
-    EnglishSimulatorTheme {
-        IssueMenuScreen(
-            screenStateProvider = { RequestResult.Error() },
+            screenStateProvider = { result },
             isVerticalScreen = false,
             onButtonClick = {},
             onBackClick = {},

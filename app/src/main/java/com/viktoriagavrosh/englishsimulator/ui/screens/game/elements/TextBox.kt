@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game.elements
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -20,9 +19,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display box with text or question mark
@@ -63,25 +64,15 @@ internal fun TextBox(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun TextBoxPreview() {
+private fun TextBoxPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isShow: Boolean
+) {
     EnglishSimulatorTheme {
         TextBox(
             text = "Text",
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun AnswerTextBoxPreview() {
-    EnglishSimulatorTheme {
-        TextBox(
-            text = "Text",
-            isTextShow = false,
+            isTextShow = isShow,
         )
     }
 }

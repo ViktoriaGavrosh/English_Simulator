@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.menu
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,13 +14,16 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements.HorizontalContent
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements.SelectionDropdownMenu
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements.VerticalContent
 import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.ButtonItemsPreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display menu of quest "Translate sentences"
@@ -98,18 +100,16 @@ internal fun MenuScreenContent(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalMenuScreenContentPreview() {
+private fun VerticalMenuScreenContentPreview(
+    @PreviewParameter(ButtonItemsPreviewParameterProvider::class) buttons: List<MenuButtonItem>
+) {
     EnglishSimulatorTheme {
         MenuScreenContent(
             title = "Title of the game",
             isVerticalScreen = true,
-            buttonItems = listOf(
-                MenuButtonItem(title = "Button 1 with large text"),
-                MenuButtonItem(title = "Button 2"),
-            ),
+            buttonItems = buttons,
             isScreenWithButtons = true,
             dropdownMenuOptions = emptyList(),
             dropdownMenuSelectedOptionProvider = { "" },
@@ -119,42 +119,16 @@ private fun VerticalMenuScreenContentPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Light", widthDp = 1000)
-@Preview(
-    showBackground = true,
-    name = "Dark",
-    widthDp = 1000,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
-private fun HorizontalMenuScreenContentPreview() {
+private fun HorizontalMenuScreenContentPreview(
+    @PreviewParameter(ButtonItemsPreviewParameterProvider::class) buttons: List<MenuButtonItem>
+) {
     EnglishSimulatorTheme {
         MenuScreenContent(
             title = "Title of the game",
             isVerticalScreen = false,
-            buttonItems = List(2) {
-                MenuButtonItem(title = "Button $it")
-            },
-            isScreenWithButtons = true,
-            dropdownMenuOptions = emptyList(),
-            dropdownMenuSelectedOptionProvider = { "" },
-            onDropdownMenuValueChange = {},
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun VerticalFullMenuScreenContentPreview() {
-    EnglishSimulatorTheme {
-        MenuScreenContent(
-            title = "Title of the game",
-            isVerticalScreen = true,
-            buttonItems = List(8) {
-                MenuButtonItem(title = "Button $it")
-            },
+            buttonItems = buttons,
             isScreenWithButtons = false,
             dropdownMenuOptions = listOf("first", "second"),
             dropdownMenuSelectedOptionProvider = { "first" },
@@ -164,33 +138,7 @@ private fun VerticalFullMenuScreenContentPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Light", widthDp = 1000)
-@Preview(
-    showBackground = true,
-    name = "Dark",
-    widthDp = 1000,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun HorizontalFullMenuScreenContentPreview() {
-    EnglishSimulatorTheme {
-        MenuScreenContent(
-            title = "Title of the game",
-            isVerticalScreen = false,
-            buttonItems = List(8) {
-                MenuButtonItem(title = "Button $it")
-            },
-            isScreenWithButtons = false,
-            dropdownMenuOptions = listOf("first", "second"),
-            dropdownMenuSelectedOptionProvider = { "first" },
-            onDropdownMenuValueChange = {},
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun VerticalCardMenuScreenContentPreview() {
     EnglishSimulatorTheme {
@@ -209,13 +157,7 @@ private fun VerticalCardMenuScreenContentPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Light", widthDp = 1000)
-@Preview(
-    showBackground = true,
-    name = "Dark",
-    widthDp = 1000,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
 private fun HorizontalCardMenuScreenContentPreview() {
     EnglishSimulatorTheme {

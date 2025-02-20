@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.IconRow
@@ -31,6 +30,9 @@ import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.NextButton
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ScoreBox
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.TextBox
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display quest
@@ -226,57 +228,11 @@ private fun RowTranslate(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalTranslateScreenPreview() {
-    EnglishSimulatorTheme {
-        GameScreen(
-            gameQuestionProvider = {
-                GameQuestionUi(
-                    question = "Ru Text",
-                    translate = "En Text"
-                )
-            },
-            scoreProvider = { 0 },
-            isVerticalScreen = true,
-            onBackClick = {},
-            onNextClick = {},
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light", widthDp = 1000)
-@Preview(
-    showBackground = true,
-    name = "Dark",
-    widthDp = 1000,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun HorizontalTranslateScreenPreview() {
-    EnglishSimulatorTheme {
-        GameScreen(
-            gameQuestionProvider = {
-                GameQuestionUi(
-                    question = "Ru Text",
-                    translate = "En Text"
-                )
-            },
-            scoreProvider = { 0 },
-            isVerticalScreen = false,
-            onBackClick = {},
-            onNextClick = {},
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun EditVerticalTranslateScreenPreview() {
+private fun VerticalTranslateScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isEdit: Boolean
+) {
     EnglishSimulatorTheme {
         GameScreen(
             gameQuestionProvider = {
@@ -290,7 +246,30 @@ private fun EditVerticalTranslateScreenPreview() {
             onBackClick = {},
             onNextClick = {},
             modifier = Modifier.fillMaxSize(),
-            isEditButtonShow = true,
+            isEditButtonShow = isEdit,
+        )
+    }
+}
+
+@HorizontalScreenPreview
+@Composable
+private fun HorizontalTranslateScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isEdit: Boolean
+) {
+    EnglishSimulatorTheme {
+        GameScreen(
+            gameQuestionProvider = {
+                GameQuestionUi(
+                    question = "Ru Text",
+                    translate = "En Text"
+                )
+            },
+            scoreProvider = { 0 },
+            isVerticalScreen = false,
+            onBackClick = {},
+            onNextClick = {},
+            modifier = Modifier.fillMaxSize(),
+            isEditButtonShow = isEdit
         )
     }
 }

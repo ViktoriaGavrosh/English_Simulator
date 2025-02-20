@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display all scores of month for one quest
@@ -130,9 +130,9 @@ private fun ComposeVerticalSlider(
     }
 }
 
+@VerticalScreenPreview
 @Composable
-@Preview
-fun ComposeVerticalSliderPreview() {
+private fun ComposeVerticalSliderPreview() {
     EnglishSimulatorTheme {
         ScoresRow(
             scores = listOf(24, 12, 15, 45, 23, 42)

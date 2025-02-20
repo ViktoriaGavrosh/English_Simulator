@@ -15,6 +15,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
+import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display statistics
@@ -74,6 +76,20 @@ private fun QuestStatistic(
             modifier = Modifier
                 .height(210.dp)
                 .padding(top = dimensionResource(R.dimen.padding_medium))
+        )
+    }
+}
+
+@VerticalScreenPreview
+@Composable
+private fun StatisticColumnPreview() {
+    val scores = listOf(23, 42, 67, 12)
+    EnglishSimulatorTheme {
+        StatisticColumn(
+            translateScoresProvider = { scores },
+            issueScoresProvider = { scores },
+            dialogScoresProvider = { scores },
+            wordScoresProvider = { scores }
         )
     }
 }

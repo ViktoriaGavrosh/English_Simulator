@@ -19,9 +19,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display statistic
@@ -84,7 +84,7 @@ internal fun StatisticContent(
     }
 }
 
-@Preview
+@VerticalScreenPreview
 @Composable
 private fun StatisticContentPreview() {
     val scores = listOf(6, 34, 72, 12, 24)
