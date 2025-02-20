@@ -17,7 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,6 +55,7 @@ internal fun GameScreen(
     isEditButtonShow: Boolean = false,
     onEditButtonClick: () -> Unit = {},
 ) {
+    var isAnswerOpen by rememberSaveable { mutableStateOf(false) }
     Box(
         modifier = modifier
             .background(MaterialTheme.colorScheme.primaryContainer),
@@ -78,7 +79,14 @@ internal fun GameScreen(
             ColumnTranslate(
                 gameQuestionProvider = gameQuestionProvider,
                 scoreProvider = scoreProvider,
-                onNextClick = onNextClick,
+                onNextClick = {
+                    isAnswerOpen = false
+                    onNextClick()
+                },
+                isAnswerOpen = isAnswerOpen,
+                onAnswerClick = {
+                    isAnswerOpen = !isAnswerOpen
+                },
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(top = dimensionResource(R.dimen.padding_large)),
@@ -87,7 +95,14 @@ internal fun GameScreen(
             RowTranslate(
                 gameQuestionProvider = gameQuestionProvider,
                 scoreProvider = scoreProvider,
-                onNextClick = onNextClick,
+                onNextClick = {
+                    isAnswerOpen = false
+                    onNextClick()
+                },
+                isAnswerOpen = isAnswerOpen,
+                onAnswerClick = {
+                    isAnswerOpen = !isAnswerOpen
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = dimensionResource(R.dimen.padding_large)),
@@ -102,6 +117,8 @@ internal fun GameScreen(
  * @param gameQuestionProvider provides item for ui
  * @param scoreProvider provides score of game
  * @param onNextClick callback that is executed when next button is clicked
+ * @param isAnswerOpen if true answer will be shown
+ * @param onAnswerClick callback that is executed when answer box is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -109,9 +126,10 @@ private fun ColumnTranslate(
     gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     onNextClick: () -> Unit,
+    isAnswerOpen: Boolean,
+    onAnswerClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var isAnswerOpen by remember { mutableStateOf(false) }
     val gameQuestion = gameQuestionProvider()
 
     Column(
@@ -130,14 +148,11 @@ private fun ColumnTranslate(
             text = gameQuestion.translate,
             isTextShow = isAnswerOpen,
             modifier = Modifier.clickable {
-                isAnswerOpen = !isAnswerOpen
+                onAnswerClick()
             }
         )
         NextButton(
-            onClick = {
-                isAnswerOpen = false
-                onNextClick()
-            },
+            onClick = onNextClick,
         )
     }
 }
@@ -148,6 +163,8 @@ private fun ColumnTranslate(
  * @param gameQuestionProvider provides item for ui
  * @param scoreProvider provides score of game
  * @param onNextClick callback that is executed when next button is clicked
+ * @param isAnswerOpen if true answer will be shown
+ * @param onAnswerClick callback that is executed when answer box is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -155,9 +172,10 @@ private fun RowTranslate(
     gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     onNextClick: () -> Unit,
+    isAnswerOpen: Boolean,
+    onAnswerClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var isAnswerOpen by remember { mutableStateOf(false) }
     val gameQuestion = gameQuestionProvider()
 
     Row(
@@ -197,14 +215,11 @@ private fun RowTranslate(
                 text = gameQuestion.translate,
                 isTextShow = isAnswerOpen,
                 modifier = Modifier.clickable {
-                    isAnswerOpen = !isAnswerOpen
+                    onAnswerClick()
                 }
             )
             NextButton(
-                onClick = {
-                    isAnswerOpen = false
-                    onNextClick()
-                },
+                onClick = onNextClick,
                 modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium)),
             )
         }
