@@ -1,12 +1,11 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,8 +33,6 @@ internal fun StatisticColumn(
     wordScoresProvider: () -> List<Int>,
     modifier: Modifier = Modifier
 ) {
-
-    Log.e("123", "StatisticColumn")      // TODO log
     val quests = listOf(
         R.string.translate_button_title to translateScoresProvider,
         R.string.issue_button_title to issueScoresProvider,
@@ -43,11 +40,13 @@ internal fun StatisticColumn(
         R.string.word_button_title to wordScoresProvider
     )
 
-    LazyColumn(
-        modifier = modifier.testTag(stringResource(R.string.statistic_column_tag)),
+    Column(
+        modifier = modifier
+            .testTag(stringResource(R.string.statistic_column_tag))
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_medium))
     ) {
-        items(quests) { quest ->
+        quests.forEach { quest ->
             QuestStatistic(
                 title = stringResource(quest.first),
                 scoresProvider = quest.second,
@@ -63,7 +62,6 @@ private fun QuestStatistic(
     scoresProvider: () -> List<Int>,
     modifier: Modifier = Modifier
 ) {
-    Log.e("123", "QuestStatistic")      // TODO log
     Column(
         modifier = modifier
     ) {

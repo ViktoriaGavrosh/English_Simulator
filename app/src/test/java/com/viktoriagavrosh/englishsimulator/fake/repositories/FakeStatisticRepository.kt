@@ -66,14 +66,16 @@ class FakeStatisticRepository(
         }
         requestResult = newResult
     }
+    /*
+        override suspend fun updateDate(date: String) {
+            "Not yet implemented"
+        }
 
-    override suspend fun updateDate(date: String) {
-        TODO("Not yet implemented")
-    }
+        override fun getDate(): Flow<RequestResult<String>> {
+            "Not yet implemented"
+        }
 
-    override fun getDate(): Flow<RequestResult<String>> {
-        TODO("Not yet implemented")
-    }
+     */
 
     override suspend fun insertStatistic(statistic: Statistic) {
         val newResult = requestResult.map { list ->

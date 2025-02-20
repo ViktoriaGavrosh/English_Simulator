@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.statistic
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,18 +26,18 @@ fun StatisticScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Log.e("123", "StatisticScreen start")      // TODO log
-
-    StatisticScreen(
-        translateScoresProvider = { uiState.translateScores },
-        issueScoresProvider = { uiState.issueScores },
-        dialogScoresProvider = { uiState.dialogScores },
-        wordScoresProvider = { uiState.wordScores },
-        isErrorProvider = { uiState.isError },
-        onTabClick = viewModel::updateUiState,
-        onBackClick = onBackClick,
-        modifier = modifier
-    )
+    if (uiState.translateScores.isNotEmpty()) {
+        StatisticScreen(
+            translateScoresProvider = { uiState.translateScores },
+            issueScoresProvider = { uiState.issueScores },
+            dialogScoresProvider = { uiState.dialogScores },
+            wordScoresProvider = { uiState.wordScores },
+            isErrorProvider = { uiState.isError },
+            onTabClick = viewModel::updateUiState,
+            onBackClick = onBackClick,
+            modifier = modifier
+        )
+    }
 }
 
 /**
@@ -64,8 +63,6 @@ internal fun StatisticScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Log.e("123", "StatisticScreen")      // TODO log
-
     if (isErrorProvider()) {
         ErrorScreen(
             onErrorButtonClick = onBackClick,

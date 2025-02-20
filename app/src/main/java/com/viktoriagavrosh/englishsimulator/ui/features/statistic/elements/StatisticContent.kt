@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,8 +42,6 @@ internal fun StatisticContent(
     onTabClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Log.e("123", "StatisticContent")      // TODO log
-
     val tabs = listOf(stringResource(R.string.last_month), stringResource(R.string.this_month))
     var selectedTabIndex by remember { mutableIntStateOf(1) }
     Column(
@@ -54,7 +51,6 @@ internal fun StatisticContent(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Log.e("123", "TabRow")      // TODO log
             tabs.forEachIndexed { index, month ->
                 Tab(
                     selected = selectedTabIndex == index,

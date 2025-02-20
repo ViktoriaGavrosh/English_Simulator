@@ -39,7 +39,6 @@ class StatisticViewModel(
                 is RequestResult.Success -> {
                     val list = requestResult.data
                     updateStatistics(list)
-                    // Log.e("123", "VM updateUiState ${uiState.first()}")      // TODO log
                 }
 
                 is RequestResult.Error -> updateIsError()
@@ -56,7 +55,6 @@ class StatisticViewModel(
             if (!uiState.first().isError) {
                 updateUiState(1)
             }
-            //  Log.e("123", "VM initUiState ${uiState.first()}")      // TODO log
         }
     }
 

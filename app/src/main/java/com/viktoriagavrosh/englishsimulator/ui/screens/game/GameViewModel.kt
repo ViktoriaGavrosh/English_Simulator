@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.game
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.QuestionManager
@@ -54,7 +53,6 @@ class GameViewModel(
                 )
             }
             increaseScore()
-            Log.e("123", "VM updateUiState ${uiState.first()}")      // TODO log
         }
     }
 
@@ -92,7 +90,6 @@ class GameViewModel(
                     }
                 }
             }
-            Log.e("123", "VM initUiState ${uiState.first()}")      // TODO log
         }
     }
 

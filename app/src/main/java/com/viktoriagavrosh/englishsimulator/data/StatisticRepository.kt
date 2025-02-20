@@ -10,28 +10,28 @@ import com.viktoriagavrosh.englishsimulator.utils.getRequestResultFlow
 import com.viktoriagavrosh.englishsimulator.utils.toStatistic
 import com.viktoriagavrosh.englishsimulator.utils.toStatisticDb
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 /**
  * provide data for statistic from data source
  */
 interface StatisticRepository {
+    /*
+        /**
+         * Retrieve item from given data source
+         *
+         * @return flow of [RequestResult] of [String]
+         */
+        fun getDate(): Flow<RequestResult<String>>
 
-    /**
-     * Retrieve item from given data source
-     *
-     * @return flow of [RequestResult] of [String]
+        /**
+         * Update value of item from given data source
+         *
+         * @param date new value
+         */
+        suspend fun updateDate(date: String)
+
+
      */
-    fun getDate(): Flow<RequestResult<String>>
-
-    /**
-     * Update value of item from given data source
-     *
-     * @param date new value
-     */
-    suspend fun updateDate(date: String)
-
     /**
      * Update translate_score field of Statistic in data source
      *
@@ -116,29 +116,31 @@ class LocalStatisticRepository(
     private val database: AppDatabase,
     private val preferencesManager: PreferencesManager
 ) : StatisticRepository {
-
-    /**
-     * Retrieve date from DataStore
-     *
-     * @return flow of [RequestResult] of [String]
-     */
-    override fun getDate(): Flow<RequestResult<String>> {
-        return try {
-            preferencesManager.getDate()
-                .map { RequestResult.Success(it) }
-        } catch (e: Exception) {
-            flow { emit(RequestResult.Error()) }
+    /*
+        /**
+         * Retrieve date from DataStore
+         *
+         * @return flow of [RequestResult] of [String]
+         */
+        override fun getDate(): Flow<RequestResult<String>> {
+            return try {
+                preferencesManager.getDate()
+                    .map { RequestResult.Success(it) }
+            } catch (e: Exception) {
+                flow { emit(RequestResult.Error()) }
+            }
         }
-    }
 
-    /**
-     * Update value of date from DataStore
-     *
-     * @param date new value
+        /**
+         * Update value of date from DataStore
+         *
+         * @param date new value
+         */
+        override suspend fun updateDate(date: String) {
+            preferencesManager.updateDate(date)
+        }
+
      */
-    override suspend fun updateDate(date: String) {
-        preferencesManager.updateDate(date)
-    }
 
     /**
      * Update translate_score field of Statistic in database

@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -38,16 +37,15 @@ fun ScoresRow(
     scores: List<Int>,
     modifier: Modifier = Modifier,
 ) {
-    Log.e("123", "ScoresRow")      // TODO log
     LazyRow(
         modifier = modifier
             .background(MaterialTheme.colorScheme.primaryContainer),
         verticalAlignment = Alignment.Bottom,
     ) {
-        itemsIndexed(                                   // TODO fix
+        itemsIndexed(
             items = scores,
             key = { index, _ -> index }
-        ) {index, item ->
+        ) { index, item ->
             OneDayScore(
                 score = item,
                 day = index + 1
@@ -137,7 +135,7 @@ private fun ComposeVerticalSlider(
 fun ComposeVerticalSliderPreview() {
     EnglishSimulatorTheme {
         ScoresRow(
-            scores = listOf(24, 12, 15, 45, 23,42)
+            scores = listOf(24, 12, 15, 45, 23, 42)
         )
     }
 }

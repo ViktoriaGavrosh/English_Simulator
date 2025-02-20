@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.screens.menu.elements
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,7 +24,6 @@ internal fun VerticalContent(
     isScreenWithButtons: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    Log.e("123", "VerticalContent")      // TODO log
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(
             if (isScreenWithButtons) {

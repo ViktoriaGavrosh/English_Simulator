@@ -1,7 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.issue
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,7 +38,6 @@ fun IssueGameScreen(
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Log.e("123", "IssueGameScreen start")      // TODO log
     IssueGameScreen(
         gameQuestionProvider = { uiState.gameQuestion },
         scoreProvider = { uiState.score },
@@ -75,8 +73,6 @@ internal fun IssueGameScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
-    Log.e("123", "IssueGameScreen")      // TODO log
     if (isErrorProvider()) {
         ErrorScreen(
             onErrorButtonClick = onBackClick,

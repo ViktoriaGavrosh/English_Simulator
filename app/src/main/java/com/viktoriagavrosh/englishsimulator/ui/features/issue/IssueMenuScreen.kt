@@ -1,7 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.issue
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,7 +34,6 @@ fun IssueMenuScreen(
     val viewModel: IssueMenuViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Log.e("123", "IssueMenuScreen start")      // TODO log
     IssueMenuScreen(
         screenStateProvider = { uiState },
         isVerticalScreen = isVerticalScreen,
@@ -62,7 +60,6 @@ internal fun IssueMenuScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Log.e("123", "IssueMenuScreen")      // TODO log
     when (val screenState = screenStateProvider()) {
         is RequestResult.Error -> {
             ErrorScreen(
