@@ -31,7 +31,7 @@ class StatisticViewModelTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
-            val actualList = viewModel.months
+            val actualList = viewModel.getListMonths()
             assertEquals(expectedList, actualList)
         }
     }
@@ -117,7 +117,7 @@ class StatisticViewModelTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeStatistics)
             )
-            val index = viewModel.months.indexOf(getMonthByNumber(newMonthNum))
+            val index = viewModel.getListMonths().indexOf(getMonthByNumber(newMonthNum))
             viewModel.updateUiState(index)
             val actualTranslateMap = viewModel.uiState.first().translateScores
             assertEquals(expectedTranslateMap, actualTranslateMap)

@@ -23,7 +23,7 @@ class StatisticViewModel(
     private val repository: StatisticRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(StatisticUiState())
-    var months: List<Month> = emptyList()
+    private var months: List<Month> = emptyList()
 
     init {
         initUiState()
@@ -48,6 +48,8 @@ class StatisticViewModel(
 
         }
     }
+
+    fun getListMonths(): List<Month> = months
 
     private fun initUiState() {
         viewModelScope.launch {
