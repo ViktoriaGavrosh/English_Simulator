@@ -1,18 +1,23 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.issue
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.di.ISSUE_SCREEN
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 
 /**
  * Composable to display quest "Tell about yourself"
@@ -27,9 +32,10 @@ fun IssueGameScreen(
     isVerticalScreen: Boolean,
     theme: String,
     onBackClick: () -> Unit,
+    onIssueScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: IssueGameViewModel = koinViewModel {
+    val viewModel: GameViewModel = koinViewModel(qualifier = named(ISSUE_SCREEN)) {
         parametersOf(theme)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -39,7 +45,10 @@ fun IssueGameScreen(
         scoreProvider = { uiState.score },
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
-        onNextButtonClick = viewModel::updateUiState,
+        onNextButtonClick = {
+            onIssueScoreUpdate()
+            viewModel.updateUiState()
+        },
         onBackClick = onBackClick,
         modifier = modifier,
     )
@@ -58,7 +67,7 @@ fun IssueGameScreen(
  */
 @Composable
 internal fun IssueGameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
@@ -83,14 +92,15 @@ internal fun IssueGameScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalIssueGameScreenPreview() {
+private fun VerticalIssueGameScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isError: Boolean
+) {
     EnglishSimulatorTheme {
         IssueGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question Question Question Question Question Question " +
                             "Question Question Question Question Question Question Question " +
                             "Question Question Question Question  Question  Question  Question",
@@ -99,74 +109,33 @@ private fun VerticalIssueGameScreenPreview() {
             },
             scoreProvider = { 5 },
             isVerticalScreen = true,
-            isErrorProvider = { false },
+            isErrorProvider = { isError },
             onNextButtonClick = {},
             onBackClick = {},
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
-private fun HorizontalIssueGameScreenPreview() {
+private fun HorizontalIssueGameScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isError: Boolean
+) {
     EnglishSimulatorTheme {
         IssueGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question",
                     translate = "Translate",
                 )
             },
             scoreProvider = { 5 },
             isVerticalScreen = false,
-            isErrorProvider = { false },
+            isErrorProvider = { isError },
             onNextButtonClick = {},
             onBackClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun ErrorVerticalIssueGameScreenPreview() {
-    EnglishSimulatorTheme {
-        IssueGameScreen(
-            gameQuestionProvider = { GameQuestion() },
-            scoreProvider = { 5 },
-            isVerticalScreen = true,
-            isErrorProvider = { true },
-            onNextButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun ErrorHorizontalIssueGameScreenPreview() {
-    EnglishSimulatorTheme {
-        IssueGameScreen(
-            gameQuestionProvider = { GameQuestion() },
-            scoreProvider = { 5 },
-            isVerticalScreen = false,
-            isErrorProvider = { true },
-            onNextButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
         )
     }
 }

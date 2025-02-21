@@ -1,20 +1,21 @@
 package com.viktoriagavrosh.englishsimulator.fake.repositories
 
+import com.viktoriagavrosh.englishsimulator.data.GameRepository
 import com.viktoriagavrosh.englishsimulator.data.IssueRepository
-import com.viktoriagavrosh.englishsimulator.model.Issue
+import com.viktoriagavrosh.englishsimulator.model.Question
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeIssueRepository(
-    private val requestResult: RequestResult<List<Issue>>
-) : IssueRepository {
-    override fun getAllIssue(): Flow<RequestResult<List<Issue>>> {
+    private val requestResult: RequestResult<List<Question.Issue>>
+) : IssueRepository, GameRepository {
+    override fun getAllIssues(): Flow<RequestResult<List<Question.Issue>>> {
         return flow { emit(requestResult) }
     }
 
-    override fun getAllIssueByTheme(theme: String): Flow<RequestResult<List<Issue>>> {
+    override fun getAllIssuesByTheme(theme: String): Flow<RequestResult<List<Question.Issue>>> {
         val issues = requestResult.map { list ->
             list.filter { it.theme == theme }
         }

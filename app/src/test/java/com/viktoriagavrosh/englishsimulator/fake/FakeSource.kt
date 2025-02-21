@@ -1,9 +1,10 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 
 
 internal object FakeSource {
@@ -38,6 +39,18 @@ internal object FakeSource {
             englishWord = "english word $it",
             russianWord = "russian word $it",
             theme = if (it % 2 == 0) "Theme 1" else "Theme 2",
+        )
+    }
+
+    val fakeStatisticsDb = List(5) {
+        val i = it + 1
+        StatisticDb(
+            id = i,
+            date = "01-0$i-2000",
+            translateScore = i,
+            issueScore = i,
+            dialogScore = i,
+            wordScore = i,
         )
     }
 }

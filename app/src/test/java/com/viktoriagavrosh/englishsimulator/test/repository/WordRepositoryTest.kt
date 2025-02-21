@@ -3,10 +3,10 @@ package com.viktoriagavrosh.englishsimulator.test.repository
 import com.viktoriagavrosh.englishsimulator.data.LocalWordRepository
 import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.model.Word
+import com.viktoriagavrosh.englishsimulator.model.Question
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -23,7 +23,7 @@ class WordRepositoryTest {
     @Test
     fun wordRepository_getAllWords_returnListWord() {
         runTest {
-            val expectedList = FakeSource.fakeWordsDb.map { it.toWord() }
+            val expectedList = FakeSource.fakeWordsDb.map { it.toQuestion() }
             val actualList = repository.getAllWords()
                 .first().data ?: emptyList()
 
@@ -50,7 +50,7 @@ class WordRepositoryTest {
             val theme = FakeSource.fakeWordsDb[0].theme
             val expectedList = FakeSource.fakeWordsDb
                 .filter { it.theme == theme }
-                .map { it.toWord() }
+                .map { it.toQuestion() }
             val actualList = repository.getAllWordsByTheme(theme = theme)
                 .first().data ?: emptyList()
 
@@ -110,9 +110,9 @@ class WordRepositoryTest {
     fun wordRepository_getWordById_returnWord() {
         runTest {
             val id = FakeSource.fakeWordsDb[2].id
-            val expected = FakeSource.fakeWordsDb.first { it.id == id }.toWord()
+            val expected = FakeSource.fakeWordsDb.first { it.id == id }.toQuestion()
             val actual = repository.getWordById(id)
-                .first().data ?: Word()
+                .first().data ?: Question.Word()
 
             assertEquals(
                 expected,
@@ -146,10 +146,10 @@ class WordRepositoryTest {
     fun wordRepository_insertWord_newWordInsert() {
         runTest {
             val id = 125
-            val expected = Word(id = id)
+            val expected = Question.Word(id = id)
             repository.insertWord(expected)
             val actual = repository.getWordById(id)
-                .first().data ?: Word()
+                .first().data ?: Question.Word()
             repository.deleteWord(expected)
             assertEquals(
                 expected,
@@ -162,10 +162,11 @@ class WordRepositoryTest {
     fun wordRepository_updateWord_newWordUpdated() {
         runTest {
             val newText = "newText"
-            val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText).toWord()
+            val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText)
+                .toQuestion() as Question.Word
             repository.updateWord(expected)
             val actual = repository.getWordById(expected.id)
-                .first().data ?: Word()
+                .first().data ?: Question.Word()
             assertEquals(
                 expected,
                 actual
@@ -177,10 +178,10 @@ class WordRepositoryTest {
     fun wordRepository_deleteWord_newWordDeleted() {
         runTest {
             val id = 125
-            val expected = Word(id = id)
+            val expected = Question.Word(id = id)
             repository.insertWord(expected)
             val actual = repository.getWordById(id)
-                .first().data ?: Word()
+                .first().data ?: Question.Word()
             assertEquals(
                 expected,
                 actual

@@ -5,7 +5,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toSentence
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -22,7 +22,7 @@ class TranslateRepositoryTest {
     @Test
     fun translateRepository_getAllSentences_returnListSentences() {
         runTest {
-            val expectedList = FakeSource.fakeSentencesDb.map { it.toSentence() }
+            val expectedList = FakeSource.fakeSentencesDb.map { it.toQuestion() }
             val actualList = repository.getAllSentences()
                 .first().data ?: emptyList()
 

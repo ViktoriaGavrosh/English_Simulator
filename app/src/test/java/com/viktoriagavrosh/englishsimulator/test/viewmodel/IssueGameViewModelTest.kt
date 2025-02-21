@@ -1,13 +1,13 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
+import com.viktoriagavrosh.englishsimulator.fake.FakeQuestionManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeIssueRepository
-import com.viktoriagavrosh.englishsimulator.model.Issue
-import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toIssue
+import com.viktoriagavrosh.englishsimulator.model.ModelName
+import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toIssue
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +19,7 @@ class IssueGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeIssues = FakeSource.fakeIssuesDb.map { it.toIssue() }
+    private val fakeIssues = FakeSource.fakeIssuesDb.map { it.toQuestion() }
 
     @Test
     fun issueGameViewModel_initUiState_initGameQuestion() {
@@ -29,8 +29,10 @@ class IssueGameViewModelTest {
                 requestResult = RequestResult.Success(fakeIssues),
                 theme = theme,
             )
-            val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toIssue(theme) in fakeIssues)
+            val actualGameQuestion = viewModel.uiState.first()
+                .gameQuestion
+                .toQuestion(isToEnglish = false, theme = theme, modelName = ModelName.Issue)
+            assert(actualGameQuestion in fakeIssues)
         }
     }
 
@@ -55,7 +57,7 @@ class IssueGameViewModelTest {
     }
 
     @Test
-    fun issueGameViewModel_updateUiState_gameQuestionUpdated() { // sometimes failed because updateUiState() contains random()
+    fun issueGameViewModel_updateUiState_gameQuestionUpdated() {
         runTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeIssues)
@@ -79,11 +81,11 @@ class IssueGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Issue>>,
+        requestResult: RequestResult<List<Question>>,
         theme: String = FakeSource.fakeIssuesDb[0].theme,
-    ): IssueGameViewModel {
-        return IssueGameViewModel(
-            issueRepository = FakeIssueRepository(requestResult),
+    ): GameViewModel {
+        return GameViewModel(
+            questionManager = FakeQuestionManager(requestResult),
             theme = theme,
         )
     }

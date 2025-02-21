@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 
 /**
  * Database interface
@@ -17,20 +18,23 @@ interface AppDatabase {
     fun issueDao(): IssueDao
     fun dialogDao(): DialogDao
     fun wordDao(): WordDao
+    fun statisticDao(): StatisticDao
 }
 
 /**
  * Database class with a singleton Instance object.
  */
 @Database(
-    entities = [SentenceDb::class, IssueDb::class, DialogDb::class, WordDb::class],
-    version = 3,
+    entities = [SentenceDb::class, IssueDb::class, DialogDb::class, WordDb::class, StatisticDb::class],
+    version = 7,
     exportSchema = false,
 )
 internal abstract class AppRoomDatabase : RoomDatabase(), AppDatabase {
     abstract override fun sentenceDao(): SentenceDao
     abstract override fun issueDao(): IssueDao
     abstract override fun dialogDao(): DialogDao
+    abstract override fun wordDao(): WordDao
+    abstract override fun statisticDao(): StatisticDao
 }
 
 /**
@@ -50,3 +54,5 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
 
     return appRoomDatabase
 }
+
+

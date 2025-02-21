@@ -5,7 +5,7 @@ import com.viktoriagavrosh.englishsimulator.fake.FakeDb
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toIssue
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -22,8 +22,8 @@ class IssueRepositoryTest {
     @Test
     fun issueRepository_getAllIssue_returnListIssue() {
         runTest {
-            val expectedList = FakeSource.fakeIssuesDb.map { it.toIssue() }
-            val actualList = repository.getAllIssue()
+            val expectedList = FakeSource.fakeIssuesDb.map { it.toQuestion() }
+            val actualList = repository.getAllIssues()
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -36,7 +36,7 @@ class IssueRepositoryTest {
     @Test
     fun issueRepository_getAllIssue_returnRequestResultSuccess() {
         runTest {
-            val isSuccess = repository.getAllIssue()
+            val isSuccess = repository.getAllIssues()
                 .first() is RequestResult.Success
 
             assert(isSuccess)
@@ -49,8 +49,8 @@ class IssueRepositoryTest {
             val theme = FakeSource.fakeIssuesDb[0].theme
             val expectedList = FakeSource.fakeIssuesDb
                 .filter { it.theme == theme }
-                .map { it.toIssue() }
-            val actualList = repository.getAllIssueByTheme(theme = theme)
+                .map { it.toQuestion() }
+            val actualList = repository.getAllIssuesByTheme(theme = theme)
                 .first().data ?: emptyList()
 
             assertEquals(
@@ -64,7 +64,7 @@ class IssueRepositoryTest {
     fun issueRepository_getAllIssueByTheme_returnRequestResultSuccess() {
         runTest {
             val theme = FakeSource.fakeIssuesDb[0].theme
-            val isSuccess = repository.getAllIssueByTheme(theme = theme)
+            val isSuccess = repository.getAllIssuesByTheme(theme = theme)
                 .first() is RequestResult.Success
 
             assert(isSuccess)
@@ -75,7 +75,7 @@ class IssueRepositoryTest {
     fun issueRepository_getAllIssueByTheme_returnRequestResultError() {
         runTest {
             val theme = "no"
-            val isError = repository.getAllIssueByTheme(theme = theme)
+            val isError = repository.getAllIssuesByTheme(theme = theme)
                 .first() is RequestResult.Error
             assert(isError)
         }

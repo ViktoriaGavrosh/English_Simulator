@@ -64,7 +64,7 @@ class WordDaoTest {
         val expected = FakeSource.fakeWordsDb[0].copy(englishWord = newText)
         wordDao.update(expected)
         val actual = wordDao.getWordById(expected.id).first()
-        assertEquals(expected,actual)
+        assertEquals(expected, actual)
     }
 
     @Test

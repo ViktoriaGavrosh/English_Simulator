@@ -1,19 +1,23 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.word
 
-import android.content.res.Configuration
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.di.WORD_SCREEN
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
 import com.viktoriagavrosh.englishsimulator.ui.navigation.Quest
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 
 /**
  * Composable to display quest "FlashCards"
@@ -32,10 +36,11 @@ fun WordGameScreen(
     theme: String,
     onEditButtonClick: (Int) -> Unit,
     onBackClick: () -> Unit,
+    onWordScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val isToEnglish = quest == Quest.RuToEn
-    val viewModel: WordGameViewModel = koinViewModel {
+    val viewModel: GameViewModel = koinViewModel(named(WORD_SCREEN)) {
         parametersOf(theme, isToEnglish)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -46,8 +51,11 @@ fun WordGameScreen(
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
         onEditButtonClick = { onEditButtonClick(uiState.gameQuestion.id) },
+        onNextButtonClick = {
+            onWordScoreUpdate()
+            viewModel.updateUiState()
+        },
         onBackClick = onBackClick,
-        onNextButtonClick = viewModel::updateUiState,
         modifier = modifier,
     )
 }
@@ -66,7 +74,7 @@ fun WordGameScreen(
  */
 @Composable
 internal fun WordGameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
@@ -94,14 +102,15 @@ internal fun WordGameScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalWordGameScreenPreview() {
+private fun VerticalWordGameScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isError: Boolean
+) {
     EnglishSimulatorTheme {
         WordGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question Question Question Question Question Question " +
                             "Question Question Question Question Question Question Question " +
                             "Question Question Question Question",
@@ -110,7 +119,7 @@ private fun VerticalWordGameScreenPreview() {
             },
             scoreProvider = { 5 },
             isVerticalScreen = true,
-            isErrorProvider = { false },
+            isErrorProvider = { isError },
             onNextButtonClick = {},
             onEditButtonClick = {},
             onBackClick = {},
@@ -118,70 +127,25 @@ private fun VerticalWordGameScreenPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
-private fun HorizontalWordGameScreenPreview() {
+private fun HorizontalWordGameScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isError: Boolean
+) {
     EnglishSimulatorTheme {
         WordGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question",
                     translate = "Translate",
                 )
             },
             scoreProvider = { 5 },
             isVerticalScreen = false,
-            isErrorProvider = { false },
+            isErrorProvider = { isError },
             onNextButtonClick = {},
             onEditButtonClick = {},
             onBackClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun ErrorVerticalWordGameScreenPreview() {
-    EnglishSimulatorTheme {
-        WordGameScreen(
-            gameQuestionProvider = { GameQuestion() },
-            scoreProvider = { 5 },
-            isVerticalScreen = true,
-            isErrorProvider = { true },
-            onNextButtonClick = {},
-            onEditButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun ErrorHorizontalWordGameScreenPreview() {
-    EnglishSimulatorTheme {
-        WordGameScreen(
-            gameQuestionProvider = { GameQuestion() },
-            scoreProvider = { 5 },
-            isVerticalScreen = false,
-            isErrorProvider = { true },
-            onNextButtonClick = {},
-            onEditButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
         )
     }
 }

@@ -1,0 +1,275 @@
+package com.viktoriagavrosh.englishsimulator.ui.screens.game
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import com.viktoriagavrosh.englishsimulator.R
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.IconRow
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.NextButton
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ScoreBox
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.TextBox
+import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
+
+/**
+ * Composable to display quest
+ *
+ * @param gameQuestionProvider provides item for ui
+ * @param scoreProvider provides score of game
+ * @param isVerticalScreen boolean parameter describes screen orientation
+ * @param onBackClick callback that is executed when back button is clicked
+ * @param onNextClick callback that is executed when next button is clicked
+ * @param modifier the modifier to be applied to this layout node
+ * @param isEditButtonShow if true Edit button will be shown
+ * @param onEditButtonClick callback that is executed when edit button is clicked
+ */
+@Composable
+internal fun GameScreen(
+    gameQuestionProvider: () -> GameQuestionUi,
+    scoreProvider: () -> Int,
+    isVerticalScreen: Boolean,
+    onBackClick: () -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier,
+    isEditButtonShow: Boolean = false,
+    onEditButtonClick: () -> Unit = {},
+) {
+    var isAnswerOpen by rememberSaveable { mutableStateOf(false) }
+    Box(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.primaryContainer),
+    ) {
+        IconRow(
+            iconId = R.drawable.ic_back,
+            contentDescription = stringResource(R.string.back),
+            onIconClick = onBackClick,
+        )
+        if (isEditButtonShow) {
+            IconRow(
+                iconId = R.drawable.ic_edit,
+                contentDescription = stringResource(R.string.edit),
+                onIconClick = onEditButtonClick,
+                isLeft = false,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+        }
+        if (isVerticalScreen) {
+            ColumnTranslate(
+                gameQuestionProvider = gameQuestionProvider,
+                scoreProvider = scoreProvider,
+                onNextClick = {
+                    isAnswerOpen = false
+                    onNextClick()
+                },
+                isAnswerOpen = isAnswerOpen,
+                onAnswerClick = {
+                    isAnswerOpen = !isAnswerOpen
+                },
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(top = dimensionResource(R.dimen.padding_large)),
+            )
+        } else {
+            RowTranslate(
+                gameQuestionProvider = gameQuestionProvider,
+                scoreProvider = scoreProvider,
+                onNextClick = {
+                    isAnswerOpen = false
+                    onNextClick()
+                },
+                isAnswerOpen = isAnswerOpen,
+                onAnswerClick = {
+                    isAnswerOpen = !isAnswerOpen
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = dimensionResource(R.dimen.padding_large)),
+            )
+        }
+    }
+}
+
+/**
+ * Composable to display TranslateScreen content (vertical screen orientation)
+ *
+ * @param gameQuestionProvider provides item for ui
+ * @param scoreProvider provides score of game
+ * @param onNextClick callback that is executed when next button is clicked
+ * @param isAnswerOpen if true answer will be shown
+ * @param onAnswerClick callback that is executed when answer box is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
+@Composable
+private fun ColumnTranslate(
+    gameQuestionProvider: () -> GameQuestionUi,
+    scoreProvider: () -> Int,
+    onNextClick: () -> Unit,
+    isAnswerOpen: Boolean,
+    onAnswerClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val gameQuestion = gameQuestionProvider()
+
+    Column(
+        modifier = modifier.padding(
+            horizontal = dimensionResource(R.dimen.padding_extra_large)
+        ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceAround,
+    ) {
+        ScoreBox(score = scoreProvider())
+        TextBox(
+            text = gameQuestion.question,
+            modifier = Modifier
+        )
+        TextBox(
+            text = gameQuestion.translate,
+            isTextShow = isAnswerOpen,
+            modifier = Modifier.clickable {
+                onAnswerClick()
+            }
+        )
+        NextButton(
+            onClick = onNextClick,
+        )
+    }
+}
+
+/**
+ * Composable to display TranslateScreen content (horizontal screen orientation)
+ *
+ * @param gameQuestionProvider provides item for ui
+ * @param scoreProvider provides score of game
+ * @param onNextClick callback that is executed when next button is clicked
+ * @param isAnswerOpen if true answer will be shown
+ * @param onAnswerClick callback that is executed when answer box is clicked
+ * @param modifier the modifier to be applied to this layout node
+ */
+@Composable
+private fun RowTranslate(
+    gameQuestionProvider: () -> GameQuestionUi,
+    scoreProvider: () -> Int,
+    onNextClick: () -> Unit,
+    isAnswerOpen: Boolean,
+    onAnswerClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val gameQuestion = gameQuestionProvider()
+
+    Row(
+        modifier = modifier.padding(
+            horizontal = dimensionResource(R.dimen.padding_double_large)
+        ),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1F)
+                .fillMaxHeight()
+                .padding(bottom = dimensionResource(R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            TextBox(
+                text = gameQuestion.question,
+                modifier = Modifier
+            )
+            ScoreBox(
+                score = scoreProvider(),
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium)),
+            )
+        }
+        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_double_large)))
+        Column(
+            modifier = Modifier
+                .weight(1F)
+                .fillMaxHeight()
+                .padding(bottom = dimensionResource(R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            TextBox(
+                text = gameQuestion.translate,
+                isTextShow = isAnswerOpen,
+                modifier = Modifier.clickable {
+                    onAnswerClick()
+                }
+            )
+            NextButton(
+                onClick = onNextClick,
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_medium)),
+            )
+        }
+    }
+}
+
+@VerticalScreenPreview
+@Composable
+private fun VerticalTranslateScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isEdit: Boolean
+) {
+    EnglishSimulatorTheme {
+        GameScreen(
+            gameQuestionProvider = {
+                GameQuestionUi(
+                    question = "Ru Text",
+                    translate = "En Text"
+                )
+            },
+            scoreProvider = { 0 },
+            isVerticalScreen = true,
+            onBackClick = {},
+            onNextClick = {},
+            modifier = Modifier.fillMaxSize(),
+            isEditButtonShow = isEdit,
+        )
+    }
+}
+
+@HorizontalScreenPreview
+@Composable
+private fun HorizontalTranslateScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isEdit: Boolean
+) {
+    EnglishSimulatorTheme {
+        GameScreen(
+            gameQuestionProvider = {
+                GameQuestionUi(
+                    question = "Ru Text",
+                    translate = "En Text"
+                )
+            },
+            scoreProvider = { 0 },
+            isVerticalScreen = false,
+            onBackClick = {},
+            onNextClick = {},
+            modifier = Modifier.fillMaxSize(),
+            isEditButtonShow = isEdit
+        )
+    }
+}

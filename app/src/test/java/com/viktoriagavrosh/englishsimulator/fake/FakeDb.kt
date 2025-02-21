@@ -4,11 +4,13 @@ import com.viktoriagavrosh.englishsimulator.data.database.AppDatabase
 import com.viktoriagavrosh.englishsimulator.data.database.DialogDao
 import com.viktoriagavrosh.englishsimulator.data.database.IssueDao
 import com.viktoriagavrosh.englishsimulator.data.database.SentenceDao
+import com.viktoriagavrosh.englishsimulator.data.database.StatisticDao
 import com.viktoriagavrosh.englishsimulator.data.database.WordDao
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -17,6 +19,7 @@ internal class FakeDb : AppDatabase {
     override fun issueDao(): IssueDao = FakeIssueDao()
     override fun dialogDao(): DialogDao = FakeDialogDao()
     override fun wordDao(): WordDao = FakeWordDao
+    override fun statisticDao(): StatisticDao = FakeStatisticDao
 }
 
 private class FakeSentenceDao : SentenceDao {
@@ -113,5 +116,68 @@ private object FakeWordDao : WordDao {
         val oldWord = words.first { it.id == wordDb.id }
         val index = words.indexOf(oldWord)
         words[index] = wordDb
+    }
+}
+
+private object FakeStatisticDao : StatisticDao {
+
+    val statistics = FakeSource.fakeStatisticsDb.toMutableList()
+
+    override suspend fun update(statisticDb: StatisticDb) {
+        val oldItem = statistics.first { it.id == statisticDb.id }
+        val index = statistics.indexOf(oldItem)
+        statistics[index] = statisticDb
+    }
+
+    override suspend fun insert(statisticDb: StatisticDb) {
+        statistics.add(statisticDb)
+    }
+
+    override fun getStatisticByDate(date: String): Flow<List<StatisticDb>> {
+        val result = statistics.filter { it.date == date }
+        if (result.isEmpty()) throw IllegalArgumentException()
+        return flow { emit(result) }
+    }
+
+    override fun getAllStatisticsByMonth(month: String): Flow<List<StatisticDb>> {
+        val result = statistics.filter { it.date.substring(3, 5) == month }
+        if (result.isEmpty()) throw IllegalArgumentException()
+        return flow { emit(result) }
+    }
+
+    override fun getAllMonths(): Flow<List<String>> {
+        val months = statistics.map { it.date.substring(3, 5) }.distinct()
+        return flow { emit(months) }
+    }
+
+    override suspend fun updateTranslateScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].translateScore + 1
+        statistics[index] = statistics[index].copy(translateScore = newScore)
+    }
+
+    override suspend fun updateIssueScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].issueScore + 1
+        statistics[index] = statistics[index].copy(issueScore = newScore)
+    }
+
+    override suspend fun updateDialogScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].dialogScore + 1
+        statistics[index] = statistics[index].copy(dialogScore = newScore)
+    }
+
+    override suspend fun updateWordScore(date: String) {
+        val index = statistics.indexOfFirst { it.date == date }
+        val newScore = statistics[index].wordScore + 1
+        statistics[index] = statistics[index].copy(wordScore = newScore)
+    }
+
+    override suspend fun deleteAllStatisticsByMonth(thisMonth: String, lastMonth: String) {
+        statistics.removeAll {
+            val month = it.date.substring(3)
+            month != thisMonth && month != lastMonth
+        }
     }
 }

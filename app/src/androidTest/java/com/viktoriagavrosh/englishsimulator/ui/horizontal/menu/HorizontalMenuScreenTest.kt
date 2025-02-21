@@ -14,8 +14,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.MenuScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithContentDescriptionById
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithTagById

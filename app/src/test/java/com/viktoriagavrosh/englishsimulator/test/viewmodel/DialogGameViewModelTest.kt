@@ -1,13 +1,13 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
+import com.viktoriagavrosh.englishsimulator.fake.FakeQuestionManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeDialogRepository
-import com.viktoriagavrosh.englishsimulator.model.Dialog
-import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameViewModel
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toDialog
+import com.viktoriagavrosh.englishsimulator.model.ModelName
+import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toDialog
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +19,7 @@ class DialogGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeDialogs = FakeSource.fakeDialogsDb.map { it.toDialog() }
+    private val fakeDialogs = FakeSource.fakeDialogsDb.map { it.toQuestion() }
 
     @Test
     fun dialogGameViewModel_initUiState_initGameQuestion() {
@@ -27,8 +27,10 @@ class DialogGameViewModelTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeDialogs),
             )
-            val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toDialog() in fakeDialogs)
+            val actualGameQuestion = viewModel.uiState.first()
+                .gameQuestion
+                .toQuestion(isToEnglish = false, modelName = ModelName.Dialog)
+            assert(actualGameQuestion in fakeDialogs)
         }
     }
 
@@ -77,10 +79,10 @@ class DialogGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Dialog>>,
-    ): DialogGameViewModel {
-        return DialogGameViewModel(
-            dialogRepository = FakeDialogRepository(requestResult),
+        requestResult: RequestResult<List<Question>>,
+    ): GameViewModel {
+        return GameViewModel(
+            questionManager = FakeQuestionManager(requestResult),
         )
     }
 }

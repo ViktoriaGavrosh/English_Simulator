@@ -1,13 +1,12 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
+import com.viktoriagavrosh.englishsimulator.fake.FakeQuestionManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeWordRepository
-import com.viktoriagavrosh.englishsimulator.model.Word
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.toWord
-import com.viktoriagavrosh.englishsimulator.ui.features.word.WordGameViewModel
+import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import com.viktoriagavrosh.englishsimulator.utils.TestDispatcherRule
-import com.viktoriagavrosh.englishsimulator.utils.toWord
+import com.viktoriagavrosh.englishsimulator.utils.toQuestion
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotEquals
@@ -19,7 +18,7 @@ class WordGameViewModelTest {
     @get:Rule
     val testDispatcher = TestDispatcherRule()
 
-    private val fakeWords = FakeSource.fakeWordsDb.map { it.toWord() }
+    private val fakeWords = FakeSource.fakeWordsDb.map { it.toQuestion() }
 
     @Test
     fun wordGameViewModel_initUiState_initGameQuestion() {
@@ -32,7 +31,7 @@ class WordGameViewModelTest {
                 isToEnglish = isToEnglish
             )
             val actualGameQuestion = viewModel.uiState.first().gameQuestion
-            assert(actualGameQuestion.toWord(theme, isToEnglish) in fakeWords)
+            assert(actualGameQuestion.toQuestion(theme, isToEnglish) in fakeWords)
         }
     }
 
@@ -57,7 +56,7 @@ class WordGameViewModelTest {
     }
 
     @Test
-    fun wordGameViewModel_updateUiState_gameQuestionUpdated() { // sometimes failed because updateUiState() contains random()
+    fun wordGameViewModel_updateUiState_gameQuestionUpdated() {
         runTest {
             val viewModel = initViewModel(
                 requestResult = RequestResult.Success(fakeWords)
@@ -81,12 +80,12 @@ class WordGameViewModelTest {
     }
 
     private fun initViewModel(
-        requestResult: RequestResult<List<Word>>,
+        requestResult: RequestResult<List<Question>>,
         theme: String = FakeSource.fakeWordsDb[0].theme,
         isToEnglish: Boolean = true,
-    ): WordGameViewModel {
-        return WordGameViewModel(
-            repository = FakeWordRepository(requestResult),
+    ): GameViewModel {
+        return GameViewModel(
+            questionManager = FakeQuestionManager(requestResult),
             theme = theme,
             isToEnglish = isToEnglish,
         )

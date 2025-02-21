@@ -60,6 +60,14 @@ class HorizontalStartMenuScreenTest {
     }
 
     @Test
+    fun startMenuScreen_horizontal_statisticButtonIsDisplayed() {
+        setMenuScreen()
+        composeTestRule.onNodeWithTextById(R.string.statistic_button_title)
+            .assertExists("No statistic button")
+            .assertIsDisplayed()
+    }
+
+    @Test
     fun startMenuScreen_horizontal_backButtonIsNotDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.back)
@@ -89,6 +97,7 @@ class HorizontalStartMenuScreenTest {
                     onIssueButtonClick = {},
                     onDialogButtonClick = {},
                     onWordButtonClick = {},
+                    onStatisticButtonClick = {},
                     modifier = Modifier.fillMaxSize(),
                 )
             }

@@ -14,8 +14,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.onNodeWithContentDescriptionById
 import org.junit.Rule
@@ -161,7 +161,7 @@ class VerticalGameScreenTest {
     }
 
     private fun setGameScreen(
-        gameQuestion: GameQuestion = FakeSource.fakeGameQuestion[0],
+        gameQuestion: GameQuestionUi = FakeSource.fakeGameQuestion[0],
         score: Int = 0,
         isEditButtonShow: Boolean = false,
     ) {

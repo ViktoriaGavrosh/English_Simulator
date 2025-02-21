@@ -1,15 +1,15 @@
 package com.viktoriagavrosh.englishsimulator.ui.features
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.viktoriagavrosh.englishsimulator.R
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.MenuScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.menu.model.MenuButtonItem
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.MenuScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.menu.model.MenuButtonItem
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
 /**
  * Composable to display menu
@@ -19,6 +19,7 @@ import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
  * @param onIssueButtonClick callback that is executed when issue button is clicked
  * @param onDialogButtonClick callback that is executed when dialog button is clicked
  * @param onWordButtonClick callback that is executed when word button is clicked
+ * @param onStatisticButtonClick callback that is executed when statistic button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -28,6 +29,7 @@ fun StartMenuScreen(
     onIssueButtonClick: () -> Unit,
     onDialogButtonClick: () -> Unit,
     onWordButtonClick: () -> Unit,
+    onStatisticButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonItems = listOf(
@@ -46,6 +48,10 @@ fun StartMenuScreen(
         MenuButtonItem(
             title = stringResource(R.string.word_button_title),
             onClick = onWordButtonClick,
+        ),
+        MenuButtonItem(
+            title = stringResource(R.string.statistic_button_title),
+            onClick = onStatisticButtonClick,
         )
     )
 
@@ -64,8 +70,7 @@ fun StartMenuScreen(
     )
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
 private fun VerticalStartMenuScreenPreview() {
     EnglishSimulatorTheme {
@@ -75,18 +80,13 @@ private fun VerticalStartMenuScreenPreview() {
             onIssueButtonClick = {},
             onDialogButtonClick = {},
             onWordButtonClick = {},
+            onStatisticButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
 }
 
-@Preview(showBackground = true, name = "Light", widthDp = 1000)
-@Preview(
-    showBackground = true,
-    name = "Dark",
-    widthDp = 1000,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
 private fun HorizontalMenuScreenContentPreview() {
     EnglishSimulatorTheme {
@@ -96,6 +96,7 @@ private fun HorizontalMenuScreenContentPreview() {
             onIssueButtonClick = {},
             onDialogButtonClick = {},
             onWordButtonClick = {},
+            onStatisticButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

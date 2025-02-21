@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import kotlinx.coroutines.flow.Flow
 
 @Dao

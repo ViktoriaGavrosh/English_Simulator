@@ -1,78 +1,170 @@
 package com.viktoriagavrosh.englishsimulator.utils
 
-import com.viktoriagavrosh.englishsimulator.model.Dialog
-import com.viktoriagavrosh.englishsimulator.model.DialogDb
-import com.viktoriagavrosh.englishsimulator.model.Issue
-import com.viktoriagavrosh.englishsimulator.model.IssueDb
-import com.viktoriagavrosh.englishsimulator.model.Sentence
-import com.viktoriagavrosh.englishsimulator.model.SentenceDb
-import com.viktoriagavrosh.englishsimulator.model.Word
-import com.viktoriagavrosh.englishsimulator.model.WordDb
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.model.ModelName
+import com.viktoriagavrosh.englishsimulator.model.Question
+import com.viktoriagavrosh.englishsimulator.model.Statistic
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.StatisticDb
+import com.viktoriagavrosh.englishsimulator.model.dbmodel.WordDb
 
 /**
- * Converts [SentenceDb] instance to [Sentence] instance for repository
+ * Converts [SentenceDb] instance to [Question] instance
  *
- * @return [Sentence] instance
+ * @return [Question] instance
  */
-internal fun SentenceDb.toSentence(): Sentence {
-    return Sentence(
+internal fun SentenceDb.toQuestion(): Question {
+    return Question.Sentence(
         id = id,
-        ruText = ruText,
-        enText = enText,
+        questionText = enText,
+        answerText = ruText,
     )
 }
 
 /**
- * Converts [IssueDb] instance to [Issue] instance for repository
+ * Converts [IssueDb] instance to [Question] instance
  *
- * @return [Issue] instance
+ * @return [Question] instance
  */
-internal fun IssueDb.toIssue(): Issue {
-    return Issue(
+internal fun IssueDb.toQuestion(): Question {
+    return Question.Issue(
         id = id,
-        englishQuestion = englishQuestion,
-        russianQuestion = russianQuestion,
+        questionText = englishQuestion,
+        answerText = russianQuestion,
         theme = theme,
     )
 }
 
 /**
- * Converts [DialogDb] instance to [Dialog] instance for repository
+ * Converts [DialogDb] instance to [Question] instance
  *
- * @return [Dialog] instance
+ * @return [Question] instance
  */
-internal fun DialogDb.toDialog(): Dialog {
-    return Dialog(
+internal fun DialogDb.toQuestion(): Question {
+    return Question.Dialog(
         id = id,
-        question = question,
-        shortAnswer = shortAnswer,
+        questionText = question,
+        answerText = shortAnswer,
     )
 }
 
 /**
- * Converts [WordDb] instance to [Word] instance for repository
+ * Converts [WordDb] instance to [Question] instance
  *
- * @return [Word] instance
+ * @return [Question] instance
  */
-internal fun WordDb.toWord(): Word {
-    return Word(
+internal fun WordDb.toQuestion(): Question {
+    return Question.Word(
         id = id,
-        englishWord = englishWord,
-        russianWord = russianWord,
+        questionText = englishWord,
+        answerText = russianWord,
         theme = theme,
     )
 }
 
 /**
- * Converts [Word] instance to [WordDb] instance for repository
+ * Converts [Question.Word] instance to [WordDb] instance for repository
  *
  * @return [WordDb] instance
  */
-internal fun Word.toWordDb(): WordDb {
+internal fun Question.Word.toWordDb(): WordDb {
     return WordDb(
         id = id,
-        englishWord = englishWord,
-        russianWord = russianWord,
+        englishWord = questionText,
+        russianWord = answerText,
         theme = theme,
     )
+}
+
+/**
+ * Converts [StatisticDb] instance to [Statistic] instance for repository
+ *
+ * @return [Statistic] instance
+ */
+internal fun StatisticDb.toStatistic(): Statistic {
+    return Statistic(
+        id = id,
+        date = date,
+        translateScore = translateScore,
+        issueScore = issueScore,
+        dialogScore = dialogScore,
+        wordScore = wordScore
+    )
+}
+
+/**
+ * Converts [Statistic] instance to [StatisticDb] instance for database
+ *
+ * @return [StatisticDb] instance
+ */
+internal fun Statistic.toStatisticDb(): StatisticDb {
+    return StatisticDb(
+        id = id,
+        date = date,
+        translateScore = translateScore,
+        issueScore = issueScore,
+        dialogScore = dialogScore,
+        wordScore = wordScore
+    )
+}
+
+/**
+ * Converts [Question] instance to [GameQuestionUi] instance for ui (GameScreen)
+ *
+ * @return [GameQuestionUi] instance
+ */
+fun Question.toGameQuestionUi(isToEnglish: Boolean = false): GameQuestionUi {
+    val question = if (isToEnglish) answerText else questionText
+    val translate = if (isToEnglish) questionText else answerText
+
+    return GameQuestionUi(
+        id = id,
+        question = question,
+        translate = translate,
+    )
+}
+
+/**
+ * Converts [GameQuestionUi] instance to [Question] instance for ui (GameScreen)
+ *
+ * @param theme theme of issue
+ * @return [Question] instance
+ */
+fun GameQuestionUi.toQuestion(
+    theme: String = "",
+    isToEnglish: Boolean = true,
+    modelName: ModelName = ModelName.Word
+): Question {
+    val ruText = if (isToEnglish) question else translate
+    val enText = if (isToEnglish) translate else question
+
+    return when (modelName) {
+        ModelName.Sentence -> Question.Sentence(
+            id = id,
+            questionText = enText,
+            answerText = ruText,
+        )
+
+        ModelName.Issue -> Question.Issue(
+            id = id,
+            questionText = enText,
+            answerText = ruText,
+            theme = theme,
+        )
+
+        ModelName.Dialog -> Question.Dialog(
+            id = id,
+            questionText = enText,
+            answerText = ruText,
+        )
+
+        ModelName.Word -> Question.Word(
+            id = id,
+            questionText = enText,
+            answerText = ruText,
+            theme = theme,
+        )
+    }
 }

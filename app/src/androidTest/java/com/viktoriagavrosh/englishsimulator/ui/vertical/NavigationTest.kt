@@ -37,6 +37,10 @@ class NavigationTest {
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             AppNavigation(
                 isVerticalScreen = true,
+                onTranslateScoreUpdate = {},
+                onIssueScoreUpdate = {},
+                onDialogScoreUpdate = {},
+                onWordScoreUpdate = {},
                 modifier = Modifier.fillMaxSize(),
                 navController = navController
             )
@@ -345,6 +349,18 @@ class NavigationTest {
         )
     }
 
+    @Test
+    fun navHost_startMenuScreen_statisticButtonClick_navigateToStatisticScreen() {
+        navigateToStatisticScreen()
+
+        assertTrue(
+            navController.currentBackStackEntry
+                ?.destination
+                ?.hasRoute<NavigationDestination.Statistic>()
+                ?: false
+        )
+    }
+
     private fun navigateToTranslateMenuScreen() {
         composeTestRule.onNodeWithTextById(R.string.translate_button_title)
             .performClick()
@@ -392,6 +408,11 @@ class NavigationTest {
     private fun navigateToWordUpdateScreen() {
         navigateToWordGameScreen()
         composeTestRule.onNodeWithContentDescriptionById(R.string.edit)
+            .performClick()
+    }
+
+    private fun navigateToStatisticScreen() {
+        composeTestRule.onNodeWithTextById(R.string.statistic_button_title)
             .performClick()
     }
 }

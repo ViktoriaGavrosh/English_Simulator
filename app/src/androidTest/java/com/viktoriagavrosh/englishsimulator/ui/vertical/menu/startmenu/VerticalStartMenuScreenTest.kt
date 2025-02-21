@@ -55,7 +55,15 @@ class VerticalStartMenuScreenTest {
     fun startMenuScreen_vertical_wordButtonIsDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithTextById(R.string.word_button_title)
-            .assertExists("No dialog button")
+            .assertExists("No word button")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun startMenuScreen_vertical_statisticButtonIsDisplayed() {
+        setMenuScreen()
+        composeTestRule.onNodeWithTextById(R.string.statistic_button_title)
+            .assertExists("No statistic button")
             .assertIsDisplayed()
     }
 
@@ -89,6 +97,7 @@ class VerticalStartMenuScreenTest {
                     onIssueButtonClick = {},
                     onDialogButtonClick = {},
                     onWordButtonClick = {},
+                    onStatisticButtonClick = {},
                     modifier = Modifier.fillMaxSize(),
                 )
             }

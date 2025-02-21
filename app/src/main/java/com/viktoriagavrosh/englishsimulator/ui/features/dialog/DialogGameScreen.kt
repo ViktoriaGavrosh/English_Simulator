@@ -1,17 +1,22 @@
 package com.viktoriagavrosh.englishsimulator.ui.features.dialog
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.GameScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.elements.ErrorScreen
-import com.viktoriagavrosh.englishsimulator.ui.features.screens.game.model.GameQuestion
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.viktoriagavrosh.englishsimulator.di.DIALOG_SCREEN
+import com.viktoriagavrosh.englishsimulator.model.GameQuestionUi
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameScreen
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.GameViewModel
+import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
+import com.viktoriagavrosh.englishsimulator.utils.HorizontalScreenPreview
+import com.viktoriagavrosh.englishsimulator.utils.IsTruePreviewParameterProvider
+import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.qualifier.named
 
 /**
  * Composable to display quest "Short dialogs"
@@ -24,17 +29,21 @@ import org.koin.androidx.compose.koinViewModel
 fun DialogGameScreen(
     isVerticalScreen: Boolean,
     onBackClick: () -> Unit,
+    onDialogScoreUpdate: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: DialogGameViewModel = koinViewModel()
-    val uiState by viewModel.uiState.collectAsState()
+    val viewModel: GameViewModel = koinViewModel(named(DIALOG_SCREEN))
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     DialogGameScreen(
         gameQuestionProvider = { uiState.gameQuestion },
         scoreProvider = { uiState.score },
         isVerticalScreen = isVerticalScreen,
         isErrorProvider = { uiState.isError },
-        onNextButtonClick = viewModel::updateUiState,
+        onNextButtonClick = {
+            onDialogScoreUpdate()
+            viewModel.updateUiState()
+        },
         onBackClick = onBackClick,
         modifier = modifier,
     )
@@ -53,7 +62,7 @@ fun DialogGameScreen(
  */
 @Composable
 internal fun DialogGameScreen(
-    gameQuestionProvider: () -> GameQuestion,
+    gameQuestionProvider: () -> GameQuestionUi,
     scoreProvider: () -> Int,
     isVerticalScreen: Boolean,
     isErrorProvider: () -> Boolean,
@@ -78,14 +87,15 @@ internal fun DialogGameScreen(
     }
 }
 
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@VerticalScreenPreview
 @Composable
-private fun VerticalDialogGameScreenPreview() {
+private fun VerticalDialogGameScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isError: Boolean
+) {
     EnglishSimulatorTheme {
         DialogGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question Question Question Question Question Question " +
                             "Question Question Question Question Question Question Question " +
                             "Question Question Question Question",
@@ -94,74 +104,33 @@ private fun VerticalDialogGameScreenPreview() {
             },
             scoreProvider = { 5 },
             isVerticalScreen = true,
-            isErrorProvider = { false },
+            isErrorProvider = { isError },
             onNextButtonClick = {},
             onBackClick = {},
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
 
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@HorizontalScreenPreview
 @Composable
-private fun HorizontalDialogGameScreenPreview() {
+private fun HorizontalDialogGameScreenPreview(
+    @PreviewParameter(IsTruePreviewParameterProvider::class) isError: Boolean
+) {
     EnglishSimulatorTheme {
         DialogGameScreen(
             gameQuestionProvider = {
-                GameQuestion(
+                GameQuestionUi(
                     question = "Question",
                     translate = "Translate",
                 )
             },
             scoreProvider = { 5 },
             isVerticalScreen = false,
-            isErrorProvider = { false },
+            isErrorProvider = { isError },
             onNextButtonClick = {},
             onBackClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Light")
-@Preview(showBackground = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun ErrorVerticalDialogGameScreenPreview() {
-    EnglishSimulatorTheme {
-        DialogGameScreen(
-            gameQuestionProvider = { GameQuestion() },
-            scoreProvider = { 5 },
-            isVerticalScreen = true,
-            isErrorProvider = { true },
-            onNextButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 1000, name = "Light")
-@Preview(
-    showBackground = true,
-    widthDp = 1000,
-    name = "Dark",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun ErrorHorizontalDialogGameScreenPreview() {
-    EnglishSimulatorTheme {
-        DialogGameScreen(
-            gameQuestionProvider = { GameQuestion() },
-            scoreProvider = { 5 },
-            isVerticalScreen = false,
-            isErrorProvider = { true },
-            onNextButtonClick = {},
-            onBackClick = {},
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
