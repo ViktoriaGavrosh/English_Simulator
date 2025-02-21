@@ -151,6 +151,8 @@ class StatisticScreenTest {
     @Test
     fun statisticScreen_wordScoresRowIsDisplayed() {
         setScreen()
+        composeTestRule.onNodeWithTagById(R.string.statistic_column_tag)
+            .performTouchInput { this.swipeUp() }
         composeTestRule.onNodeWithTagById(R.string.word_button_title)
             .assertExists("No word scores row")
             .assertIsDisplayed()

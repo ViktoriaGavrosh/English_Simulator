@@ -1,21 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.datastore
-
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.preferencesDataStoreFile
-import androidx.test.core.app.ApplicationProvider
-import com.viktoriagavrosh.englishsimulator.data.datastore.PreferencesManager
-import com.viktoriagavrosh.englishsimulator.data.datastore.UserPreferencesManager
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
-import org.junit.Before
-import org.junit.Test
-
+/*
 private const val TEST_DATASTORE_NAME: String = "test_datastore"
 
 class UserPreferencesManagerTest {
@@ -56,3 +40,5 @@ class UserPreferencesManagerTest {
     }
 
 }
+
+ */

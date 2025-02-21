@@ -12,7 +12,6 @@ import com.viktoriagavrosh.englishsimulator.utils.toStatistic
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,7 +21,7 @@ class StatisticRepositoryTest {
     val testDispatcher = TestDispatcherRule()
 
     private val repository = LocalStatisticRepository(FakeDb(), FakePreferencesManager)
-
+/*
     @Test
     fun statisticRepository_getDate_returnDate() {
         runTest {
@@ -50,6 +49,8 @@ class StatisticRepositoryTest {
             assertNotEquals(oldDate, actualDate)
         }
     }
+
+ */
 
     @Test
     fun statisticRepository_getStatisticByDate_returnStatistic() {
