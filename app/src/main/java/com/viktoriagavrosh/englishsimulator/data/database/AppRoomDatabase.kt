@@ -50,7 +50,6 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
         name = "english"
     )
         .createFromAsset("database/english.db")
-        //.fallbackToDestructiveMigration()           // TODO only for develop brunch
         .build()
 
     return appRoomDatabase
