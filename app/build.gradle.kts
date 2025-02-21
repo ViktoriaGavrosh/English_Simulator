@@ -35,7 +35,7 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs["release"]
-            isMinifyEnabled = false         // TODO only for develop brunch
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
