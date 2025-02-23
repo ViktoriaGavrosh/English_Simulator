@@ -50,6 +50,7 @@ internal fun getDatabase(context: Context): AppRoomDatabase {
         name = "english"
     )
         .createFromAsset("database/english.db")
+        //.fallbackToDestructiveMigration()     TODO only for debug
         .build()
 
     return appRoomDatabase
