@@ -105,5 +105,4 @@ class UserPreferencesManagerTest {
             preferences[WORD_GOAL_KEY] = wordGoal
         }
     }
-
 }
