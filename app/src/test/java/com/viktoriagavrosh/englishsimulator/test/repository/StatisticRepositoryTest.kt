@@ -21,36 +21,36 @@ class StatisticRepositoryTest {
     val testDispatcher = TestDispatcherRule()
 
     private val repository = LocalStatisticRepository(FakeDb(), FakePreferencesManager)
-/*
-    @Test
-    fun statisticRepository_getDate_returnDate() {
-        runTest {
-            val expectedDate = "09-09-9090"
-            repository.updateDate(expectedDate)
-            val actualDate = repository.getDate().first().data
-            assertEquals(expectedDate, actualDate)
+    /*
+        @Test
+        fun statisticRepository_getDate_returnDate() {
+            runTest {
+                val expectedDate = "09-09-9090"
+                repository.updateDate(expectedDate)
+                val actualDate = repository.getDate().first().data
+                assertEquals(expectedDate, actualDate)
+            }
         }
-    }
 
-    @Test
-    fun statisticRepository_getDate_returnRequestResultSuccess() {
-        runTest {
-            val isSuccess = repository.getDate().first() is RequestResult.Success
-            assert(isSuccess)
+        @Test
+        fun statisticRepository_getDate_returnRequestResultSuccess() {
+            runTest {
+                val isSuccess = repository.getDate().first() is RequestResult.Success
+                assert(isSuccess)
+            }
         }
-    }
 
-    @Test
-    fun statisticRepository_updateDate_returnDate() {
-        runTest {
-            val oldDate = repository.getDate().first().data
-            repository.updateDate("12-03-2024")
-            val actualDate = repository.getDate().first().data
-            assertNotEquals(oldDate, actualDate)
+        @Test
+        fun statisticRepository_updateDate_returnDate() {
+            runTest {
+                val oldDate = repository.getDate().first().data
+                repository.updateDate("12-03-2024")
+                val actualDate = repository.getDate().first().data
+                assertNotEquals(oldDate, actualDate)
+            }
         }
-    }
 
- */
+     */
 
     @Test
     fun statisticRepository_getStatisticByDate_returnStatistic() {
