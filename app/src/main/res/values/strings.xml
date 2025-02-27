@@ -63,5 +63,7 @@
     <string name="statistic_column_tag">Statistic column</string>
     <string name="one_day_on_scores_row_tag">One day on scores row</string>
     <string name="day_horizontal_divider_tag">Day horizontal divider</string>
+    <string name="goal_slider_tag">goal slider</string>
+    <string name="questgoal_column_tag">questGoal column</string>
 
 </resources>
