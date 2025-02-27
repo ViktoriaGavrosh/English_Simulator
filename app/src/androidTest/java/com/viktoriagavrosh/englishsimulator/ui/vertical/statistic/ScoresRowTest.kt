@@ -1,4 +1,4 @@
-package com.viktoriagavrosh.englishsimulator.ui.vertical
+package com.viktoriagavrosh.englishsimulator.ui.vertical.statistic
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertHeightIsAtLeast
