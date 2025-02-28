@@ -82,6 +82,14 @@ class VerticalStartMenuScreenTest {
     }
 
     @Test
+    fun startMenuScreen_vertical_dailyGoalButtonIsDisplayed() {
+        setMenuScreen()
+        composeTestRule.onNodeWithContentDescriptionById(R.string.daily_goal)
+            .assertExists("No daily goal button")
+            .assertIsDisplayed()
+    }
+
+    @Test
     fun startMenuScreen_vertical_dropdownMenuIsNotDisplayed() {
         setMenuScreen()
         composeTestRule.onNodeWithTagById(R.string.dropdown_menu_tag)

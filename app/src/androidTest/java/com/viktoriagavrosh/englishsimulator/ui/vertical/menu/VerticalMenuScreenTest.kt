@@ -86,6 +86,35 @@ class VerticalMenuScreenTest {
     }
 
     @Test
+    fun menuScreen_vertical_dailyGoalButtonIsDisplayed() {
+        setMenuScreen(isDailyGoalButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.daily_goal)
+            .assertExists("No daily goal button")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun menuScreen_vertical_dailyGoalButtonIsNotDisplayed() {
+        setMenuScreen(isDailyGoalButtonShow = false)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.daily_goal)
+            .assertIsNotDisplayed()
+    }
+
+    @Test
+    fun menuScreen_vertical_dailyGoalButtonHasClickAction() {
+        setMenuScreen(isDailyGoalButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.daily_goal)
+            .assertHasClickAction()
+    }
+
+    @Test
+    fun menuScreen_vertical_dailyGoalButtonSizeIsRelevant() {
+        setMenuScreen(isDailyGoalButtonShow = true)
+        composeTestRule.onNodeWithContentDescriptionById(R.string.daily_goal)
+            .assertHeightIsAtLeast(48.dp)
+    }
+
+    @Test
     fun menuScreen_vertical_titleIsDisplayed() {
         val title = "Menu title"
         setMenuScreen(title = title)
@@ -240,6 +269,7 @@ class VerticalMenuScreenTest {
         dropdownMenuOptions: List<String> = listOf("one", "two"),
         selectedOption: String = "one",
         isAddButtonShow: Boolean = false,
+        isDailyGoalButtonShow: Boolean = false,
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
@@ -253,9 +283,8 @@ class VerticalMenuScreenTest {
                     isBackButtonShow = isBackButtonShow,
                     dropdownMenuSelectedOptionProvider = { selectedOption },
                     dropdownMenuOptions = dropdownMenuOptions,
-                    onDropdownMenuValueChange = {},
                     isAddButtonShow = isAddButtonShow,
-                    onAddButtonClick = {},
+                    isDailyGoalButtonShow = isDailyGoalButtonShow,
                 )
             }
         }
