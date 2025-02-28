@@ -79,4 +79,16 @@ sealed class NavigationDestination {
      */
     @Serializable
     data object Statistic : NavigationDestination()
+
+    /**
+     * Describes navigation destination of GoalScreen
+     */
+    @Serializable
+    data object DailyGoal : NavigationDestination()
+
+    /**
+     * Describes navigation destination of UpdateGoalScreen
+     */
+    @Serializable
+    data object UpdateGoal : NavigationDestination()
 }

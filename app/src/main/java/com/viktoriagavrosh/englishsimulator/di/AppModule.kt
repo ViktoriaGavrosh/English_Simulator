@@ -20,6 +20,7 @@ import com.viktoriagavrosh.englishsimulator.data.database.getDatabase
 import com.viktoriagavrosh.englishsimulator.data.datastore.PreferencesManager
 import com.viktoriagavrosh.englishsimulator.data.datastore.UserPreferencesManager
 import com.viktoriagavrosh.englishsimulator.data.datastore.getDataStore
+import com.viktoriagavrosh.englishsimulator.ui.features.goal.GoalViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticViewModel
 import com.viktoriagavrosh.englishsimulator.ui.features.word.WordMenuViewModel
@@ -108,4 +109,5 @@ val viewModelsModule = module {
     viewModel { WordUpdateViewModel(get(), get()) }
     viewModel { UpdateStatisticViewModel(get(), get()) }
     viewModel { StatisticViewModel(get()) }
+    viewModel { GoalViewModel(get(), get(), get()) }
 }

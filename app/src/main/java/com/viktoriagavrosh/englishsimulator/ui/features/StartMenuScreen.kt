@@ -20,6 +20,7 @@ import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
  * @param onDialogButtonClick callback that is executed when dialog button is clicked
  * @param onWordButtonClick callback that is executed when word button is clicked
  * @param onStatisticButtonClick callback that is executed when statistic button is clicked
+ * @param onDailyGoalButtonClick callback that is executed when daily goal button is clicked
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -30,6 +31,7 @@ fun StartMenuScreen(
     onDialogButtonClick: () -> Unit,
     onWordButtonClick: () -> Unit,
     onStatisticButtonClick: () -> Unit,
+    onDailyGoalButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonItems = listOf(
@@ -67,6 +69,8 @@ fun StartMenuScreen(
         onBackClick = {},
         modifier = modifier,
         isBackButtonShow = false,
+        isDailyGoalButtonShow = true,
+        onDailyGoalButtonClick = onDailyGoalButtonClick,
     )
 }
 
@@ -81,6 +85,7 @@ private fun VerticalStartMenuScreenPreview() {
             onDialogButtonClick = {},
             onWordButtonClick = {},
             onStatisticButtonClick = {},
+            onDailyGoalButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -97,6 +102,7 @@ private fun HorizontalMenuScreenContentPreview() {
             onDialogButtonClick = {},
             onWordButtonClick = {},
             onStatisticButtonClick = {},
+            onDailyGoalButtonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

@@ -98,6 +98,7 @@ class VerticalStartMenuScreenTest {
                     onDialogButtonClick = {},
                     onWordButtonClick = {},
                     onStatisticButtonClick = {},
+                    onDailyGoalButtonClick = {},
                     modifier = Modifier.fillMaxSize(),
                 )
             }
