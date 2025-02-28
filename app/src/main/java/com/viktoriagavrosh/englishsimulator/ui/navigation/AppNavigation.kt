@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.ui.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -12,6 +13,7 @@ import androidx.navigation.toRoute
 import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.StartMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.goal.GoalScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticScreen
@@ -43,6 +45,7 @@ internal fun AppNavigation(
     }
 
     AppNavigation(
+        date = date,
         isVerticalScreen = isVerticalScreen,
         onTranslateScoreUpdate = viewModel::updateTranslateScore,
         onIssueScoreUpdate = viewModel::updateIssueScore,
@@ -55,6 +58,7 @@ internal fun AppNavigation(
 /**
  * Composable with navigation between app screens
  *
+ * @param date date of current day
  * @param isVerticalScreen boolean parameter describes screen orientation
  * @param onTranslateScoreUpdate callback that is executed when score is updated
  * @param onIssueScoreUpdate callback that is executed when score is updated
@@ -65,6 +69,7 @@ internal fun AppNavigation(
  */
 @Composable
 internal fun AppNavigation(
+    date: String,
     isVerticalScreen: Boolean,
     onTranslateScoreUpdate: () -> Unit,
     onIssueScoreUpdate: () -> Unit,
@@ -94,6 +99,9 @@ internal fun AppNavigation(
                 },
                 onStatisticButtonClick = {
                     navController.navigate(NavigationDestination.Statistic)
+                },
+                onDailyGoalButtonClick = {
+                    navController.navigate(NavigationDestination.DailyGoal)
                 },
                 modifier = modifier.testTag(stringResource(R.string.start_menu_screen)),
             )
@@ -198,6 +206,24 @@ internal fun AppNavigation(
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.statistic_screen)),
             )
+        }
+        composable<NavigationDestination.DailyGoal> {
+            GoalScreen(
+                date = date,
+                onBackClick = { navController.navigateUp() },
+                onEditGoalsClick = { navController.navigate(NavigationDestination.UpdateGoal) },
+                modifier = Modifier.testTag(stringResource(R.string.goal_screen)),
+            )
+        }
+        composable<NavigationDestination.UpdateGoal> {
+            Text(text = "hi!")
+            /*   TODO fix it
+
+            UpdateGoalScreen(
+                onBackClick = { navController.navigateUp() },
+                modifier = modifier.testTag(stringResource(R.string.update_goal_screen)),
+            )
+             */
         }
     }
 }

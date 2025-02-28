@@ -50,7 +50,9 @@ fun GoalScreen(
         )
     } else {
         GoalScreen(
-            dayStatisticProvider = { dayStatisticState.data?.first() ?: Statistic(date = date) },
+            dayStatisticProvider = {
+                dayStatisticState.data?.firstOrNull() ?: Statistic(date = date)
+            },
             goal = goal,
             onEditGoalsClick = onEditGoalsClick,
             modifier = modifier,
