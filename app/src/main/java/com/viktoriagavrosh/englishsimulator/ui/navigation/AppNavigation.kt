@@ -1,6 +1,5 @@
 package com.viktoriagavrosh.englishsimulator.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -216,9 +215,7 @@ internal fun AppNavigation(
             )
         }
         composable<NavigationDestination.UpdateGoal> {
-            Text(text = "hi!")
-            /*   TODO fix it
-
+            /*
             UpdateGoalScreen(
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.update_goal_screen)),
