@@ -13,6 +13,7 @@ import com.viktoriagavrosh.englishsimulator.R
 import com.viktoriagavrosh.englishsimulator.ui.features.StartMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.dialog.DialogGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.goal.GoalScreen
+import com.viktoriagavrosh.englishsimulator.ui.features.goal.UpdateGoalScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueGameScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.issue.IssueMenuScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticScreen
@@ -215,12 +216,10 @@ internal fun AppNavigation(
             )
         }
         composable<NavigationDestination.UpdateGoal> {
-            /*
             UpdateGoalScreen(
                 onBackClick = { navController.navigateUp() },
                 modifier = modifier.testTag(stringResource(R.string.update_goal_screen)),
             )
-             */
         }
     }
 }

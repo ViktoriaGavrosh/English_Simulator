@@ -68,5 +68,6 @@
     <string name="day_horizontal_divider_tag">Day horizontal divider</string>
     <string name="goal_slider_tag">goal slider</string>
     <string name="questgoal_column_tag">questGoal column</string>
+    <string name="daily_goal_title">Ежедневные цели</string>
 
 </resources>
