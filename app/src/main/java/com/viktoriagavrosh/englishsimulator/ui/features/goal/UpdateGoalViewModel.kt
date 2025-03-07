@@ -28,27 +28,31 @@ class UpdateGoalViewModel(
         initialValue = Goal()
     )
 
-    fun updateTranslateGoal(score: Int) {
+    fun updateTranslateGoal(score: String) {
         viewModelScope.launch {
-            manager.updateTranslateGoal(score = score)
+            val newScore = score.toIntOrNull() ?: 0
+            manager.updateTranslateGoal(score = newScore)
         }
     }
 
-    fun updateIssueGoal(score: Int) {
+    fun updateIssueGoal(score: String) {
         viewModelScope.launch {
-            manager.updateIssueGoal(score = score)
+            val newScore = score.toIntOrNull() ?: 0
+            manager.updateIssueGoal(score = newScore)
         }
     }
 
-    fun updateDialogGoal(score: Int) {
+    fun updateDialogGoal(score: String) {
         viewModelScope.launch {
-            manager.updateDialogGoal(score = score)
+            val newScore = score.toIntOrNull() ?: 0
+            manager.updateDialogGoal(score = newScore)
         }
     }
 
-    fun updateWordGoal(score: Int) {
+    fun updateWordGoal(score: String) {
         viewModelScope.launch {
-            manager.updateWordGoal(score = score)
+            val newScore = score.toIntOrNull() ?: 0
+            manager.updateWordGoal(score = newScore)
         }
     }
 }
