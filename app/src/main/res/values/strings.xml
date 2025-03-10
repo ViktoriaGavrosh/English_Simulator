@@ -69,5 +69,7 @@
     <string name="goal_slider_tag">goal slider</string>
     <string name="questgoal_column_tag">questGoal column</string>
     <string name="daily_goal_title">Ежедневные цели</string>
+    <string name="increase_score">increase score</string>
+    <string name="decrease_score">decrease score</string>
 
 </resources>
