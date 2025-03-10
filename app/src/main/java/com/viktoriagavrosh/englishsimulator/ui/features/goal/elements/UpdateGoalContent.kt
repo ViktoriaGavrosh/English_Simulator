@@ -13,6 +13,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -22,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -105,25 +108,46 @@ internal fun GoalRow(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.weight(1F)
         )
         UpdateGoalBox(
             score = goalScore,
-            onGoalUpdate = onGoalUpdate
         )
+        Column(
+            verticalArrangement = Arrangement.Center
+        ) {
+            IconButton(
+                onClick = { onGoalUpdate(goalScore.inc().toString()) }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_inc),
+                    contentDescription = stringResource(R.string.increase_score),
+                    modifier = Modifier.size(dimensionResource(R.dimen.icon_size))
+                )
+            }
+            IconButton(
+                onClick = { onGoalUpdate(goalScore.dec().toString()) }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_dec),
+                    contentDescription = stringResource(R.string.decrease_score),
+                    modifier = Modifier.size(dimensionResource(R.dimen.icon_size))
+                )
+            }
+        }
+
     }
 }
 
 @Composable
 private fun UpdateGoalBox(
     score: Int,
-    onGoalUpdate: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -139,7 +163,8 @@ private fun UpdateGoalBox(
     ) {
         TextField(
             value = score.toString(),
-            onValueChange = onGoalUpdate,
+            onValueChange = {},
+            readOnly = true,
             textStyle = MaterialTheme.typography.titleLarge,
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.primary,
