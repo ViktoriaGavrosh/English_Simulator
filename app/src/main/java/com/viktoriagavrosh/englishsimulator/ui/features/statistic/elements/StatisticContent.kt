@@ -20,6 +20,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.viktoriagavrosh.englishsimulator.R
+import com.viktoriagavrosh.englishsimulator.model.Goal
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
@@ -30,6 +31,7 @@ import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
  * @param issueScoresProvider provides items for ui
  * @param dialogScoresProvider provides items for ui
  * @param wordScoresProvider provides items for ui
+ * @param goal daily goals of all quests
  * @param onTabClick callback that is executed when tab is clicked
  * @param modifier the modifier to be applied to this layout node
  */
@@ -39,6 +41,7 @@ internal fun StatisticContent(
     issueScoresProvider: () -> List<Int>,
     dialogScoresProvider: () -> List<Int>,
     wordScoresProvider: () -> List<Int>,
+    goal: Goal,
     onTabClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -77,6 +80,7 @@ internal fun StatisticContent(
             issueScoresProvider = issueScoresProvider,
             dialogScoresProvider = dialogScoresProvider,
             wordScoresProvider = wordScoresProvider,
+            goal = goal,
             modifier = Modifier
                 .padding(dimensionResource(R.dimen.padding_double_small))
                 .padding(bottom = dimensionResource(R.dimen.padding_medium))
@@ -88,12 +92,14 @@ internal fun StatisticContent(
 @Composable
 private fun StatisticContentPreview() {
     val scores = listOf(6, 34, 72, 12, 24)
+    val goal = Goal(10, 10, 10, 10)
     EnglishSimulatorTheme {
         StatisticContent(
             translateScoresProvider = { scores },
             issueScoresProvider = { scores },
             dialogScoresProvider = { scores },
             wordScoresProvider = { scores },
+            goal = goal,
             onTabClick = {},
             modifier = Modifier.fillMaxSize()
         )

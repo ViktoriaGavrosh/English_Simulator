@@ -15,6 +15,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
+import com.viktoriagavrosh.englishsimulator.model.Goal
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
 import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
 
@@ -25,6 +26,7 @@ import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
  * @param issueScoresProvider provides items for ui
  * @param dialogScoresProvider provides items for ui
  * @param wordScoresProvider provides items for ui
+ * @param goal daily goals of all quests
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
@@ -33,28 +35,39 @@ internal fun StatisticColumn(
     issueScoresProvider: () -> List<Int>,
     dialogScoresProvider: () -> List<Int>,
     wordScoresProvider: () -> List<Int>,
+    goal: Goal,
     modifier: Modifier = Modifier
 ) {
-    val quests = listOf(
-        R.string.translate_button_title to translateScoresProvider,
-        R.string.issue_button_title to issueScoresProvider,
-        R.string.dialog_button_title to dialogScoresProvider,
-        R.string.word_button_title to wordScoresProvider
-    )
-
     Column(
         modifier = modifier
             .testTag(stringResource(R.string.statistic_column_tag))
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_double_medium))
     ) {
-        quests.forEach { quest ->
-            QuestStatistic(
-                title = stringResource(quest.first),
-                scoresProvider = quest.second,
-                modifier = Modifier.testTag(stringResource(quest.first))
-            )
-        }
+        QuestStatistic(
+            title = stringResource(R.string.translate_button_title),
+            scoresProvider = translateScoresProvider,
+            dailyGoal = goal.translateGoal,
+            modifier = Modifier.testTag(stringResource(R.string.translate_button_title))
+        )
+        QuestStatistic(
+            title = stringResource(R.string.issue_button_title),
+            scoresProvider = issueScoresProvider,
+            dailyGoal = goal.issueGoal,
+            modifier = Modifier.testTag(stringResource(R.string.issue_button_title))
+        )
+        QuestStatistic(
+            title = stringResource(R.string.dialog_button_title),
+            scoresProvider = dialogScoresProvider,
+            dailyGoal = goal.dialogGoal,
+            modifier = Modifier.testTag(stringResource(R.string.dialog_button_title))
+        )
+        QuestStatistic(
+            title = stringResource(R.string.word_button_title),
+            scoresProvider = wordScoresProvider,
+            dailyGoal = goal.wordGoal,
+            modifier = Modifier.testTag(stringResource(R.string.word_button_title))
+        )
     }
 }
 
@@ -62,6 +75,7 @@ internal fun StatisticColumn(
 private fun QuestStatistic(
     title: String,
     scoresProvider: () -> List<Int>,
+    dailyGoal: Int,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -73,6 +87,7 @@ private fun QuestStatistic(
         )
         ScoresRow(
             scores = scoresProvider(),
+            dailyGoal = dailyGoal,
             modifier = Modifier
                 .height(210.dp)
                 .padding(top = dimensionResource(R.dimen.padding_medium))
@@ -84,12 +99,14 @@ private fun QuestStatistic(
 @Composable
 private fun StatisticColumnPreview() {
     val scores = listOf(23, 42, 67, 12)
+    val goal = Goal(10, 10, 10, 10)
     EnglishSimulatorTheme {
         StatisticColumn(
             translateScoresProvider = { scores },
             issueScoresProvider = { scores },
             dialogScoresProvider = { scores },
-            wordScoresProvider = { scores }
+            wordScoresProvider = { scores },
+            goal = goal,
         )
     }
 }

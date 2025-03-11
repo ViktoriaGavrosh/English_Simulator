@@ -91,10 +91,14 @@ class ScoresRowTest {
 
     private fun setRow(
         scores: List<Int> = listOf(24, 35, 46),
+        dailyGoal: Int = 10,
     ) {
         composeTestRule.setContent {
             EnglishSimulatorTheme {
-                ScoresRow(scores = scores)
+                ScoresRow(
+                    scores = scores,
+                    dailyGoal = dailyGoal,
+                )
             }
         }
     }
