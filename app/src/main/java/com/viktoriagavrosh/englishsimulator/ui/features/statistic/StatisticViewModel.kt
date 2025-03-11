@@ -3,13 +3,18 @@ package com.viktoriagavrosh.englishsimulator.ui.features.statistic
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.viktoriagavrosh.englishsimulator.data.StatisticRepository
+import com.viktoriagavrosh.englishsimulator.data.datastore.PreferencesManager
+import com.viktoriagavrosh.englishsimulator.model.Goal
 import com.viktoriagavrosh.englishsimulator.model.Statistic
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.Month
 import com.viktoriagavrosh.englishsimulator.utils.RequestResult
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -20,10 +25,21 @@ import kotlinx.coroutines.launch
  * @param repository instance of [StatisticRepository]
  */
 class StatisticViewModel(
-    private val repository: StatisticRepository
+    private val repository: StatisticRepository,
+    manager: PreferencesManager,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(StatisticUiState())
     private var months: List<Month> = emptyList()
+
+    val goalState = try {
+        manager.getGoal()
+    } catch (e: Exception) {
+        flow { emit(Goal()) }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Lazily,
+        initialValue = Goal()
+    )
 
     init {
         initUiState()

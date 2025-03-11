@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.test.viewmodel
 
+import com.viktoriagavrosh.englishsimulator.fake.FakePreferencesManager
 import com.viktoriagavrosh.englishsimulator.fake.FakeSource
 import com.viktoriagavrosh.englishsimulator.fake.repositories.FakeStatisticRepository
 import com.viktoriagavrosh.englishsimulator.model.Statistic
@@ -150,7 +151,8 @@ class StatisticViewModelTest {
         requestResult: RequestResult<List<Statistic>> = RequestResult.Success(fakeStatistics),
     ): StatisticViewModel {
         return StatisticViewModel(
-            repository = FakeStatisticRepository(requestResult)
+            repository = FakeStatisticRepository(requestResult),
+            manager = FakePreferencesManager
         )
     }
 

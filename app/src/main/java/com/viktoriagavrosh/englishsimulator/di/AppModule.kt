@@ -109,7 +109,7 @@ val viewModelsModule = module {
     viewModel { WordMenuViewModel(get()) }
     viewModel { WordUpdateViewModel(get(), get()) }
     viewModel { UpdateStatisticViewModel(get(), get()) }
-    viewModel { StatisticViewModel(get()) }
+    viewModel { StatisticViewModel(get(), get()) }
     viewModel { GoalViewModel(get(), get(), get()) }
     viewModel { UpdateGoalViewModel(get()) }
 }
