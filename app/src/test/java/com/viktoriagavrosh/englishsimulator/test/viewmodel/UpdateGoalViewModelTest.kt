@@ -31,7 +31,7 @@ class UpdateGoalViewModelTest {
             val newGoal = 27
             val expected = FakeSource.fakeGoal.copy(translateGoal = newGoal)
             val viewModel = initViewModel()
-            viewModel.updateTranslateGoal(newGoal)
+            viewModel.updateTranslateGoal(newGoal.toString())
             val actual = viewModel.goalsUiState.first()
             assertEquals(expected, actual)
         }
@@ -43,7 +43,7 @@ class UpdateGoalViewModelTest {
             val newGoal = 46
             val expected = FakeSource.fakeGoal.copy(issueGoal = newGoal)
             val viewModel = initViewModel()
-            viewModel.updateIssueGoal(newGoal)
+            viewModel.updateIssueGoal(newGoal.toString())
             val actual = viewModel.goalsUiState.first()
             assertEquals(expected, actual)
         }
@@ -55,7 +55,7 @@ class UpdateGoalViewModelTest {
             val newGoal = 62
             val expected = FakeSource.fakeGoal.copy(dialogGoal = newGoal)
             val viewModel = initViewModel()
-            viewModel.updateDialogGoal(newGoal)
+            viewModel.updateDialogGoal(newGoal.toString())
             val actual = viewModel.goalsUiState.first()
             assertEquals(expected, actual)
         }
@@ -67,7 +67,7 @@ class UpdateGoalViewModelTest {
             val newGoal = 85
             val expected = FakeSource.fakeGoal.copy(wordGoal = newGoal)
             val viewModel = initViewModel()
-            viewModel.updateWordGoal(newGoal)
+            viewModel.updateWordGoal(newGoal.toString())
             val actual = viewModel.goalsUiState.first()
             assertEquals(expected, actual)
         }
@@ -75,7 +75,7 @@ class UpdateGoalViewModelTest {
 
     private fun initViewModel(): UpdateGoalViewModel {
         return UpdateGoalViewModel(
-            manager = FakePreferencesManager
+            manager = FakePreferencesManager()
         )
     }
 }

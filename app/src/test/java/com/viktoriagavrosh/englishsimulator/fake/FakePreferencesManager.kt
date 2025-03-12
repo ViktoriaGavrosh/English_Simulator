@@ -5,7 +5,7 @@ import com.viktoriagavrosh.englishsimulator.model.Goal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-object FakePreferencesManager : PreferencesManager {
+class FakePreferencesManager : PreferencesManager {
 
     private var fakeGoal = FakeSource.fakeGoal
 
