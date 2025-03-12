@@ -1,5 +1,6 @@
 package com.viktoriagavrosh.englishsimulator.fake
 
+import com.viktoriagavrosh.englishsimulator.model.Goal
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.DialogDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.IssueDb
 import com.viktoriagavrosh.englishsimulator.model.dbmodel.SentenceDb
@@ -53,4 +54,11 @@ internal object FakeSource {
             wordScore = i,
         )
     }
+
+    val fakeGoal = Goal(
+        translateGoal = 2,
+        issueGoal = 3,
+        dialogGoal = 4,
+        wordGoal = 5
+    )
 }

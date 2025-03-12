@@ -30,11 +30,13 @@ import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
  * Composable to display all scores of month for one quest
  *
  * @param scores provides items for UI
+ * @param dailyGoal goal of quest
  * @param modifier the modifier to be applied to this layout node
  */
 @Composable
 fun ScoresRow(
     scores: List<Int>,
+    dailyGoal: Int,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
@@ -48,7 +50,8 @@ fun ScoresRow(
         ) { index, item ->
             OneDayScore(
                 score = item,
-                day = index + 1
+                day = index + 1,
+                dailyGoal = dailyGoal,
             )
         }
     }
@@ -58,6 +61,7 @@ fun ScoresRow(
 private fun OneDayScore(
     score: Int,
     day: Int,
+    dailyGoal: Int,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -75,6 +79,7 @@ private fun OneDayScore(
         ComposeVerticalSlider(
             score = score,
             isScoreShow = score >= 15,
+            dailyGoal = dailyGoal,
             modifier = Modifier.padding(horizontal = 4.dp)
         )
         HorizontalDivider(
@@ -97,6 +102,7 @@ private fun OneDayScore(
 private fun ComposeVerticalSlider(
     score: Int,
     isScoreShow: Boolean,
+    dailyGoal: Int,
     modifier: Modifier = Modifier,
 ) {
     val height = when {
@@ -111,7 +117,7 @@ private fun ComposeVerticalSlider(
             .testTag(stringResource(R.string.one_day_on_scores_row_tag)),
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (score > 5) {
+            containerColor = if (score > dailyGoal) {
                 MaterialTheme.colorScheme.primary
             } else {
                 MaterialTheme.colorScheme.onPrimary
@@ -135,7 +141,8 @@ private fun ComposeVerticalSlider(
 private fun ComposeVerticalSliderPreview() {
     EnglishSimulatorTheme {
         ScoresRow(
-            scores = listOf(24, 12, 15, 45, 23, 42)
+            scores = listOf(24, 12, 15, 45, 23, 42),
+            dailyGoal = 20,
         )
     }
 }

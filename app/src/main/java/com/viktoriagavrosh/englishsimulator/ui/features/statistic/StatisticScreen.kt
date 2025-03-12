@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.viktoriagavrosh.englishsimulator.model.Goal
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.elements.StatisticContent
 import com.viktoriagavrosh.englishsimulator.ui.screens.game.elements.ErrorScreen
 import com.viktoriagavrosh.englishsimulator.ui.theme.EnglishSimulatorTheme
@@ -25,6 +26,7 @@ fun StatisticScreen(
     viewModel: StatisticViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val goal by viewModel.goalState.collectAsStateWithLifecycle()
 
     if (uiState.translateScores.isNotEmpty()) {
         StatisticScreen(
@@ -33,6 +35,7 @@ fun StatisticScreen(
             dialogScoresProvider = { uiState.dialogScores },
             wordScoresProvider = { uiState.wordScores },
             isErrorProvider = { uiState.isError },
+            goal = goal,
             onTabClick = viewModel::updateUiState,
             onBackClick = onBackClick,
             modifier = modifier
@@ -48,6 +51,7 @@ fun StatisticScreen(
  * @param dialogScoresProvider provides items for ui
  * @param wordScoresProvider provides items for ui
  * @param isErrorProvider provides boolean value of ScreenState
+ * @param goal daily goals of all quests
  * @param onTabClick callback that is executed when tab is clicked
  * @param onBackClick callback that is executed when back button is clicked
  * @param modifier the modifier to be applied to this layout node
@@ -59,6 +63,7 @@ internal fun StatisticScreen(
     dialogScoresProvider: () -> List<Int>,
     wordScoresProvider: () -> List<Int>,
     isErrorProvider: () -> Boolean,
+    goal: Goal,
     onTabClick: (Int) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -74,6 +79,7 @@ internal fun StatisticScreen(
             issueScoresProvider = issueScoresProvider,
             dialogScoresProvider = dialogScoresProvider,
             wordScoresProvider = wordScoresProvider,
+            goal = goal,
             onTabClick = onTabClick,
             modifier = modifier,
         )
@@ -85,6 +91,7 @@ internal fun StatisticScreen(
 @Composable
 private fun VerticalStatisticScreenPreview() {
     val scores = listOf(32, 6, 34, 69, 43)
+    val goal = Goal(10, 10, 10, 10)
     EnglishSimulatorTheme {
         StatisticScreen(
             translateScoresProvider = { scores },
@@ -92,6 +99,7 @@ private fun VerticalStatisticScreenPreview() {
             dialogScoresProvider = { scores },
             wordScoresProvider = { scores },
             isErrorProvider = { false },
+            goal = goal,
             onTabClick = {},
             onBackClick = {},
             modifier = Modifier.fillMaxSize()

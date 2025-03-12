@@ -36,6 +36,7 @@ class NavigationTest {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             AppNavigation(
+                date = "",
                 isVerticalScreen = true,
                 onTranslateScoreUpdate = {},
                 onIssueScoreUpdate = {},
@@ -86,6 +87,18 @@ class NavigationTest {
                 ?: false
         )
     }
+
+    @Test
+    fun navHost_startMenuScreen_dailyGoalButtonClick_navigateToGoalScreen() {
+        navigateToGoalScreen()
+        assertTrue(
+            navController.currentBackStackEntry
+                ?.destination
+                ?.hasRoute<NavigationDestination.DailyGoal>()
+                ?: false
+        )
+    }
+
 
     @Test
     fun navHost_translateMenuScreen_toEnglishButtonClick_navigateToTranslateGameScreen() {
@@ -361,6 +374,20 @@ class NavigationTest {
         )
     }
 
+    @Test
+    fun navHost_goalScreen_editButtonClick_navigateToUpdateGoalScreen() {
+        navigateToGoalScreen()
+        composeTestRule.onNodeWithContentDescriptionById(R.string.edit)
+            .performClick()
+
+        assertTrue(
+            navController.currentBackStackEntry
+                ?.destination
+                ?.hasRoute<NavigationDestination.UpdateGoal>()
+                ?: false
+        )
+    }
+
     private fun navigateToTranslateMenuScreen() {
         composeTestRule.onNodeWithTextById(R.string.translate_button_title)
             .performClick()
@@ -413,6 +440,11 @@ class NavigationTest {
 
     private fun navigateToStatisticScreen() {
         composeTestRule.onNodeWithTextById(R.string.statistic_button_title)
+            .performClick()
+    }
+
+    private fun navigateToGoalScreen() {
+        composeTestRule.onNodeWithContentDescriptionById(R.string.daily_goal)
             .performClick()
     }
 }

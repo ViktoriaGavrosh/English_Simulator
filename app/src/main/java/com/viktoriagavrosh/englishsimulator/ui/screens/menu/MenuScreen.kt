@@ -28,6 +28,10 @@ import com.viktoriagavrosh.englishsimulator.utils.VerticalScreenPreview
  * @param dropdownMenuSelectedOptionProvider provides selected item for dropdownMenu
  * @param dropdownMenuOptions list of items to select for dropdownMenu
  * @param onDropdownMenuValueChange callback that is executed when item of dropdownMenu is selected
+ * @param isAddButtonShow if true add button shown on top of screen
+ * @param onAddButtonClick callback that is executed when add button is clicked
+ * @param isDailyGoalButtonShow if true daily goal button shown on top of screen
+ * @param onDailyGoalButtonClick callback that is executed when daily goal button is clicked
  */
 @Composable
 internal fun MenuScreen(
@@ -43,6 +47,8 @@ internal fun MenuScreen(
     onDropdownMenuValueChange: (String) -> Unit = {},
     isAddButtonShow: Boolean = false,
     onAddButtonClick: () -> Unit = {},
+    isDailyGoalButtonShow: Boolean = false,
+    onDailyGoalButtonClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier,
@@ -76,6 +82,16 @@ internal fun MenuScreen(
                 )
             }
         }
+        if (isDailyGoalButtonShow) {
+            IconRow(
+                iconId = R.drawable.ic_daily_goal,
+                contentDescription = stringResource(R.string.daily_goal),
+                onIconClick = onDailyGoalButtonClick,
+                isLeft = false,
+                modifier = Modifier
+                    .fillMaxWidth(),
+            )
+        }
     }
 }
 
@@ -107,6 +123,40 @@ private fun HorizontalIssueMenuScreenPreview(
             title = "Title of the game",
             isVerticalScreen = false,
             onBackClick = {},
+        )
+    }
+}
+
+@VerticalScreenPreview
+@Composable
+private fun VerticalMenuScreenWithAddButtonPreview() {
+    EnglishSimulatorTheme {
+        MenuScreen(
+            buttonItems = List(2) {
+                MenuButtonItem(title = "Button $it")
+            },
+            isScreenWithButtons = true,
+            title = "Title of the game",
+            isVerticalScreen = true,
+            onBackClick = {},
+            isAddButtonShow = true
+        )
+    }
+}
+
+@VerticalScreenPreview
+@Composable
+private fun VerticalMenuScreenWithGoalButtonPreview() {
+    EnglishSimulatorTheme {
+        MenuScreen(
+            buttonItems = List(2) {
+                MenuButtonItem(title = "Button $it")
+            },
+            isScreenWithButtons = true,
+            title = "Title of the game",
+            isVerticalScreen = true,
+            onBackClick = {},
+            isDailyGoalButtonShow = true
         )
     }
 }
