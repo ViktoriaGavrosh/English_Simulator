@@ -51,7 +51,7 @@ class GoalViewModelTest {
         return GoalViewModel(
             repository = FakeStatisticRepository(requestResult),
             date = date,
-            manager = FakePreferencesManager
+            manager = FakePreferencesManager()
         )
     }
 }

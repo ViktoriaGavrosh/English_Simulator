@@ -152,7 +152,7 @@ class StatisticViewModelTest {
     ): StatisticViewModel {
         return StatisticViewModel(
             repository = FakeStatisticRepository(requestResult),
-            manager = FakePreferencesManager
+            manager = FakePreferencesManager()
         )
     }
 

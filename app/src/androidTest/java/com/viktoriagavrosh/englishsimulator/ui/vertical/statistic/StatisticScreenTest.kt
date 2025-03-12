@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.unit.dp
 import com.viktoriagavrosh.englishsimulator.R
+import com.viktoriagavrosh.englishsimulator.model.Goal
 import com.viktoriagavrosh.englishsimulator.model.Statistic
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.StatisticScreen
 import com.viktoriagavrosh.englishsimulator.ui.features.statistic.toListScores
@@ -170,6 +171,7 @@ class StatisticScreenTest {
                     dialogScoresProvider = { statistics.toListScores { it.dialogScore } },
                     wordScoresProvider = { statistics.toListScores { it.wordScore } },
                     isErrorProvider = { isError },
+                    goal = Goal(),
                     onTabClick = {},
                     onBackClick = {},
                     modifier = Modifier.fillMaxSize()
