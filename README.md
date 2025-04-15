@@ -9,10 +9,13 @@ EnТренажер (English Тренажер) — это уникальное м
 Создано как дополнительный ресурс для самостоятельной работы учащихся школы английского языка.
 
 <div>
-  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator1.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator8.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
   <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator2.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator7.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
   <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator3.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator9.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
   <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator4.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
+  <img src="https://github.com/ViktoriaGavrosh/screenshots/raw/main/EnSimulator10.jpg" title="Image" alt="Image" width="100" height="210"/>&nbsp;
 </div>
 
 <div>
